@@ -84,7 +84,7 @@ public class Band {
 
     public void addMember(Member member) {
         members.add(member);
-        member.addBand(this);
+        member.setBand(this);
     }
 
     public Set<Member> getMembers() {
