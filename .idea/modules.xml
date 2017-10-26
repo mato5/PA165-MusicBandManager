@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/PA165_MusicBandManager.iml" filepath="$PROJECT_DIR$/.idea/PA165_MusicBandManager.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bandmanager-persistance/bandmanager-persistence.iml" filepath="$PROJECT_DIR$/bandmanager-persistance/bandmanager-persistence.iml" />
-    </modules>
-  </component>
-</project>
