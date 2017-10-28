@@ -38,7 +38,6 @@ public class Member extends User {
         this.band = band;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,8 +53,9 @@ public class Member extends User {
 
     @Override
     public int hashCode() {
-        int result = this.getName().hashCode();
-        result = 31 * result + this.getEmail().hashCode();
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.getEmail() == null) ? 0 : this.getEmail().hashCode());
         return result;
     }
 }
