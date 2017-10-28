@@ -27,7 +27,7 @@ public class Band {
     @Enumerated(EnumType.STRING)
     private Genre genre;
 
-    @NotNull
+    //@NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Manager manager;
 
@@ -110,7 +110,10 @@ public class Band {
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        return result;
     }
 
     @Override
