@@ -32,9 +32,6 @@ public class MemberDaoTest extends AbstractTestNGSpringContextTests {
     @Inject
     private MemberDao memberDao;
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     private Member member1;
     private Member member2;
 
