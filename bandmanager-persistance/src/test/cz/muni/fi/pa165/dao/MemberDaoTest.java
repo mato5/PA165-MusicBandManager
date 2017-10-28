@@ -21,7 +21,9 @@ import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
-
+/**
+ * @author Iurii xkuznetc Kuznetcov
+ */
 @ContextConfiguration(classes = PersistanceTestingContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
 @Transactional
