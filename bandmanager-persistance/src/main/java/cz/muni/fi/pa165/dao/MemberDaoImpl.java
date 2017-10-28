@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.dao;
 
 import cz.muni.fi.pa165.entity.Member;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * @author Matej Sojak 433294
  */
+@Repository
 public class MemberDaoImpl implements MemberDao {
     @PersistenceContext
     private EntityManager em;
@@ -23,10 +25,6 @@ public class MemberDaoImpl implements MemberDao {
     public void create(Member m) {
         if (m == null) {
             throw new IllegalArgumentException("Member is null.");
-        }
-
-        if (m.getId() == null) {
-            throw new IllegalArgumentException("ID of member is null.");
         }
 
         if (m.getEmail() == null) {
