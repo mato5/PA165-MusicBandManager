@@ -3,15 +3,14 @@ package cz.muni.fi.pa165.entity;
 import javax.persistence.*;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * @author Iurii xkuznetc Kuznetcov
- * <p>
- * Stub class for entity Manager
  */
 @Entity
-public class Manager {
+public class Manager extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,14 +18,6 @@ public class Manager {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "manager")
     private Set<Band> bands = new HashSet<Band>();
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public void addBand(Band band) {
         this.bands.add(band);
@@ -40,25 +31,25 @@ public class Manager {
         this.bands.remove(band);
     }
 
-    public Manager() {
-    }
-
-    public Manager(Long id) {
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Manager manager = (Manager) o;
-
-        return id == manager.id;
+        if (o instanceof Manager) {
+            Manager manager = (Manager) o;
+            if ((Objects.equals(this.getEmail(), manager.getEmail()))
+                    && (Objects.equals(manager.getName(), this.getName()))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.getEmail() == null) ? 0 : this.getEmail().hashCode());
+        return result;
     }
 
     @Override
