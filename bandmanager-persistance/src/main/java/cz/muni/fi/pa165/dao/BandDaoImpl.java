@@ -13,8 +13,6 @@ import java.util.List;
 
 /**
  * @author Iurii xkuznetc Kuznetcov
- * <p>
- * Data Access Object for Band entity with basic CRUD operations and some filtering.
  */
 @Repository
 public class BandDaoImpl implements BandDao {
@@ -23,22 +21,13 @@ public class BandDaoImpl implements BandDao {
     @PersistenceContext
     private EntityManager em;
 
-    /**
-     * Gets Band object by it's id
-     *
-     * @param id Long - id of Band object
-     * @return Band band object
-     */
+
     @Override
     public Band findById(Long id) {
         return em.find(Band.class, id);
     }
 
-    /**
-     * Persist new Band object. Provides some basic fields values validation.
-     *
-     * @param band Band object to persist
-     */
+
     @Override
     public void create(Band band) {
         if (band == null) {
@@ -55,11 +44,7 @@ public class BandDaoImpl implements BandDao {
         em.persist(band);
     }
 
-    /**
-     * Delete existing Band object.
-     *
-     * @param band Band object to delete.
-     */
+
     @Override
     public void delete(Band band) {
 
@@ -69,11 +54,7 @@ public class BandDaoImpl implements BandDao {
         em.remove(band);
     }
 
-    /**
-     * Merge changes in Band object and persist modified object. Provides some basic fields values validation.
-     *
-     * @param band
-     */
+
     @Override
     public void update(Band band) {
         if (band == null) {
@@ -90,23 +71,14 @@ public class BandDaoImpl implements BandDao {
         em.merge(band);
     }
 
-    /**
-     * Get all persistent Band objects.
-     *
-     * @return List<Band> - list of stored Band objects.
-     */
+
     @Override
     public List<Band> findAll() {
         return em.createQuery("select b from Band b", Band.class)
                 .getResultList();
     }
 
-    /**
-     * Get Band object by it's name.
-     *
-     * @param name String - band's name
-     * @return Band object if band with given name exists or null if not.
-     */
+
     @Override
     public Band findByName(String name) {
         try {
@@ -119,13 +91,7 @@ public class BandDaoImpl implements BandDao {
         }
     }
 
-    /**
-     * Get all Band objects by their Manager.
-     *
-     * @param manager Manager object which owns a band.
-     * @return List<Band> - list of stored Band objects with given Manager
-     * or null if such an objects doesn't exist.
-     */
+
     @Override
     public List<Band> findByManager(Manager manager) {
         try {
