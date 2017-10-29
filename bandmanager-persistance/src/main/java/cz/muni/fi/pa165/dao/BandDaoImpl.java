@@ -21,26 +21,63 @@ public class BandDaoImpl implements BandDao {
     @PersistenceContext
     private EntityManager em;
 
+
     @Override
     public Band findById(Long id) {
         return em.find(Band.class, id);
     }
 
+
     @Override
     public void create(Band band) {
+        if (band == null) {
+            throw new IllegalArgumentException("Band is null.");
+        }
+
+        if (band.getName() == null || "".equals(band.getName())) {
+            throw new IllegalArgumentException("Band has no Name assigned.");
+        }
+
+        if (band.getManager() == null) {
+            throw new IllegalArgumentException("Band has no Manager assigned.");
+        }
         em.persist(band);
     }
 
+
     @Override
     public void delete(Band band) {
+
+        if (band == null) {
+            throw new IllegalArgumentException("Band is null");
+        }
         em.remove(band);
     }
+
+
+    @Override
+    public void update(Band band) {
+        if (band == null) {
+            throw new IllegalArgumentException("Band is null.");
+        }
+
+        if (band.getName() == null || "".equals(band.getName())) {
+            throw new IllegalArgumentException("Band has no name assigned.");
+        }
+
+        if (band.getManager() == null) {
+            throw new IllegalArgumentException("Band has no Manager assigned.");
+        }
+        em.merge(band);
+    }
+
 
     @Override
     public List<Band> findAll() {
         return em.createQuery("select b from Band b", Band.class)
                 .getResultList();
     }
+
 
     @Override
     public Band findByName(String name) {
@@ -53,6 +90,7 @@ public class BandDaoImpl implements BandDao {
             return null;
         }
     }
+
 
     @Override
     public List<Band> findByManager(Manager manager) {

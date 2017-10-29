@@ -25,7 +25,7 @@ public class Band {
     private String logoURI;
 
     @Enumerated(EnumType.STRING)
-    private Genre genre;
+    private Genre genre = Genre.UNKNOWN;
 
     //@NotNull
     @ManyToOne(fetch = FetchType.LAZY)
