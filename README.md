@@ -1,4 +1,4 @@
-## Music Band Manager
+## Music Band Manager <img src="https://travis-ci.org/mato5/PA165-MusicBandManager.svg?branch=master">
 
 Semester project : Java EE, Spring based web application for [PA165](https://is.muni.cz/auth/predmet/fi/podzim2017/PA165) course.
 
