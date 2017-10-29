@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.enums;
  */
 public enum Genre {
 
+    UNKNOWN,
     BLUES,
     COUNTRY,
     CLASSICAL,
