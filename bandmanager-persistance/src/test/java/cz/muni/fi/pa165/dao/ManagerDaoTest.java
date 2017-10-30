@@ -20,7 +20,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 /**
- * @author Matej Sojak 433294
+ * @author Alexander Kromka
  */
 @ContextConfiguration(classes = PersistanceTestingContext.class)
 @TestExecutionListeners(TransactionalTestExecutionListener.class)
@@ -59,13 +59,15 @@ public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
         manager1.addBand(band1);
         band1.setManager(manager1);
 
+        band2 = new Band();
         band2.setName("Led Zeppelin");
         band2.setGenre(Genre.ROCK);
         band2.setLogoURI("testLogoUri2");
         manager1.addBand(band2);
         band2.setManager(manager1);
 
-        band2.setName("Alligators");
+        band3 = new Band();
+        band3.setName("Alligators");
         band3.setGenre(Genre.ROCK);
         band3.setLogoURI("testLogoUri3");
         manager2.addBand(band3);
@@ -148,17 +150,12 @@ public class ManagerDaoTest extends AbstractTestNGSpringContextTests {
         managerDao.create(manager);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expectedExceptions = InvalidDataAccessApiUsageException.class)
     public void testInvalidManagerNameCreate() {
 
         Manager manager = new Manager();
 
         managerDao.create(manager);
     }
-
-
-
-
-
 
 }
