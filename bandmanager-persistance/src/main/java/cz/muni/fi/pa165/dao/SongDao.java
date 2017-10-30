@@ -15,10 +15,12 @@ public interface SongDao {
     public void create(Song song);
     
     public void delete(Song song);
+    
+    public void update(Song song);
 
     public List<Song> findAll();
 
-    public Song findByName(String name);
+    public List<Song> findByName(String name);
 
     public List<Song> findByBand(Band band);
     
