@@ -29,13 +29,13 @@ public class BandDaoTest extends AbstractTestNGSpringContextTests {
     @Inject
     private BandDao bandDao;
 
-    /*@Inject
+    @Inject
     private ManagerDao managerDao;
-    */
+
 
     private Band band1;
     private Band band2;
-    //private Manager manager;
+    private Manager manager;
 
     @BeforeMethod
     public void prepareBands() {
@@ -45,21 +45,21 @@ public class BandDaoTest extends AbstractTestNGSpringContextTests {
         band1.setName("The Black Keys");
         band1.setGenre(Genre.BLUES);
         band1.setLogoURI("testLogoUri1");
-        /*manager = new Manager();
+        manager = new Manager();
         manager.addBand(band1);
         manager.setName("Test #1 user name");
         manager.setEmail("test_manager_1@gmail.com");
         manager.setPassword("verYseCurePa$$word1HashString1");
-        managerDao.create(manager)
-        band1.setManager(manager);*/
+        managerDao.create(manager);
+        band1.setManager(manager);
         bandDao.create(band1);
 
         band2 = new Band();
         band2.setName("The Rolling Stones");
         band2.setGenre(Genre.ROCK);
         band2.setLogoURI("testLogoUri2");
-        //manager.addBand(band2);
-        //band2.setManager(manager);
+        manager.addBand(band2);
+        band2.setManager(manager);
         bandDao.create(band2);
     }
 
@@ -74,7 +74,7 @@ public class BandDaoTest extends AbstractTestNGSpringContextTests {
 
         Assert.assertEquals(existingBand1.getGenre(), Genre.BLUES);
         Assert.assertEquals(existingBand1.getLogoURI(), "testLogoUri1");
-        //Assert.assertEquals(existingBand1.getManager(),manager);
+        Assert.assertEquals(existingBand1.getManager(),manager);
         Assert.assertEquals(existingBand1.getMembers().size(), 0);
     }
 
@@ -84,16 +84,16 @@ public class BandDaoTest extends AbstractTestNGSpringContextTests {
 
         Assert.assertEquals(existingBand1.getGenre(), Genre.BLUES);
         Assert.assertEquals(existingBand1.getLogoURI(), "testLogoUri1");
-        //Assert.assertEquals(existingBand1.getManager(),manager);
+        Assert.assertEquals(existingBand1.getManager(),manager);
         Assert.assertEquals(existingBand1.getMembers().size(), 0);
     }
 
-    /*@Test
+    @Test
     public void testExistentBandFindByManager() {
         List<Band> existingBands = bandDao.findByManager(band1.getManager());
 
         Assert.assertEquals(existingBands.size(), 2);
-    }*/
+    }
 
     @Test
     public void testAllExistentBands() {
@@ -112,7 +112,7 @@ public class BandDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(nonExistingBand1, null);
     }
 
-    /*@Test
+    @Test
     public void testUpdateExistentBand() {
         Band existingBand1 = bandDao.findById(band1.getId());
         existingBand1.setName("The White Stripes");
@@ -121,7 +121,7 @@ public class BandDaoTest extends AbstractTestNGSpringContextTests {
         Band updatedBand = bandDao.findById(band1.getId());
 
         Assert.assertEquals(updatedBand.getName(), "The White Stripes");
-    }*/
+    }
 
     @Test(expectedExceptions = JpaSystemException.class)
     public void testCreateDuplicateBand() {
@@ -130,8 +130,8 @@ public class BandDaoTest extends AbstractTestNGSpringContextTests {
         duplicateBand.setName("The Black Keys");
         duplicateBand.setGenre(Genre.BLUES);
         duplicateBand.setLogoURI("testLogoUri1");
-        /*manager.addBand(band1);
-        band1.setManager(manager);*/
+        manager.addBand(band1);
+        duplicateBand.setManager(manager);
         bandDao.create(duplicateBand);
     }
 
@@ -142,12 +142,25 @@ public class BandDaoTest extends AbstractTestNGSpringContextTests {
         bandDao.create(b);
     }
 
-    @Test(expectedExceptions = ConstraintViolationException.class)
+    @Test(expectedExceptions = InvalidDataAccessApiUsageException.class)
     public void testInvalidBandNameCreate() {
 
         Band b = new Band();
-        band1.setGenre(Genre.BLUES);
-        band1.setLogoURI("testLogoUri1");
+        b.setGenre(Genre.BLUES);
+        b.setLogoURI("testLogoUri1");
+        manager.addBand(b);
+        b.setManager(manager);
+
+        bandDao.create(b);
+    }
+
+    @Test(expectedExceptions = InvalidDataAccessApiUsageException.class)
+    public void testNoManagerBandCreate() {
+
+        Band b = new Band();
+        b.setGenre(Genre.ROCK);
+        b.setName("Nirvana");
+        b.setLogoURI("testLogoUri1");
 
         bandDao.create(b);
     }

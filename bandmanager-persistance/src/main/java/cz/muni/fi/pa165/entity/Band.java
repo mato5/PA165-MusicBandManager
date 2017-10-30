@@ -27,7 +27,7 @@ public class Band {
     @Enumerated(EnumType.STRING)
     private Genre genre = Genre.UNKNOWN;
 
-    //@NotNull
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     private Manager manager;
 

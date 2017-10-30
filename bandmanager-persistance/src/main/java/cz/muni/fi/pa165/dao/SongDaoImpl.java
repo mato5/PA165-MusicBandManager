@@ -8,11 +8,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Miroslav Kadlec
  */
+@Repository
 public class SongDaoImpl implements SongDao {
 
     @PersistenceContext
@@ -25,6 +27,12 @@ public class SongDaoImpl implements SongDao {
 
     @Override
     public void create(Song song) {
+        if (song == null) {
+            throw new IllegalArgumentException("Given song is null");
+        }
+        if (song.getBand() == null) {
+            throw new IllegalArgumentException();
+        }
         this.em.persist(song);
     }
 
@@ -34,17 +42,31 @@ public class SongDaoImpl implements SongDao {
     }
 
     @Override
+    public void update(Song song)  {
+        if (song == null) {
+            throw new IllegalArgumentException("Given song is null");
+        }
+        if (song.getId() == null) {
+            throw new IllegalArgumentException("Given song has id = null");
+        }
+        if (song.getBand() == null) {
+            throw new IllegalArgumentException();
+        }
+        this.em.merge(song);
+    }
+    
+    @Override
     public List<Song> findAll() {
         return em.createQuery("select s from Song s", Song.class)
                 .getResultList();
     }
     
     @Override
-    public Song findByName(String name) {
+    public List<Song> findByName(String name) {
         try {
             TypedQuery<Song> q = em.createQuery("select s from Song s where name = :name",
                             Song.class).setParameter("name", name);
-            return q.getSingleResult();
+            return q.getResultList();
         } catch (NoResultException e) {
             return null;
         }
@@ -52,11 +74,8 @@ public class SongDaoImpl implements SongDao {
     @Override
     public List<Song> findByBand(Band band) {
         try {
-            TypedQuery<Song> q = em.createQuery(
-                    "select b from Song s where s.band = :bandId",
-                    Song.class);
-
-            q.setParameter("managerId", band);
+            TypedQuery<Song> q = em.createQuery("select s from Song s where band = :band",
+                            Song.class).setParameter("band", band);
             return q.getResultList();
 
         } catch (NoResultException e) {
