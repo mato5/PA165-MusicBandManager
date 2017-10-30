@@ -12,10 +12,6 @@ import java.util.Set;
 @Entity
 public class Manager extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "manager")
     private Set<Band> bands = new HashSet<Band>();
 
@@ -55,8 +51,7 @@ public class Manager extends User {
     @Override
     public String toString() {
         return "Manager{" +
-                "id=" + id +
-                ", bands=" + bands +
+                "bands=" + bands +
                 '}';
     }
 }
