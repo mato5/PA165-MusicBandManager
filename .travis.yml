@@ -4,3 +4,9 @@ jdk:
   - oraclejdk8
 
 script: mvn clean install test
+
+notifications:
+  slack:
+    rooms:
+      - pa165musicbandmanager:IYzpt3vy2IlipPMRrkLchykP#general
+      - pa165musicbandmanager:IYzpt3vy2IlipPMRrkLchykP#travis-ci
