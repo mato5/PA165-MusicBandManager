@@ -15,8 +15,25 @@ public class Manager extends User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "manager")
     private Set<Band> bands = new HashSet<Band>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "manager")
+    private Set<Tour> tours = new HashSet<Tour>();
+
+    public void addTour(Tour tour) {
+        this.tours.add(tour);
+        tour.setManager(this);
+    }
+
+    public Set<Tour> getTours() {
+        return Collections.unmodifiableSet(tours);
+    }
+
+    public void removeTour(Tour tour) {
+        tours.remove(tour);
+    }
+
     public void addBand(Band band) {
         this.bands.add(band);
+        band.setManager(this);
     }
 
     public Set<Band> getBands() {
