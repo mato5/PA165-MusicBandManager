@@ -2,11 +2,12 @@ package cz.muni.fi.pa165.entity;
 
 import cz.muni.fi.pa165.enums.Role;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Matej Sojak 433294
@@ -20,6 +21,22 @@ public class Member extends User {
 
     @ManyToOne
     private Band band;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "invitedMember")
+    private Set<BandInvite> bandInvites = new HashSet<BandInvite>();
+
+    public void addBandInvite(BandInvite bandInvite) {
+        this.bandInvites.add(bandInvite);
+        bandInvite.setInvitedMember(this);
+    }
+
+    public Set<BandInvite> getBandInvites() {
+        return Collections.unmodifiableSet(bandInvites);
+    }
+
+    public void removeBandInvite(BandInvite bandInvite) {
+        bandInvites.remove(bandInvite);
+    }
 
     public Role getRole() {
         return role;
