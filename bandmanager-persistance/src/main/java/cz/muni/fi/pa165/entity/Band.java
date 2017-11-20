@@ -40,6 +40,9 @@ public class Band {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "band")
     private Set<Tour> tours = new HashSet<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band")
+    private Set<BandInvite> bandInvites = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -111,6 +114,19 @@ public class Band {
 
     public void removeAlbum(Album album) {
         albums.remove(album);
+    }
+
+    public void addBandInvite(BandInvite bandInvite) {
+        this.bandInvites.add(bandInvite);
+        bandInvite.setBand(this);
+    }
+
+    public Set<BandInvite> getBandInvites() {
+        return Collections.unmodifiableSet(bandInvites);
+    }
+
+    public void removeBandInvite(BandInvite bandInvite) {
+        bandInvites.remove(bandInvite);
     }
 
     public Band(Long id) {
