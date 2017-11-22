@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service;
 
+import cz.fi.muni.pa165.exceptions.BandManagerServiceException;
 import cz.muni.fi.pa165.dao.BandDao;
 import cz.muni.fi.pa165.dao.SongDao;
 import cz.muni.fi.pa165.entity.Band;
@@ -39,11 +40,10 @@ public class SongServiceImpl implements SongService {
         return song;
     }
 
-    // TODO: Move RuntimeException to BandmanagerServiceException
     @Override
     public void changeDuration(Song song, Long duration) {
         if (duration <= 0) {
-            throw new RuntimeException(
+            throw new BandManagerServiceException(
                     "Duration of song must be positive, song "
                             + song.getId() + ", new duration: "
                             + duration);
