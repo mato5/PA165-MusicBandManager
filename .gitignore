@@ -230,3 +230,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+/bandmanager-persistance/bandmanager-persistence.iml
+/bandmanager-service/bandmanager-service.iml
+/bandmanager-service/target/
+/bandmanager-persistance/target/
