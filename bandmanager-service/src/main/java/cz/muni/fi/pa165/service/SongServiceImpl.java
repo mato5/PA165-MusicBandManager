@@ -1,9 +1,10 @@
-package java.cz.muni.fi.pa165.service.facade;
+package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.BandDao;
 import cz.muni.fi.pa165.dao.SongDao;
 import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.Song;
+import cz.muni.fi.pa165.service.SongService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

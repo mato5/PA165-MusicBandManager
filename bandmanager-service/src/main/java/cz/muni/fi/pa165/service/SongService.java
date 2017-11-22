@@ -1,4 +1,4 @@
-package java.cz.muni.fi.pa165.service.facade;
+package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.Song;
