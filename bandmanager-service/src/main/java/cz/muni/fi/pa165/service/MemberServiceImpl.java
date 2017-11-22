@@ -7,6 +7,9 @@ import cz.muni.fi.pa165.utils.Validator;
 import javax.inject.Inject;
 import java.util.List;
 
+/**
+ * @author Matej Sojak 433294
+ */
 public class MemberServiceImpl implements MemberService {
 
     @Inject
@@ -14,6 +17,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void registerMember(Member m, String unencryptedPassword) {
+        if(unencryptedPassword == null || unencryptedPassword.length() < 5){
+            throw new RuntimeException("The provided password is too short");
+        }
         m.setPassword(Validator.createHash(unencryptedPassword));
         memberDao.create(m);
     }
