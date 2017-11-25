@@ -92,4 +92,12 @@ public class BandInvite {
                 ", band=" + band +
                 '}';
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
