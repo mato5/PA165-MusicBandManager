@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.service;
 
+import cz.fi.muni.pa165.exceptions.UserServiceException;
 import cz.muni.fi.pa165.dao.MemberDao;
 import cz.muni.fi.pa165.entity.Member;
 import cz.muni.fi.pa165.utils.Validator;
@@ -18,7 +19,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void registerMember(Member m, String unencryptedPassword) {
         if(unencryptedPassword == null || unencryptedPassword.length() < 5){
-            throw new RuntimeException("The provided password is too short");
+            throw new UserServiceException("The provided password is too short");
         }
         m.setPassword(Validator.createHash(unencryptedPassword));
         memberDao.create(m);
@@ -52,10 +53,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void changeEmail(Member m, String newEmail) {
         if(newEmail == null || !Validator.validateEmail(newEmail)){
-            throw new RuntimeException("The provided email is invalid!");
+            throw new UserServiceException("The provided email is invalid!");
         }
         if(memberDao.findById(m.getId())==null){
-            throw new RuntimeException("This action cannot be performed on a non-existent member.");
+            throw new UserServiceException("This action cannot be performed on a non-existent member.");
         }
         m.setEmail(newEmail);
         memberDao.update(m);
@@ -64,10 +65,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void changePassword(Member m, String newPassword) {
         if(newPassword == null || newPassword.length() < 5){
-            throw new RuntimeException("The provided password is too short");
+            throw new UserServiceException("The provided password is too short");
         }
         if(memberDao.findById(m.getId())==null){
-            throw new RuntimeException("This action cannot be performed on a non-existent member.");
+            throw new UserServiceException("This action cannot be performed on a non-existent member.");
         }
         m.setPassword(Validator.createHash(newPassword));
         memberDao.update(m);
