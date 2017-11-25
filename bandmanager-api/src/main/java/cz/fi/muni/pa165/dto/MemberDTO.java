@@ -10,8 +10,8 @@ import java.util.Set;
 public class MemberDTO extends UserDTO {
 
     private Role role;
-    private BandDTO bandDTO;
-    private Set<BandInviteDTO> bandInviteDTO;
+    private BandDTO band;
+    private Set<BandInviteDTO> bandInvites;
 
     public Role getRole() {
         return role;
@@ -21,20 +21,20 @@ public class MemberDTO extends UserDTO {
         this.role = role;
     }
 
-    public BandDTO getBandDTO() {
-        return bandDTO;
+    public BandDTO getBand() {
+        return band;
     }
 
-    public void setBandDTO(BandDTO bandDTO) {
-        this.bandDTO = bandDTO;
+    public void setBand(BandDTO band) {
+        this.band = band;
     }
 
-    public Set<BandInviteDTO> getBandInviteDTO() {
-        return bandInviteDTO;
+    public Set<BandInviteDTO> getBandInvites() {
+        return bandInvites;
     }
 
-    public void setBandInviteDTO(Set<BandInviteDTO> bandInviteDTO) {
-        this.bandInviteDTO = bandInviteDTO;
+    public void setBandInvites(Set<BandInviteDTO> bandInvites) {
+        this.bandInvites = bandInvites;
     }
 
     @Override

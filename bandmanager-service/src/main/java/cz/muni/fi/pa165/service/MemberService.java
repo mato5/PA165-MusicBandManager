@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.service;
 
 import cz.muni.fi.pa165.dao.MemberDao;
+import cz.muni.fi.pa165.entity.BandInvite;
 import cz.muni.fi.pa165.entity.Member;
 import org.springframework.stereotype.Service;
 
@@ -69,4 +70,8 @@ public interface MemberService {
      * @param newPassword the new password
      */
     public void changePassword(Member m, String newPassword);
+
+    public void acceptBandInvite(Member m, BandInvite b);
+
+    public void declineBandInvite(Member m, BandInvite b);
 }

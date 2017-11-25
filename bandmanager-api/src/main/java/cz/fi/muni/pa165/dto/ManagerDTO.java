@@ -9,7 +9,7 @@ public class ManagerDTO extends UserDTO {
 
     private Set<BandDTO> bands;
     private Set<TourDTO> tours;
-    private Set<BandInviteDTO> bandInviteDTOs;
+    private Set<BandInviteDTO> bandInvites;
 
     public Set<BandDTO> getBands() {
         return bands;
@@ -27,12 +27,12 @@ public class ManagerDTO extends UserDTO {
         this.tours = tours;
     }
 
-    public Set<BandInviteDTO> getBandInviteDTOs() {
-        return bandInviteDTOs;
+    public Set<BandInviteDTO> getBandInvites() {
+        return bandInvites;
     }
 
-    public void setBandInviteDTOs(Set<BandInviteDTO> bandInviteDTOs) {
-        this.bandInviteDTOs = bandInviteDTOs;
+    public void setBandInvites(Set<BandInviteDTO> bandInvites) {
+        this.bandInvites = bandInvites;
     }
 
     @Override

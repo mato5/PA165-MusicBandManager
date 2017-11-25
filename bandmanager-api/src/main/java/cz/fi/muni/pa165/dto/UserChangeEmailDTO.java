@@ -5,22 +5,22 @@ package cz.fi.muni.pa165.dto;
  */
 public class UserChangeEmailDTO {
 
-    private Long userId;
-    private String newEmail;
+    private Long id;
+    private String email;
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNewEmail() {
-        return newEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setNewEmail(String newEmail) {
-        this.newEmail = newEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
