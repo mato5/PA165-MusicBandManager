@@ -34,6 +34,15 @@ public class Band {
     @ManyToMany
     private Set<Member> members = new HashSet<Member>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band")
+    private Set<Album> albums = new HashSet<Album>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band")
+    private Set<Tour> tours = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band")
+    private Set<BandInvite> bandInvites = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -94,6 +103,32 @@ public class Band {
     public Band() {
     }
 
+    public Set<Album> getAlbums() {
+        return Collections.unmodifiableSet(albums);
+    }
+
+    public void addAlbum(Album album) {
+        albums.add(album);
+        album.setBand(this);
+    }
+
+    public void removeAlbum(Album album) {
+        albums.remove(album);
+    }
+
+    public void addBandInvite(BandInvite bandInvite) {
+        this.bandInvites.add(bandInvite);
+        bandInvite.setBand(this);
+    }
+
+    public Set<BandInvite> getBandInvites() {
+        return Collections.unmodifiableSet(bandInvites);
+    }
+
+    public void removeBandInvite(BandInvite bandInvite) {
+        bandInvites.remove(bandInvite);
+    }
+
     public Band(Long id) {
         this.id = id;
     }
@@ -125,6 +160,8 @@ public class Band {
                 ", genre=" + genre +
                 ", manager=" + manager +
                 ", members=" + members +
+                ", albums=" + albums +
+                ", tours=" + tours +
                 '}';
     }
 }
