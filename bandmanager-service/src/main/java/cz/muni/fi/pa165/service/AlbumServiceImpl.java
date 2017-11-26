@@ -31,10 +31,6 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public Album create(Album album) {
-        if (album.getSongs() == null || album.getSongs().isEmpty()) {
-            throw new BandManagerServiceException("Album " + album.getId()
-                    + " must contain at least one song, but contains no one.");
-        }
         albumDao.create(album);
         return album;
     }

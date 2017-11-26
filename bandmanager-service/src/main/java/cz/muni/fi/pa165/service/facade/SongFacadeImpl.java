@@ -55,8 +55,12 @@ public class SongFacadeImpl implements SongFacade {
 
     @Override
     public Collection<SongDTO> findSongsByBand(BandDTO band) {
-
         return beanMappingService.mapTo(songService.findByBand(bandService.findById(band.getId())), SongDTO.class);
+    }
+
+    @Override
+    public void detete(SongDTO songDTO) {
+        songService.deleteSong(songService.findById(songDTO.getId()));
     }
 
     @Override
