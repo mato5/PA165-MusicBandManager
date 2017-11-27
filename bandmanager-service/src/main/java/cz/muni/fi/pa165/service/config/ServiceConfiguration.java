@@ -24,7 +24,7 @@ public class ServiceConfiguration {
         dozer.addMapping(new DozerCustomConfig());
         return dozer;
     }
-    
+
     public class DozerCustomConfig extends BeanMappingBuilder {
         @Override
         protected void configure() {
