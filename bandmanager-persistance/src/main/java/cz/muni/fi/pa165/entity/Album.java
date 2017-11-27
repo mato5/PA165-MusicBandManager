@@ -4,7 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -68,7 +67,15 @@ public class Album {
     public void setSongs(Set<Song> songs) {
         this.songs = songs;
     }
-    
+
+    public void addSong(Song song) {
+        this.songs.add(song);
+    }
+
+    public void deleteSong(Song song) {
+        this.songs.remove(song);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

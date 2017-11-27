@@ -57,7 +57,7 @@ public class AlbumServiceImpl implements AlbumService {
                     + song.getId() + " to album " + album.getId());
         }
 
-        album.getSongs().add(song);
+        album.addSong(song);
         albumDao.update(album);
         return album;
     }
@@ -81,7 +81,7 @@ public class AlbumServiceImpl implements AlbumService {
                     + song.getId());
         }
 
-        album.getSongs().remove(song);
+        album.deleteSong(song);
         albumDao.update(album);
         return album;
     }

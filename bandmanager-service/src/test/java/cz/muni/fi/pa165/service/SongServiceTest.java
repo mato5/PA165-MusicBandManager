@@ -40,7 +40,7 @@ public class SongServiceTest extends AbstractTransactionalTestNGSpringContextTes
 
     @Autowired
     @InjectMocks
-    private SongServiceImpl songService;
+    private SongService songService;
 
 
     @BeforeClass
