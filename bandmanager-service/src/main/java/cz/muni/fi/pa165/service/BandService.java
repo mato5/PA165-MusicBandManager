@@ -17,7 +17,14 @@ public interface BandService {
      * @return  Band found in the DB 
      */
     public Band findById(Long id);
-
+    
+    /**
+     * Returns Band with given name 
+     * @param   name to search band
+     * @return  Band found in the DB 
+     */
+    public Band findByName(String name);
+            
     /**
      * Creates a new Band in the DB
      * @param   band Band to be created

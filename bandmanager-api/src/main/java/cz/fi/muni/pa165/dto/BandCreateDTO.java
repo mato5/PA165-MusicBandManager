@@ -1,24 +1,25 @@
 package cz.fi.muni.pa165.dto;
 
 import cz.muni.fi.pa165.enums.Genre;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
- * Miroslav Kadlec
+ *
+ * @author Miroslav Kadlec
  */
-public class BandDTO {
-
-    private Long id;
+public class BandCreateDTO {
+    
+    @NotNull
+    @Size(min = 5, max = 50)
     private String name;
+    
     private String logoURI;
+    
     private Genre genre;
     
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NotNull
+    private Long managerId;
 
     public String getName() {
         return name;
@@ -44,6 +45,14 @@ public class BandDTO {
         this.genre = genre;
     }
 
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -52,11 +61,11 @@ public class BandDTO {
             return false;
         if (this.getClass() != obj.getClass())
             return false;
-        BandDTO other = (BandDTO) obj;
-        if (this.getId() == null) {
-            if (other.getId() != null)
+        BandCreateDTO other = (BandCreateDTO) obj;
+        if (this.getManagerId()== null) {
+            if (other.getManagerId() != null)
                 return false;
-        } else if (!this.getId().equals(other.getId()))
+        } else if (!this.getManagerId().equals(other.getManagerId()))
             return false;
         if (this.getName() == null) {
             if (other.getName() != null)
@@ -74,22 +83,21 @@ public class BandDTO {
     @Override
     public String toString() {
         String result = "BandDTO {"
-                + "id=" + this.getId()
                 + ",name=" + this.getName()
                 + ",logoURI" + this.getLogoURI()
-                + ",genre" + this.getGenre().name();
+                + ",genre" + this.getGenre().name()
+                + "manager_id=" + this.getManagerId();
         return result;
     }
 
     @Override
     public int hashCode() {
-        int hash = 1;
-        hash = hash * 17 + (this.getId() != null ? this.getId().hashCode() : 0);
+        int hash = 51;
         hash = hash * 31 + (this.getName()!= null ? this.getName().hashCode() : 0);
         hash = hash * 13 + (this.getLogoURI()!= null ? this.getLogoURI().hashCode() : 0);
         hash = hash * 37 + (this.getGenre()!= null ? this.getGenre().hashCode() : 0);
+        hash = hash * 17 + (this.getManagerId()!= null ? this.getManagerId().hashCode() : 0);
         return hash;
     }
 
-    
 }

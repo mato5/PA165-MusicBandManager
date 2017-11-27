@@ -24,6 +24,11 @@ public class BandServiceImpl implements BandService {
         return this.bandDao.findById(id);
     }
     
+    @Override    
+    public Band findByName(String name) {
+        return this.bandDao.findByName(name);
+    }
+    
     @Override
     public Band create(Band band) {
         this.bandDao.create(band);
@@ -77,7 +82,7 @@ public class BandServiceImpl implements BandService {
     public Band removeMember(Band band, Member member) {
                 if (member == null) {
             throw new BandManagerServiceException(
-                    "Cannot remove a null membmer from band "
+                    "Cannot remove a null member from band "
                     + band.getName()  + "(id = " + band.getId() + " ) , not updated.");
         }
         if (!band.getMembers().contains(member)) {
