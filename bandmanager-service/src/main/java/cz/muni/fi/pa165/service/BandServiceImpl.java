@@ -6,6 +6,8 @@ import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.Manager;
 import cz.muni.fi.pa165.entity.Member;
 import cz.muni.fi.pa165.enums.Genre;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -14,6 +16,7 @@ import javax.inject.Inject;
  *
  * @author Miroslav Kadlec
  */
+@Service
 public class BandServiceImpl implements BandService {
     
     @Inject

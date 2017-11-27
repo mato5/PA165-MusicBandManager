@@ -4,12 +4,15 @@ import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.Manager;
 import cz.muni.fi.pa165.entity.Member;
 import cz.muni.fi.pa165.enums.Genre;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
  *
  * @author Miroslav Kadlec
  */
+@Service
 public interface BandService {
     /**
      * Returns Band with given Id 

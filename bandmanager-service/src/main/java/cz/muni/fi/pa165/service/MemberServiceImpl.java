@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.dao.MemberDao;
 import cz.muni.fi.pa165.entity.BandInvite;
 import cz.muni.fi.pa165.entity.Member;
 import cz.muni.fi.pa165.utils.Validator;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * @author Matej Sojak 433294
  */
+@Service
 public class MemberServiceImpl implements MemberService {
 
     @Inject
