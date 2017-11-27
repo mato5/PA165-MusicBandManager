@@ -36,13 +36,12 @@ public class MemberServiceTest extends AbstractTestNGSpringContextTests {
     private MemberService memberService;
 
     @BeforeClass
-    public void setup() throws ServiceException
-    {
+    public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
 
     @BeforeMethod
-    public void prepareTestMembers(){
+    public void prepareTestMembers() {
 
         Member m1 = new Member();
         //unecryptedPassword = "123456"
@@ -56,7 +55,7 @@ public class MemberServiceTest extends AbstractTestNGSpringContextTests {
         m2.setEmail("member2@mail.com");
         m2.setId(2L);
 
-        when(memberDao.findAll()).thenReturn(Arrays.asList(m1,m2));
+        when(memberDao.findAll()).thenReturn(Arrays.asList(m1, m2));
         when(memberDao.findById(Long.valueOf(org.mockito.AdditionalMatchers.gt(2L)))).thenReturn(null);
         when(memberDao.findById(Long.valueOf(Matchers.eq(1L)))).thenReturn(m1);
         when(memberDao.findById(Long.valueOf(Matchers.eq(2L)))).thenReturn(m2);
@@ -64,52 +63,52 @@ public class MemberServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void authenticateValidTest(){
+    public void authenticateValidTest() {
         Member m = memberDao.findById(1L);
-        boolean result = memberService.authenticate(m,"123456");
+        boolean result = memberService.authenticate(m, "123456");
         Assert.assertTrue(result);
     }
 
     @Test
-    public void authenticateInvalidTest(){
+    public void authenticateInvalidTest() {
         Member m = memberDao.findById(1L);
-        boolean result = memberService.authenticate(m,"123455");
+        boolean result = memberService.authenticate(m, "123455");
         Assert.assertFalse(result);
     }
 
     @Test
-    public void changeEmailValidTest(){
+    public void changeEmailValidTest() {
         String newMail = "user@mail.muni.cz";
         Member m = memberDao.findById(1L);
-        memberService.changeEmail(m,newMail);
-        Assert.assertEquals(newMail,m.getEmail());
+        memberService.changeEmail(m, newMail);
+        Assert.assertEquals(newMail, m.getEmail());
     }
 
     @Test(expectedExceptions = UserServiceException.class)
-    public void changeEmailInvalidTest(){
+    public void changeEmailInvalidTest() {
         String newMail = "Hello World";
         Member m = memberDao.findById(1L);
-        memberService.changeEmail(m,newMail);
+        memberService.changeEmail(m, newMail);
     }
 
     @Test
-    public void changePasswordValidTest(){
+    public void changePasswordValidTest() {
         Member m1 = memberDao.findById(1L);
-        memberService.changePassword(m1,"halabala");
-        boolean authResult = memberService.authenticate(m1,"halabala");
+        memberService.changePassword(m1, "halabala");
+        boolean authResult = memberService.authenticate(m1, "halabala");
         Assert.assertTrue(authResult);
     }
 
     @Test(expectedExceptions = UserServiceException.class)
-    public void changePasswordInvalidTest(){
+    public void changePasswordInvalidTest() {
         Member m1 = memberDao.findById(1L);
-        memberService.changePassword(m1,"X");
+        memberService.changePassword(m1, "X");
     }
 
     @Test
-    public void registerMemberTest(){
+    public void registerMemberTest() {
         Member m = memberDao.findById(1L);
-        memberService.registerMember(m,"654321");
+        memberService.registerMember(m, "654321");
         ArgumentCaptor<Member> memberCaptor = ArgumentCaptor.forClass(Member.class);
         verify(memberDao).create(memberCaptor.capture());
         Member registeredMember = memberCaptor.getValue();
@@ -117,8 +116,6 @@ public class MemberServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(m, registeredMember);
 
     }
-
-
 
 
 }
