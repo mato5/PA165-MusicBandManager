@@ -20,7 +20,7 @@ public interface SongFacade {
 
     public Collection<SongDTO> findSongsByBand(BandDTO band);
 
-    public void detete(SongDTO songDTO);
+    public void delete(SongDTO songDTO);
 
     public Long createSong(SongCreateDTO songCreateDTO);
 

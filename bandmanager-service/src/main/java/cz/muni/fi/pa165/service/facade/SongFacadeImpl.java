@@ -59,7 +59,7 @@ public class SongFacadeImpl implements SongFacade {
     }
 
     @Override
-    public void detete(SongDTO songDTO) {
+    public void delete(SongDTO songDTO) {
         songService.deleteSong(songService.findById(songDTO.getId()));
     }
 
