@@ -35,7 +35,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Song createProduct(Song song) {
+    public Song createSong(Song song) {
         songDao.create(song);
         return song;
     }
@@ -65,13 +65,13 @@ public class SongServiceImpl implements SongService {
     @Override
     public void changeBand(Song song, Band band) {
         if (band == null) {
-            throw new RuntimeException(
+            throw new BandManagerServiceException(
                     "Can't associate null Band to song"
                             + song.getId());
 
         }
         if (bandDao.findById(band.getId()) == null) {
-            throw new RuntimeException(
+            throw new BandManagerServiceException(
                     "Band with id " + band.getId()
                             + " wasn't found. Can't associate it to song"
                             + song.getId());

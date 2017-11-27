@@ -69,7 +69,7 @@ public class SongFacadeImpl implements SongFacade {
         song.setName(songCreateDTO.getName());
         song.setDuration(songCreateDTO.getDuration());
         song.setBand(bandService.findById(songCreateDTO.getBandId()));
-        Song newSong = songService.createProduct(song);
+        Song newSong = songService.createSong(song);
         return newSong.getId();
     }
 
