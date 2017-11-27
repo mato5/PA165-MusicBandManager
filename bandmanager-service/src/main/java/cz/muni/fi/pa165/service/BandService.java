@@ -4,12 +4,15 @@ import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.Manager;
 import cz.muni.fi.pa165.entity.Member;
 import cz.muni.fi.pa165.enums.Genre;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
  *
  * @author Miroslav Kadlec
  */
+@Service
 public interface BandService {
     /**
      * Returns Band with given Id 
@@ -17,7 +20,14 @@ public interface BandService {
      * @return  Band found in the DB 
      */
     public Band findById(Long id);
-
+    
+    /**
+     * Returns Band with given name 
+     * @param   name to search band
+     * @return  Band found in the DB 
+     */
+    public Band findByName(String name);
+            
     /**
      * Creates a new Band in the DB
      * @param   band Band to be created

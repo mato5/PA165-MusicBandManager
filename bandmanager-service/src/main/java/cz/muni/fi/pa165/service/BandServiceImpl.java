@@ -6,6 +6,8 @@ import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.Manager;
 import cz.muni.fi.pa165.entity.Member;
 import cz.muni.fi.pa165.enums.Genre;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -14,6 +16,7 @@ import javax.inject.Inject;
  *
  * @author Miroslav Kadlec
  */
+@Service
 public class BandServiceImpl implements BandService {
     
     @Inject
@@ -22,6 +25,11 @@ public class BandServiceImpl implements BandService {
     @Override    
     public Band findById(Long id) {
         return this.bandDao.findById(id);
+    }
+    
+    @Override    
+    public Band findByName(String name) {
+        return this.bandDao.findByName(name);
     }
     
     @Override
@@ -77,7 +85,7 @@ public class BandServiceImpl implements BandService {
     public Band removeMember(Band band, Member member) {
                 if (member == null) {
             throw new BandManagerServiceException(
-                    "Cannot remove a null membmer from band "
+                    "Cannot remove a null member from band "
                     + band.getName()  + "(id = " + band.getId() + " ) , not updated.");
         }
         if (!band.getMembers().contains(member)) {
