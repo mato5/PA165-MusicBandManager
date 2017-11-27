@@ -5,10 +5,12 @@ import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.BandInvite;
 import cz.muni.fi.pa165.entity.Manager;
 import cz.muni.fi.pa165.entity.Member;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
 
+@Service
 public class BandInviteServiceImpl implements BandInviteService {
 
     @Inject
