@@ -121,7 +121,8 @@ public class BandFacadeTest extends AbstractTestNGSpringContextTests {
     @Test
     public void createTest() {
         when(this.managerService.findManagerById(any(Long.class))).thenReturn(this.testManager);
-
+        when(this.bandService.create(this.bandList.get(0))).thenReturn(this.bandList.get(0));
+        
         BandCreateDTO b = new BandCreateDTO();
         b.setName(this.bandList.get(0).getName());
         b.setLogoURI(this.bandList.get(0).getLogoURI());
@@ -139,10 +140,7 @@ public class BandFacadeTest extends AbstractTestNGSpringContextTests {
         when(this.bandService.findById(Long.valueOf(1))).thenReturn(this.bandList.get(1));
         when(this.managerService.findManagerById(any(Long.class))).thenReturn(this.testManager);
 
-        BandDTO b = new BandDTO();
-        b.setId(this.bandList.get(1).getId());
-        b.setGenre(this.bandList.get(1).getGenre());
-        this.bandFacade.delete(b);
+        this.bandFacade.delete(this.bandList.get(1).getId());
 
         verify(this.bandService).delete(this.bandList.get(1));
         verify(this.bandService).findById(Long.valueOf(1));

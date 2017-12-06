@@ -13,11 +13,11 @@ import java.util.List;
  */
 public interface BandFacade {
 
-    public BandDTO findById(Long idDTO);
+    public BandDTO findById(Long bandId);
 
     public Long create(BandCreateDTO bandDTO);
 
-    public void delete(BandDTO bandDTO);
+    public void delete(Long bandId);
 
     public List<BandDTO> findAll();
 
