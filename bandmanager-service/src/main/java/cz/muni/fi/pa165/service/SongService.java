@@ -17,7 +17,7 @@ public interface SongService {
 
     public List<Song> findAll();
 
-    public Song createSong(Song song);
+    public Song create(Song song);
 
     public void changeDuration(Song song, Long duration);
 
@@ -27,6 +27,6 @@ public interface SongService {
 
     public void changeBand(Song song, Band band);
 
-    public void deleteSong(Song song);
+    public void delete(Song song);
 
 }

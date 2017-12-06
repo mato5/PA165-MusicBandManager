@@ -5,12 +5,15 @@ import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.ManagerDTO;
 import cz.fi.muni.pa165.dto.MemberDTO;
 import cz.muni.fi.pa165.enums.Genre;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
  *
  * @author kami
  */
+@Service
 public interface BandFacade {
 
     public BandDTO findById(Long idDTO);
