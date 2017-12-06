@@ -10,10 +10,12 @@ import cz.muni.fi.pa165.entity.Tour;
 import cz.muni.fi.pa165.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Collection;
 
+@Service
 public class TourFacadeImpl implements TourFacade {
 
     final static Logger logger = LoggerFactory.getLogger(TourFacadeImpl.class);
