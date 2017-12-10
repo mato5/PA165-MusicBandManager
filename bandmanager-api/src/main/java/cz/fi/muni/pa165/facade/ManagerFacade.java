@@ -34,4 +34,20 @@ public interface ManagerFacade {
     void addBandInvite(ManagerDTO m, BandInviteDTO b);
 
     void cancelBandInvite(ManagerDTO m, BandInviteDTO b);
+
+    //Overhaul
+    void createBand(ManagerDTO m, BandCreateDTO b);
+
+    void sendBandInvite(ManagerDTO m, BandInviteDTO b);
+
+    void changeBandGenre(ManagerDTO m, BandGengreDTO b);
+
+    void changeBandName(ManagerDTO m, BandNameDTO b);
+
+    void changeBandLogo(ManagerDTO m, BandLogoDTO b);
+
+    void addNewSong(ManagerDTO m, SongCreateDTO s);
+
+    void addNewAlbum(ManagerDTO m, AlbumCreateDTO a);
+
 }

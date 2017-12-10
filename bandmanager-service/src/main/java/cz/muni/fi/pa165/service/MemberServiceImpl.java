@@ -102,5 +102,17 @@ public class MemberServiceImpl implements MemberService {
         memberDao.update(m);
     }
 
+    @Override
+    public void sendBandInvite(Member m, BandInvite b) {
+        if (m == null) {
+            throw new UserServiceException("This action cannot be performed by a non-existent member.");
+        }
+        if (b == null) {
+            throw new UserServiceException("This action cannot be performed on a non-existent band invitation.");
+        }
+        m.addBandInvite(b);
+        memberDao.update(m);
+    }
+
 
 }
