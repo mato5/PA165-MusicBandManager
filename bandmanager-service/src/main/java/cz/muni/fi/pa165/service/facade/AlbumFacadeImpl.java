@@ -3,10 +3,8 @@ package cz.muni.fi.pa165.service.facade;
 import cz.fi.muni.pa165.dto.AlbumCreateDTO;
 import cz.fi.muni.pa165.dto.AlbumDTO;
 import cz.fi.muni.pa165.dto.BandDTO;
-import cz.fi.muni.pa165.dto.SongDTO;
 import cz.fi.muni.pa165.facade.AlbumFacade;
 import cz.muni.fi.pa165.entity.Album;
-import cz.muni.fi.pa165.entity.Song;
 import cz.muni.fi.pa165.service.AlbumService;
 import cz.muni.fi.pa165.service.BandService;
 import cz.muni.fi.pa165.service.BeanMappingService;
@@ -14,7 +12,6 @@ import cz.muni.fi.pa165.service.SongService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -24,7 +21,6 @@ import java.util.Collection;
  */
 
 @Service
-@Transactional
 public class AlbumFacadeImpl implements AlbumFacade {
 
     final static Logger logger = LoggerFactory.getLogger(AlbumFacadeImpl.class);
@@ -42,7 +38,7 @@ public class AlbumFacadeImpl implements AlbumFacade {
     private BeanMappingService beanMappingService;
 
     @Override
-    public AlbumDTO findAlbumById(Long id) {
+    public AlbumDTO findById(Long id) {
         Album album = albumService.findById(id);
         return (album == null) ? null : beanMappingService.mapTo(album, AlbumDTO.class);
     }
@@ -58,20 +54,20 @@ public class AlbumFacadeImpl implements AlbumFacade {
     }
 
     @Override
-    public void addSong(AlbumDTO albumDTO, SongDTO songDTO) {
-        Album album = albumService.findById(albumDTO.getId());
-        albumService.addSong(album, songService.findById(songDTO.getId()));
+    public void addSong(Long albumId, Long songId) {
+        Album album = albumService.findById(albumId);
+        albumService.addSong(album, songService.findById(songId));
     }
 
     @Override
-    public void deleteSong(AlbumDTO albumDTO, SongDTO songDTO) {
-        Album album = albumService.findById(albumDTO.getId());
-        albumService.deleteSong(album, songService.findById(songDTO.getId()));
+    public void deleteSong(Long albumId, Long songId) {
+        Album album = albumService.findById(albumId);
+        albumService.deleteSong(album, songService.findById(songId));
     }
 
     @Override
-    public void deleteAlbum(AlbumDTO albumDTO) {
-        albumService.delete(albumService.findById(albumDTO.getId()));
+    public void deleteAlbum(Long id) {
+        albumService.delete(albumService.findById(id));
     }
 
     @Override
@@ -80,7 +76,7 @@ public class AlbumFacadeImpl implements AlbumFacade {
         album.setCoverURI(albumCreateDTO.getCoverURI());
         album.setName(albumCreateDTO.getName());
         album.setBand(bandService.findById(albumCreateDTO.getBandId()));
-        Album newAlbum = albumService.create(album);
+        Album newAlbum = this.albumService.create(album);
         return newAlbum.getId();
     }
 }

@@ -6,6 +6,8 @@ import cz.muni.fi.pa165.dao.SongDao;
 import cz.muni.fi.pa165.entity.Album;
 import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.Song;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Service
 public class AlbumServiceImpl implements AlbumService {
+
+    private final static Logger logger = LoggerFactory.getLogger(AlbumServiceImpl.class);
 
     @Inject
     private AlbumDao albumDao;

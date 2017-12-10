@@ -3,6 +3,7 @@ package cz.fi.muni.pa165.facade;
 import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.SongCreateDTO;
 import cz.fi.muni.pa165.dto.SongDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
@@ -10,22 +11,23 @@ import java.util.Collection;
  * @author Iurii xkuznetc Kuznetcov
  */
 
+@Service
 public interface SongFacade {
 
-    public SongDTO findSongById(Long id);
+    SongDTO findById(Long id);
 
-    public Collection<SongDTO> findAll();
+    Collection<SongDTO> findAll();
 
-    public Collection<SongDTO> findSongsByName(String name);
+    Collection<SongDTO> findByName(String name);
 
-    public Collection<SongDTO> findSongsByBand(BandDTO band);
+    Collection<SongDTO> findByBand(BandDTO band);
 
-    public void delete(SongDTO songDTO);
+    void delete(Long id);
 
-    public Long createSong(SongCreateDTO songCreateDTO);
+    Long createSong(SongCreateDTO songCreateDTO);
 
-    public void changeDuration(SongDTO songDTO, Long newsongDuration);
+    void changeDuration(Long id, Long newsongDuration);
 
-    public void changeBand(SongDTO songDTO, BandDTO newBandDTO);
+    void changeBand(Long id, Long newBandId);
 
 }

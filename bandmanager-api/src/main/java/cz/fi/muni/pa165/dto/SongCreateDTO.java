@@ -15,6 +15,13 @@ public class SongCreateDTO {
     @Size(min = 5, max = 50)
     private String name;
 
+    @NotNull
+    @Min(1)
+    private Long duration;
+
+    @NotNull
+    private Long bandId;
+
     public String getName() {
         return name;
     }
@@ -38,13 +45,6 @@ public class SongCreateDTO {
     public void setBandId(Long bandId) {
         this.bandId = bandId;
     }
-
-    @NotNull
-    @Min(1)
-    private Long duration;
-
-    @NotNull
-    private Long bandId;
 
     @Override
     public boolean equals(Object o) {
