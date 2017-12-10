@@ -2,10 +2,7 @@ package cz.muni.fi.pa165.service;
 
 import cz.fi.muni.pa165.exceptions.BandManagerServiceException;
 import cz.muni.fi.pa165.dao.BandDao;
-import cz.muni.fi.pa165.entity.Album;
-import cz.muni.fi.pa165.entity.Band;
-import cz.muni.fi.pa165.entity.Manager;
-import cz.muni.fi.pa165.entity.Member;
+import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.Genre;
 import org.springframework.stereotype.Service;
 
@@ -171,6 +168,20 @@ public class BandServiceImpl implements BandService {
     public Band changeGenre(Band band, Genre genre) {
         band.setGenre(genre);
         this.bandDao.update(band);
+        return band;
+    }
+
+    @Override
+    public Band addTour(Band band, Tour tour) {
+        band.addTour(tour);
+        bandDao.update(band);
+        return band;
+    }
+
+    @Override
+    public Band cancelTour(Band band, Tour tour) {
+        band.removeTour(tour);
+        bandDao.update(band);
         return band;
     }
 }

@@ -2,8 +2,8 @@ package cz.fi.muni.pa165.dto;
 
 public class BandNameDTO {
 
-    public Long id;
-    public String name;
+    private Long id;
+    private String name;
 
     public Long getId() {
         return id;

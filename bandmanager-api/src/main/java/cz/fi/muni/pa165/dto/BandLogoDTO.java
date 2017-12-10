@@ -2,8 +2,8 @@ package cz.fi.muni.pa165.dto;
 
 public class BandLogoDTO {
 
-    public Long id;
-    public String logoURI;
+    private Long id;
+    private String logoURI;
 
     public Long getId() {
         return id;

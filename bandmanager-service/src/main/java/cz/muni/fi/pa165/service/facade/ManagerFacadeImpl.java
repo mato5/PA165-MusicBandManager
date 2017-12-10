@@ -2,12 +2,8 @@ package cz.muni.fi.pa165.service.facade;
 
 import cz.fi.muni.pa165.dto.*;
 import cz.fi.muni.pa165.facade.ManagerFacade;
-import cz.muni.fi.pa165.entity.Band;
-import cz.muni.fi.pa165.entity.BandInvite;
-import cz.muni.fi.pa165.entity.Manager;
-import cz.muni.fi.pa165.entity.Tour;
-import cz.muni.fi.pa165.service.BeanMappingService;
-import cz.muni.fi.pa165.service.ManagerService;
+import cz.muni.fi.pa165.entity.*;
+import cz.muni.fi.pa165.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -30,6 +26,26 @@ public class ManagerFacadeImpl implements ManagerFacade {
 
     @Inject
     private ManagerService managerService;
+
+    @Inject
+    private BandService bandService;
+
+    @Inject
+    private BandInviteService bandInviteService;
+
+    @Inject
+    private MemberService memberService;
+
+    @Inject
+    private SongService songService;
+
+    @Inject
+    private AlbumService albumService;
+
+    @Inject
+    private TourService tourService;
+
+
 
     @Override
     public void registerManager(ManagerDTO m, String unencryptedPassword) {
@@ -90,14 +106,19 @@ public class ManagerFacadeImpl implements ManagerFacade {
     public void addTour(ManagerDTO m, TourDTO t) {
         Manager manager = beanMappingService.mapTo(m,Manager.class);
         Tour tour = beanMappingService.mapTo(t,Tour.class);
+        Band band = tour.getBand();
+        tourService.create(tour);
         managerService.addTour(manager,tour);
+        bandService.addTour(band,tour);
     }
 
     @Override
     public void cancelTour(ManagerDTO m, TourDTO t) {
         Manager manager = beanMappingService.mapTo(m,Manager.class);
         Tour tour = beanMappingService.mapTo(t,Tour.class);
+        Band band = tour.getBand();
         managerService.cancelTour(manager,tour);
+        bandService.cancelTour(band,tour);
     }
 
     @Override
@@ -112,5 +133,58 @@ public class ManagerFacadeImpl implements ManagerFacade {
         Manager manager = beanMappingService.mapTo(m,Manager.class);
         BandInvite invite = beanMappingService.mapTo(b,BandInvite.class);
         managerService.cancelBandInvite(manager,invite);
+    }
+
+
+    //Overhaul
+
+    @Override
+    public void createBand(ManagerDTO m, BandCreateDTO b) {
+        Manager manager = beanMappingService.mapTo(m,Manager.class);
+        Band newBand = beanMappingService.mapTo(b,Band.class);
+        bandService.create(newBand);
+        managerService.addManagedBand(manager,newBand);
+    }
+
+    @Override
+    public void sendBandInvite(ManagerDTO m, BandInviteDTO b) {
+        Manager manager = beanMappingService.mapTo(m,Manager.class);
+        BandInvite invite = beanMappingService.mapTo(b,BandInvite.class);
+        Member member =  invite.getInvitedMember();
+        bandInviteService.create(invite);
+        managerService.addBandInvite(manager,invite);
+        memberService.sendBandInvite(member,invite);
+    }
+
+    @Override
+    public void changeBandGenre(ManagerDTO m, BandGengreDTO b) {
+        Band band = bandService.findById(b.getId());
+        bandService.changeGenre(band,b.getGenre());
+    }
+
+    @Override
+    public void changeBandName(ManagerDTO m, BandNameDTO b) {
+        Band band = bandService.findById(b.getId());
+        bandService.changeName(band,b.getName());
+    }
+
+    @Override
+    public void changeBandLogo(ManagerDTO m, BandLogoDTO b) {
+        Band band = bandService.findById(b.getId());
+        bandService.changeLogoUri(band,b.getLogoURI());
+    }
+
+    //NOT SURE ABOUT THIS
+    @Override
+    public void addNewSong(ManagerDTO m, SongCreateDTO s) {
+        Song newSong = beanMappingService.mapTo(s,Song.class);
+        songService.create(newSong);
+    }
+
+    //NOT SURE ABOUT THIS
+    @Override
+    public void addNewAlbum(ManagerDTO m, AlbumCreateDTO a) {
+        Album newAlbum = beanMappingService.mapTo(a,Album.class);
+        albumService.create(newAlbum);
     }
 }
