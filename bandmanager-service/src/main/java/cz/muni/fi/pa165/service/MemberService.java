@@ -20,7 +20,7 @@ public interface MemberService {
      * @param m member to be registered
      * @param unencryptedPassword a member's password
      */
-    public void registerMember(Member m, String unencryptedPassword);
+    public Member registerMember(Member m, String unencryptedPassword);
 
     /**
      * List all the existing members
@@ -62,14 +62,14 @@ public interface MemberService {
      * @param m the provided member
      * @param newEmail the new email
      */
-    public void changeEmail(Member m, String newEmail);
+    public Member changeEmail(Member m, String newEmail);
 
     /**
      * Changes a password of a member
      * @param m the provided member
      * @param newPassword the new password
      */
-    public void changePassword(Member m, String newPassword);
+    public Member changePassword(Member m, String newPassword);
 
     public void acceptBandInvite(Member m, BandInvite b);
 

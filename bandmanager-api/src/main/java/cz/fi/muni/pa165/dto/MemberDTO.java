@@ -1,7 +1,9 @@
 package cz.fi.muni.pa165.dto;
 
-import cz.fi.muni.pa165.utils.Role;
 
+import cz.muni.fi.pa165.enums.Role;
+
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -11,7 +13,7 @@ public class MemberDTO extends UserDTO {
 
     private Role role;
     private BandDTO band;
-    private Set<BandInviteDTO> bandInvites;
+    private Set<BandInviteDTO> bandInvites = new HashSet<>();
 
     public Role getRole() {
         return role;

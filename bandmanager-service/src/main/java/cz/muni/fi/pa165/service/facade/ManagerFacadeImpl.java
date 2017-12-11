@@ -16,7 +16,6 @@ import java.util.Collection;
  * @author Matej Sojak 433294
  */
 @Service
-@Transactional
 public class ManagerFacadeImpl implements ManagerFacade {
 
     final static Logger log = LoggerFactory.getLogger(MemberFacadeImpl.class);

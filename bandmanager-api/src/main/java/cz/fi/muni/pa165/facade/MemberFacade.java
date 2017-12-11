@@ -13,7 +13,7 @@ public interface MemberFacade {
 
     MemberDTO findMemberByEmail(String email);
 
-    void registerMember(MemberDTO m, String unencryptedPassword);
+    Long registerMember(MemberDTO m, String unencryptedPassword);
 
     Collection<MemberDTO> getAllMembers();
 

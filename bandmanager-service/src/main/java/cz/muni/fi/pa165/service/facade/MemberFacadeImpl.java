@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.service.facade;
 
 import cz.fi.muni.pa165.dto.*;
+import cz.fi.muni.pa165.exceptions.UserServiceException;
 import cz.fi.muni.pa165.facade.MemberFacade;
 import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.BandInvite;
@@ -15,7 +16,6 @@ import javax.inject.Inject;
 import java.util.Collection;
 
 @Service
-@Transactional
 public class MemberFacadeImpl implements MemberFacade {
 
     final static Logger log = LoggerFactory.getLogger(MemberFacadeImpl.class);
@@ -48,10 +48,10 @@ public class MemberFacadeImpl implements MemberFacade {
     }
 
     @Override
-    public void registerMember(MemberDTO m, String unencryptedPassword) {
+    public Long registerMember(MemberDTO m, String unencryptedPassword) {
         Member member = beanMappingService.mapTo(m, Member.class);
-        memberService.registerMember(member, unencryptedPassword);
-        m.setId(member.getId());
+        Member newMember = memberService.registerMember(member, unencryptedPassword);
+        return newMember.getId();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class MemberFacadeImpl implements MemberFacade {
 
     @Override
     public void changeEmail(UserChangeEmailDTO u) {
-        Member member = memberService.findMemberByEmail(u.getEmail());
+        Member member = memberService.findMemberById(u.getId());
         memberService.changeEmail(member, u.getEmail());
     }
 
@@ -120,7 +120,7 @@ public class MemberFacadeImpl implements MemberFacade {
     public Collection<MemberDTO> listBandmates(Long memberId) {
         Member m = memberService.findMemberById(memberId);
         if (m.getBand() == null) {
-            throw new IllegalArgumentException("This user is not a member of any band!");
+            throw new UserServiceException("This user is not a member of any band!");
         }
         Band b = bandService.findById(m.getBand().getId());
         return beanMappingService.mapTo(b.getMembers(), MemberDTO.class);
@@ -130,9 +130,10 @@ public class MemberFacadeImpl implements MemberFacade {
     public Collection<TourDTO> listAllActivities(Long memberId) {
         Member m = memberService.findMemberById(memberId);
         if (m.getBand() == null) {
-            throw new IllegalArgumentException("This user is not a member of any band!");
+            throw new UserServiceException("This user is not a member of any band!");
         }
         Band b = bandService.findById(m.getBand().getId());
         return beanMappingService.mapTo(tourService.findByBand(b), TourDTO.class);
     }
 }
+
