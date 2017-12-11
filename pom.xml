@@ -73,5 +73,8 @@
         <module>bandmanager-persistance</module>
         <module>bandmanager-service</module>
         <module>bandmanager-api</module>
+        <module>bandmanager-rest</module>
+        <module>bandmanager-sample-data</module>
+        <module>bandmanager-angular</module>
     </modules>
 </project>
