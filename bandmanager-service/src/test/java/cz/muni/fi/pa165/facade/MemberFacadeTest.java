@@ -50,9 +50,6 @@ public class MemberFacadeTest extends AbstractTestNGSpringContextTests {
     private BandInviteService bandInviteService;
 
     @Mock
-    private ManagerService managerService;
-
-    @Mock
     private BandService bandService;
 
     @Mock
