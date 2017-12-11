@@ -1,9 +1,6 @@
 package cz.fi.muni.pa165.facade;
 
-import cz.fi.muni.pa165.dto.MemberDTO;
-import cz.fi.muni.pa165.dto.UserAuthDTO;
-import cz.fi.muni.pa165.dto.UserChangeEmailDTO;
-import cz.fi.muni.pa165.dto.UserChangePasswordDTO;
+import cz.fi.muni.pa165.dto.*;
 
 import java.util.Collection;
 
@@ -31,4 +28,10 @@ public interface MemberFacade {
     void acceptBandInvite(Long userId, Long bandInvId);
 
     void declineBandInvite(Long userId, Long bandInvId);
+
+    Collection<BandInviteDTO> listAllMemberInvites(Long memberId);
+
+    Collection<MemberDTO> listBandmates(Long memberId);
+
+    Collection<TourDTO> listAllActivities(Long memberId);
 }

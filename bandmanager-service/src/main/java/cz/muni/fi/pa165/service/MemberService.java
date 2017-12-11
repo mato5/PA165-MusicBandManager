@@ -74,4 +74,6 @@ public interface MemberService {
     public void acceptBandInvite(Member m, BandInvite b);
 
     public void declineBandInvite(Member m, BandInvite b);
+
+    public void sendBandInvite(Member m, BandInvite b);
 }

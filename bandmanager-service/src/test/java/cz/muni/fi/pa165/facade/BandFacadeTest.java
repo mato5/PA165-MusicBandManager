@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.service.facade;
+package cz.muni.fi.pa165.facade;
 
 import cz.fi.muni.pa165.dto.BandCreateDTO;
 import cz.fi.muni.pa165.dto.BandDTO;
