@@ -34,12 +34,12 @@
         </dependency>
         <dependency>
             <groupId>cz.muni.fi.pa165</groupId>
-            <artifactId>eshop-sample-data</artifactId>
+            <artifactId>bandmanager-sample-data</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>cz.muni.fi.pa165</groupId>
-            <artifactId>eshop-service</artifactId>
+            <artifactId>bandmanager-service</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

@@ -14,7 +14,6 @@
     <name>Web front end implemented in AngularJS and REST</name>
 
     <dependencies>
-        <!-- dependency on eshop sample data, other eshop parts are imported by transitive dependencies of this one-->
         <dependency>
             <groupId>cz.muni.fi.pa165</groupId>
             <artifactId>bandmanager-sample-data</artifactId>
@@ -121,7 +120,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <path>/eshop</path>
+                    <path>/bandmanager</path>
                 </configuration>
             </plugin>
             <!-- try "mavn javadoc:javadoc" and see target/site/apidocs -->
