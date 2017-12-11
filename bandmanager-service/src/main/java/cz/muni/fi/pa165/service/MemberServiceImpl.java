@@ -20,12 +20,13 @@ public class MemberServiceImpl implements MemberService {
     MemberDao memberDao;
 
     @Override
-    public void registerMember(Member m, String unencryptedPassword) {
+    public Member registerMember(Member m, String unencryptedPassword) {
         if (unencryptedPassword == null || unencryptedPassword.length() < 5) {
             throw new UserServiceException("The provided password is too short");
         }
         m.setPassword(Validator.createHash(unencryptedPassword));
         memberDao.create(m);
+        return m;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void changeEmail(Member m, String newEmail) {
+    public Member changeEmail(Member m, String newEmail) {
         if (newEmail == null || !Validator.validateEmail(newEmail)) {
             throw new UserServiceException("The provided email is invalid!");
         }
@@ -63,10 +64,11 @@ public class MemberServiceImpl implements MemberService {
         }
         m.setEmail(newEmail);
         memberDao.update(m);
+        return m;
     }
 
     @Override
-    public void changePassword(Member m, String newPassword) {
+    public Member changePassword(Member m, String newPassword) {
         if (newPassword == null || newPassword.length() < 5) {
             throw new UserServiceException("The provided password is too short");
         }
@@ -75,6 +77,7 @@ public class MemberServiceImpl implements MemberService {
         }
         m.setPassword(Validator.createHash(newPassword));
         memberDao.update(m);
+        return m;
     }
 
     @Override
