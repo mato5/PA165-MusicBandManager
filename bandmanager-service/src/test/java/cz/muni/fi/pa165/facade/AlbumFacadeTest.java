@@ -187,7 +187,7 @@ public class AlbumFacadeTest extends AbstractTestNGSpringContextTests {
         BandDTO bandDTO = new BandDTO();
         bandDTO.setId(this.firstBand.getId());
 
-        this.albumFacade.findByBand(bandDTO);
+        this.albumFacade.findByBand(bandDTO.getId());
 
         verify(this.albumService).findByBand(firstBand);
         verify(this.beanMappingService).mapTo(Arrays.asList(this.albumList.get(0)), AlbumDTO.class);

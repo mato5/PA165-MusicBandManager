@@ -20,7 +20,7 @@ public interface SongFacade {
 
     Collection<SongDTO> findByName(String name);
 
-    Collection<SongDTO> findByBand(BandDTO band);
+    Collection<SongDTO> findByBand(Long bandId);
 
     void delete(Long id);
 
