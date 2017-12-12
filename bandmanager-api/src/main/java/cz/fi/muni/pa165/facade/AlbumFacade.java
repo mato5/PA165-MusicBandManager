@@ -18,7 +18,7 @@ public interface AlbumFacade {
 
     Collection<AlbumDTO> findAll();
 
-    Collection<AlbumDTO> findByBand(BandDTO bandDTO);
+    Collection<AlbumDTO> findByBand(Long bandId);
 
     void addSong(Long albumId, Long songId);
 
