@@ -20,7 +20,7 @@ public interface ManagerService {
      * @param m manager to be registered
      * @param unecryptedPassword a manager's password
      */
-    public void registerManager(Manager m, String unecryptedPassword);
+    public Manager registerManager(Manager m, String unecryptedPassword);
 
     /**
      * List all the existing managers

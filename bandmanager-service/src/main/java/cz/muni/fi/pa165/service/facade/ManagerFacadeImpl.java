@@ -46,10 +46,10 @@ public class ManagerFacadeImpl implements ManagerFacade {
 
 
     @Override
-    public void registerManager(ManagerDTO m, String unencryptedPassword) {
+    public Long registerManager(ManagerDTO m, String unencryptedPassword) {
         Manager manager = beanMappingService.mapTo(m, Manager.class);
-        managerService.registerManager(manager, unencryptedPassword);
-        m.setId(manager.getId());
+        Manager newManager = managerService.registerManager(manager, unencryptedPassword);
+        return newManager.getId();
     }
 
     @Override
@@ -93,6 +93,7 @@ public class ManagerFacadeImpl implements ManagerFacade {
         managerService.addManagedBand(manager, band);
     }
 
+
     @Override
     public void cancelManagedBand(ManagerDTO m, BandDTO b) {
         Manager manager = beanMappingService.mapTo(m, Manager.class);
@@ -117,6 +118,7 @@ public class ManagerFacadeImpl implements ManagerFacade {
         Band band = tour.getBand();
         managerService.cancelTour(manager, tour);
         bandService.cancelTour(band, tour);
+        tourService.delete(tour);
     }
 
     @Override
@@ -137,11 +139,12 @@ public class ManagerFacadeImpl implements ManagerFacade {
     //Overhaul
 
     @Override
-    public void createBand(ManagerDTO m, BandCreateDTO b) {
+    public Long createBand(ManagerDTO m, BandCreateDTO b) {
         Manager manager = beanMappingService.mapTo(m, Manager.class);
         Band newBand = beanMappingService.mapTo(b, Band.class);
         bandService.create(newBand);
         managerService.addManagedBand(manager, newBand);
+        return newBand.getId();
     }
 
     @Override
@@ -174,15 +177,26 @@ public class ManagerFacadeImpl implements ManagerFacade {
 
     //NOT SURE ABOUT THIS
     @Override
-    public void addNewSong(ManagerDTO m, SongCreateDTO s) {
+    public Long addNewSong(ManagerDTO m, SongCreateDTO s) {
         Song newSong = beanMappingService.mapTo(s, Song.class);
         songService.create(newSong);
+        return newSong.getId();
     }
 
     //NOT SURE ABOUT THIS
     @Override
-    public void addNewAlbum(ManagerDTO m, AlbumCreateDTO a) {
+    public Long addNewAlbum(ManagerDTO m, AlbumCreateDTO a) {
         Album newAlbum = beanMappingService.mapTo(a, Album.class);
+        Band band = bandService.findById(a.getBandId());
         albumService.create(newAlbum);
+        bandService.addAlbum(band,newAlbum);
+        return newAlbum.getId();
+    }
+
+    @Override
+    public void addSongToAlbum(ManagerDTO m, SongToAlbumDTO s) {
+        Song song = songService.findById(s.getSongId());
+        Album album = albumService.findById(s.getAlbumId());
+        albumService.addSong(album,song);
     }
 }
