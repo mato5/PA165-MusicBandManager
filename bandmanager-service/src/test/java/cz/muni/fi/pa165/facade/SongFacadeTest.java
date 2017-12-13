@@ -203,7 +203,7 @@ public class SongFacadeTest extends AbstractTestNGSpringContextTests {
         BandDTO bandDTO = new BandDTO();
         bandDTO.setId(this.firstBand.getId());
 
-        songFacade.findByBand(bandDTO);
+        songFacade.findByBand(bandDTO.getId());
 
         verify(this.songService).findByBand(this.firstBand);
         verify(this.beanMappingService).mapTo(this.songList.stream()

@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.service.facade;
 
 import cz.fi.muni.pa165.dto.AlbumCreateDTO;
 import cz.fi.muni.pa165.dto.AlbumDTO;
-import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.facade.AlbumFacade;
 import cz.muni.fi.pa165.entity.Album;
 import cz.muni.fi.pa165.service.AlbumService;
@@ -49,8 +48,8 @@ public class AlbumFacadeImpl implements AlbumFacade {
     }
 
     @Override
-    public Collection<AlbumDTO> findByBand(BandDTO bandDTO) {
-        return beanMappingService.mapTo(albumService.findByBand(bandService.findById(bandDTO.getId())), AlbumDTO.class);
+    public Collection<AlbumDTO> findByBand(Long bandId) {
+        return beanMappingService.mapTo(albumService.findByBand(bandService.findById(bandId)), AlbumDTO.class);
     }
 
     @Override

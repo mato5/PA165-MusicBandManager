@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.service.facade;
 
-import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.SongCreateDTO;
 import cz.fi.muni.pa165.dto.SongDTO;
 import cz.fi.muni.pa165.facade.SongFacade;
@@ -52,8 +51,8 @@ public class SongFacadeImpl implements SongFacade {
     }
 
     @Override
-    public Collection<SongDTO> findByBand(BandDTO band) {
-        return beanMappingService.mapTo(songService.findByBand(bandService.findById(band.getId())), SongDTO.class);
+    public Collection<SongDTO> findByBand(Long bandId) {
+        return beanMappingService.mapTo(songService.findByBand(bandService.findById(bandId)), SongDTO.class);
     }
 
     @Override
