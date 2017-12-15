@@ -22,12 +22,13 @@ public class ManagerServiceImpl implements ManagerService {
     private ManagerDao managerDao;
 
     @Override
-    public void registerManager(Manager m, String unencryptedPassword) {
+    public Manager registerManager(Manager m, String unencryptedPassword) {
         if(unencryptedPassword == null || unencryptedPassword.length() < 5){
             throw new UserServiceException("The provided password is too short");
         }
         m.setPassword(Validator.createHash(unencryptedPassword));
         managerDao.create(m);
+        return m;
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.Collection;
  */
 public interface ManagerFacade {
 
-    void registerManager(ManagerDTO m, String unencryptedPassword);
+    Long registerManager(ManagerDTO m, String unencryptedPassword);
 
     Collection<ManagerDTO> getAllManagers();
 
@@ -23,20 +23,44 @@ public interface ManagerFacade {
 
     void changePassword(UserChangePasswordDTO u);
 
+    /**
+     * DEPRECATED
+     *
+     * @param m
+     * @param b
+     */
     void addManagedBand(ManagerDTO m, BandDTO b);
 
+    /**
+     * DEPRECATED
+     *
+     * @param m
+     * @param b
+     */
     void cancelManagedBand(ManagerDTO m, BandDTO b);
 
     void addTour(ManagerDTO m, TourDTO t);
 
     void cancelTour(ManagerDTO m, TourDTO t);
 
+    /**
+     * DEPRECATED
+     *
+     * @param m
+     * @param b
+     */
     void addBandInvite(ManagerDTO m, BandInviteDTO b);
 
+    /**
+     * DEPRECATED
+     *
+     * @param m
+     * @param b
+     */
     void cancelBandInvite(ManagerDTO m, BandInviteDTO b);
 
     //Overhaul
-    void createBand(ManagerDTO m, BandCreateDTO b);
+    Long createBand(ManagerDTO m, BandCreateDTO b);
 
     void sendBandInvite(ManagerDTO m, BandInviteDTO b);
 
@@ -46,8 +70,10 @@ public interface ManagerFacade {
 
     void changeBandLogo(ManagerDTO m, BandLogoDTO b);
 
-    void addNewSong(ManagerDTO m, SongCreateDTO s);
+    Long addNewSong(ManagerDTO m, SongCreateDTO s);
 
-    void addNewAlbum(ManagerDTO m, AlbumCreateDTO a);
+    Long addNewAlbum(ManagerDTO m, AlbumCreateDTO a);
+
+    void addSongToAlbum(ManagerDTO m, SongToAlbumDTO s);
 
 }
