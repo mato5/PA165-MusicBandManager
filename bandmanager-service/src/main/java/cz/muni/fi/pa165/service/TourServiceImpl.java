@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.entity.Tour;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -72,5 +73,12 @@ public class TourServiceImpl implements TourService {
     @Override
     public void delete(Tour tour) {
         this.tourDao.delete(tour);
+    }
+
+    @Override
+    public Tour setDatetime(Tour tour, Date dateTime) {
+        tour.setDatetime(dateTime);
+        this.tourDao.update(tour);
+        return tour;
     }
 }

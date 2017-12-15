@@ -1,9 +1,15 @@
 package cz.fi.muni.pa165.dto;
 
+import java.util.Date;
+
 /**
  * @author Alexander Kromka
  */
 public class TourDTO {
+
+    private String name;
+    private String cityName;
+    private Date datetime;
     private Long id;
     private BandDTO band;
     private ManagerDTO manager;
@@ -32,6 +38,30 @@ public class TourDTO {
         this.manager = manager;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public Date getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,14 +69,20 @@ public class TourDTO {
 
         TourDTO tourDTO = (TourDTO) o;
 
-        if (id != null ? !id.equals(tourDTO.getId()) : tourDTO.getId() != null) return false;
-        if (manager != null ? !manager.equals(tourDTO.getManager()) : tourDTO.getManager() != null) return false;
-        return band != null ? band.equals(tourDTO.getBand()) : tourDTO.getBand() == null;
+        if (name != null ? !name.equals(tourDTO.name) : tourDTO.name != null) return false;
+        if (cityName != null ? !cityName.equals(tourDTO.cityName) : tourDTO.cityName != null) return false;
+        if (datetime != null ? !datetime.equals(tourDTO.datetime) : tourDTO.datetime != null) return false;
+        if (id != null ? !id.equals(tourDTO.id) : tourDTO.id != null) return false;
+        if (band != null ? !band.equals(tourDTO.band) : tourDTO.band != null) return false;
+        return manager != null ? manager.equals(tourDTO.manager) : tourDTO.manager == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (cityName != null ? cityName.hashCode() : 0);
+        result = 31 * result + (datetime != null ? datetime.hashCode() : 0);
+        result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (band != null ? band.hashCode() : 0);
         result = 31 * result + (manager != null ? manager.hashCode() : 0);
         return result;

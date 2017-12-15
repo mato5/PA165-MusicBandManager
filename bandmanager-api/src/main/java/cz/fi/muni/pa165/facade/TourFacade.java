@@ -1,29 +1,31 @@
 package cz.fi.muni.pa165.facade;
 
-import cz.fi.muni.pa165.dto.BandDTO;
-import cz.fi.muni.pa165.dto.ManagerDTO;
+import cz.fi.muni.pa165.dto.TourCreateDTO;
 import cz.fi.muni.pa165.dto.TourDTO;
 
 import java.util.Collection;
+import java.util.Date;
 
 public interface TourFacade {
-    TourDTO create(TourDTO tour);
+    Long create(TourCreateDTO tourCreateDTO);
 
     Collection<TourDTO> getAllTours();
 
     TourDTO findById(Long id);
 
-    Collection<TourDTO> findByManager(ManagerDTO manager);
+    Collection<TourDTO> findByManager(Long managerId);
 
-    Collection<TourDTO> findByBand(BandDTO band);
+    Collection<TourDTO> findByBand(Long bandId);
 
-    TourDTO setName(TourDTO tour, String name);
+    TourDTO setName(Long tourId, String name);
 
-    TourDTO setCity(TourDTO tour, String name);
+    TourDTO setCity(Long tourId, String name);
 
-    TourDTO setManager(TourDTO tour, ManagerDTO manager);
+    TourDTO setManager(Long tourId, Long managerId);
 
-    TourDTO setBand(TourDTO tour, BandDTO band);
+    TourDTO setBand(Long tourId, Long bandId);
 
-    void delete(TourDTO tour);
+    TourDTO setDatetime(Long tourId, Date dateTime);
+
+    void delete(Long tourId);
 }
