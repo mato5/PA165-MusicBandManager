@@ -75,4 +75,11 @@ public class Member extends User {
         result = prime * result + ((this.getEmail() == null) ? 0 : this.getEmail().hashCode());
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                getEmail() +
+                '}';
+    }
 }
