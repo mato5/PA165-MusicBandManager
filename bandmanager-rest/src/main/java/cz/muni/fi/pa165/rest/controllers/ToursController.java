@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.rest.controllers;
 
-
 import cz.fi.muni.pa165.dto.TourCreateDTO;
 import cz.fi.muni.pa165.dto.TourDTO;
 import cz.fi.muni.pa165.facade.TourFacade;
@@ -21,7 +20,6 @@ import java.util.List;
 /**
  * @author Iurii xkuznetc Kuznetcov
  */
-
 @RestController
 @RequestMapping(ApiURIPaths.ROOT_URI_TOURS)
 public class ToursController {
@@ -92,7 +90,6 @@ public class ToursController {
         }
     }
 
-
     @RequestMapping(value = "change_name/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final void changeName(@PathVariable("id") long id, @RequestBody String newName) {
@@ -115,7 +112,6 @@ public class ToursController {
         }
     }
 
-
     @RequestMapping(value = "change_band/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final void changeBand(@PathVariable("id") long id, @RequestBody Long newBandId) {
@@ -127,7 +123,7 @@ public class ToursController {
         }
     }
 
-    @RequestMapping(value = "change_band/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "change_datetime/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final void changeDatetime(@PathVariable("id") long id, @RequestBody Date newDatetime) {
         logger.debug("REST: changeDatetime(" + String.valueOf(id) + ", newDatetime = " + String.valueOf(newDatetime) + ").");

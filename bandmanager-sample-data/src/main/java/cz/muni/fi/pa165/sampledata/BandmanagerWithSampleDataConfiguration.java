@@ -28,9 +28,8 @@ public class BandmanagerWithSampleDataConfiguration {
 
     @PostConstruct
     public void dataLoading() throws IOException {
-        logger.debug("Sample data loading begin...");
-        // TODO: implement sample data loading through entities facades.
+        logger.info("Sample data loading begin...");
         sampleDataLoadingFacade.loadData();
-        logger.debug("Sample data loading complete.");
+        logger.info("Sample data loading complete.");
     }
 }
