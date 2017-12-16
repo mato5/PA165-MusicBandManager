@@ -23,7 +23,8 @@ public class MainController {
 
         resourcesMap.put("songs_uri", ApiURIPaths.ROOT_URI_SONGS);
         resourcesMap.put("albums_uri", ApiURIPaths.ROOT_URI_ALBUMS);
-
+        resourcesMap.put("tours_uri", ApiURIPaths.ROOT_URI_TOURS);
+        
         return Collections.unmodifiableMap(resourcesMap);
 
     }

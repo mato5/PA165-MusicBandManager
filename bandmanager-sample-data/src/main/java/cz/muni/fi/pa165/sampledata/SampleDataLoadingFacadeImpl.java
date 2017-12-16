@@ -170,15 +170,13 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         mem.setEmail(email);
         mem.setBand(band);
         mem.setRole(role);
-        mem.setPassword(password);
-        return this.memberService.findMemberById(this.memberService.registerMember(mem, "").getId());
+        return this.memberService.findMemberById(this.memberService.registerMember(mem, password).getId());
     }
     
     private Manager manager(String name, String email, String password) {
         Manager mng = new Manager();
         mng.setName(name);
         mng.setEmail(email);
-        mng.setPassword(password);
-        return this.managerService.findManagerById(this.managerService.registerManager(mng, mng.getPassword()).getId());
+        return this.managerService.findManagerById(this.managerService.registerManager(mng, password).getId());
     }
 }
