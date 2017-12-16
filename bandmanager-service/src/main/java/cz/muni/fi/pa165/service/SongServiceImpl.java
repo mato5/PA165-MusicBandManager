@@ -81,6 +81,7 @@ public class SongServiceImpl implements SongService {
                             + song.getId());
 
         }
+        song.setBand(band);
 
         songDao.update(song);
     }
