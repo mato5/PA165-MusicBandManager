@@ -167,10 +167,6 @@ public class Band {
                 ", name='" + name + '\'' +
                 ", logoURI='" + logoURI + '\'' +
                 ", genre=" + genre +
-                ", manager=" + manager +
-                ", members=" + members +
-                ", albums=" + albums +
-                ", tours=" + tours +
                 '}';
     }
 }

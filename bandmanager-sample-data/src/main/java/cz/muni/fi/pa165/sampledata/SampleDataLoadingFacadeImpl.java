@@ -55,7 +55,6 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     
     @Override
     public void loadData() throws IOException {
-        // TODO: implement sample data loading through entities facades.
         Manager williams = this.manager("Allan Williams", "willy@tiscali.com", "iloveringo");
         Manager oldham = this.manager("Andrew Oldham", "a_oldham@rollingstones.com", "IWanaBeYourMan");
         Manager chen = this.manager("Lennie Chen", "chen@bigboss.com", "lenieChenPass");
