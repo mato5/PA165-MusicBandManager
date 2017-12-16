@@ -15,6 +15,7 @@ import cz.muni.fi.pa165.service.BandService;
 import cz.muni.fi.pa165.service.BeanMappingService;
 import cz.muni.fi.pa165.service.SongService;
 import cz.muni.fi.pa165.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.service.facade.SongFacadeImpl;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ import static org.mockito.Mockito.*;
  */
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class SongFacadeTest extends AbstractTestNGSpringContextTests {
+public class SongFacadeTest {
 
     private BandService bandService;
 
@@ -50,7 +51,7 @@ public class SongFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     @InjectMocks
-    private SongFacade songFacade;
+    private SongFacadeImpl songFacade;
 
     private Manager firstManager;
     private Manager secondManager;
