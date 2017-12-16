@@ -15,12 +15,14 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author kami
  */
 @Service
+@Transactional
 public class BandFacadeImpl implements BandFacade {
     
     final static Logger logger = LoggerFactory.getLogger(SongFacadeImpl.class);

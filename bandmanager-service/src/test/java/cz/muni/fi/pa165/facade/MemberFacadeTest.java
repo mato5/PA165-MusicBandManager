@@ -38,7 +38,7 @@ import static org.mockito.Mockito.when;
  * @author Matej Sojak
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class MemberFacadeTest extends AbstractTestNGSpringContextTests {
+public class MemberFacadeTest /*extends AbstractTestNGSpringContextTests*/ {
 
     @Mock
     private MemberService memberService;
@@ -57,7 +57,7 @@ public class MemberFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     @InjectMocks
-    private MemberFacade memberFacade;
+    private MemberFacadeImpl memberFacade;
 
 
     //Member1

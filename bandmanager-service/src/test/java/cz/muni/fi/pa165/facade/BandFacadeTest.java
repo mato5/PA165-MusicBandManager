@@ -14,6 +14,8 @@ import cz.muni.fi.pa165.service.config.ServiceConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+
+import cz.muni.fi.pa165.service.facade.BandFacadeImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.hibernate.service.spi.ServiceException;
@@ -41,7 +43,7 @@ import static org.mockito.Mockito.verify;
  * @author Miroslav Kadlec
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-public class BandFacadeTest extends AbstractTestNGSpringContextTests {
+public class BandFacadeTest {
 
     @Mock
     private BandService bandService;
@@ -54,7 +56,7 @@ public class BandFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     @InjectMocks
-    private BandFacade bandFacade;
+    private BandFacadeImpl bandFacade;
 
     @BeforeClass
     public void setupClass() throws ServiceException {

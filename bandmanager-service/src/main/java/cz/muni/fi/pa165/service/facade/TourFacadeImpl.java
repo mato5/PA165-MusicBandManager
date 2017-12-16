@@ -13,12 +13,14 @@ import cz.muni.fi.pa165.service.TourService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Date;
 
 @Service
+@Transactional
 public class TourFacadeImpl implements TourFacade {
 
     final static Logger logger = LoggerFactory.getLogger(TourFacadeImpl.class);

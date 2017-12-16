@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import java.util.Collection;
 
 @Service
+@Transactional
 public class MemberFacadeImpl implements MemberFacade {
 
     final static Logger log = LoggerFactory.getLogger(MemberFacadeImpl.class);
