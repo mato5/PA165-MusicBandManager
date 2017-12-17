@@ -384,8 +384,9 @@ public class ManagerFacadeTest{
 
     @Test
     public void addTourTest() throws Exception {
-        when(beanMappingService.mapTo(managerDTO, Manager.class)).thenReturn(manager);
-        when(beanMappingService.mapTo(tourDTO, Tour.class)).thenReturn(tour);
+        when(managerService.findManagerById(managerId)).thenReturn(manager);
+        when(tourService.findById(1L)).thenReturn(tour);
+
         managerFacade.addTour(managerDTO, tourDTO);
 
         verify(managerService).addTour(eq(manager), eq(tour));
@@ -395,8 +396,8 @@ public class ManagerFacadeTest{
 
     @Test
     public void cancelTourTest() throws Exception {
-        when(beanMappingService.mapTo(managerDTO, Manager.class)).thenReturn(manager);
-        when(beanMappingService.mapTo(tourDTO, Tour.class)).thenReturn(tour);
+        when(managerService.findManagerById(managerId)).thenReturn(manager);
+        when(tourService.findById(1L)).thenReturn(tour);
         managerFacade.cancelTour(managerDTO, tourDTO);
 
         verify(managerService).cancelTour(eq(manager), eq(tour));
@@ -406,9 +407,9 @@ public class ManagerFacadeTest{
 
     @Test
     public void createBandTest() throws Exception {
-        when(beanMappingService.mapTo(managerDTO, Manager.class)).thenReturn(manager);
+        when(managerService.findManagerById(managerId)).thenReturn(manager);
         when(beanMappingService.mapTo(bandCreateDTO, Band.class)).thenReturn(band);
-
+        when(bandService.create(band)).thenReturn(band);
         Long returnedId = managerFacade.createBand(managerDTO, bandCreateDTO);
         Assert.assertEquals(returnedId.longValue(), bandId.longValue());
 
@@ -418,8 +419,10 @@ public class ManagerFacadeTest{
 
     @Test
     public void sendBandInviteTest() throws Exception {
-        when(beanMappingService.mapTo(managerDTO, Manager.class)).thenReturn(manager);
+        when(managerService.findManagerById(managerId)).thenReturn(manager);
         when(beanMappingService.mapTo(bandInviteDTO, BandInvite.class)).thenReturn(bandInvite);
+        when(memberService.findMemberById(memberId)).thenReturn(member);
+        when(bandInviteService.create(bandInvite)).thenReturn(bandInvite);
         managerFacade.sendBandInvite(managerDTO, bandInviteDTO);
 
         verify(bandInviteService).create(bandInvite);
@@ -465,6 +468,7 @@ public class ManagerFacadeTest{
     public void addNewAlbumTest() throws Exception {
         when(beanMappingService.mapTo(albumCreateDTO, Album.class)).thenReturn(album);
         when(bandService.findById(bandId)).thenReturn(band);
+        when(albumService.create(album)).thenReturn(album);
 
         Long returnedId = managerFacade.addNewAlbum(managerDTO,albumCreateDTO);
         Assert.assertEquals(returnedId.longValue(), albumId.longValue());
