@@ -1,10 +1,12 @@
 package cz.muni.fi.pa165.service;
 
 
+import cz.fi.muni.pa165.dto.TourDTO;
+import cz.muni.fi.pa165.entity.Tour;
+import org.dozer.Mapper;
+
 import java.util.Collection;
 import java.util.List;
-
-import org.dozer.Mapper;
 
 
 public interface BeanMappingService {
@@ -14,4 +16,8 @@ public interface BeanMappingService {
     public <T> T mapTo(Object u, Class<T> mapToClass);
 
     public Mapper getMapper();
+
+    TourDTO mapTour(Tour tour, Class<TourDTO> tourDTOClass);
+
+    Collection<TourDTO> mapTours(Collection<Tour> tours, Class<TourDTO> tourDTOClass);
 }

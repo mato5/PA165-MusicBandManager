@@ -51,37 +51,37 @@ public class TourFacadeImpl implements TourFacade {
 
     @Override
     public Collection<TourDTO> getAllTours() {
-        return beanMappingService.mapTo(tourService.findAll(), TourDTO.class);
+        return beanMappingService.mapTours(tourService.findAll(), TourDTO.class);
     }
 
     @Override
     public TourDTO findById(Long id) {
         Tour tour = tourService.findById(id);
-        return (tour == null) ? null : beanMappingService.mapTo(tour, TourDTO.class);
+        return (tour == null) ? null : beanMappingService.mapTour(tour, TourDTO.class);
     }
 
     @Override
     public Collection<TourDTO> findByManager(Long managerId) {
-        return beanMappingService.mapTo(tourService.findByManager(managerService.findManagerById(managerId)), TourDTO.class);
+        return beanMappingService.mapTours(tourService.findByManager(managerService.findManagerById(managerId)), TourDTO.class);
     }
 
     @Override
     public Collection<TourDTO> findByBand(Long bandId) {
-        return beanMappingService.mapTo(tourService.findByBand(bandService.findById(bandId)), TourDTO.class);
+        return beanMappingService.mapTours(tourService.findByBand(bandService.findById(bandId)), TourDTO.class);
     }
 
     @Override
     public TourDTO setName(Long tourId, String tourName) {
         Tour tour = tourService.findById(tourId);
         tourService.setName(tour, tourName);
-        return beanMappingService.mapTo(tour, TourDTO.class);
+        return beanMappingService.mapTour(tour, TourDTO.class);
     }
 
     @Override
     public TourDTO setCity(Long tourId, String cityName) {
         Tour tour = tourService.findById(tourId);
         tourService.setCity(tour, cityName);
-        return beanMappingService.mapTo(tour, TourDTO.class);
+        return beanMappingService.mapTour(tour, TourDTO.class);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class TourFacadeImpl implements TourFacade {
         Tour tour = tourService.findById(tourId);
         Manager manager = managerService.findManagerById(managerId);
         tourService.setManager(tour, manager);
-        return beanMappingService.mapTo(tour, TourDTO.class);
+        return beanMappingService.mapTour(tour, TourDTO.class);
     }
 
     @Override
@@ -97,14 +97,14 @@ public class TourFacadeImpl implements TourFacade {
         Tour tour = tourService.findById(tourId);
         Band band = bandService.findById(bandId);
         tourService.setBand(tour, band);
-        return beanMappingService.mapTo(tour, TourDTO.class);
+        return beanMappingService.mapTour(tour, TourDTO.class);
     }
 
     @Override
     public TourDTO setDatetime(Long tourId, Date dateTime) {
         Tour tour = tourService.findById(tourId);
         tourService.setDatetime(tour, dateTime);
-        return beanMappingService.mapTo(tour, TourDTO.class);
+        return beanMappingService.mapTour(tour, TourDTO.class);
     }
 
     @Override
