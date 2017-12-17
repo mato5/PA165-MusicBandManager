@@ -23,6 +23,10 @@ import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Iurii xkuznetc Kuznetcov
+ */
+
 @RestController
 @ExposesResourceFor(TourDTO.class)
 @RequestMapping("/tours")
