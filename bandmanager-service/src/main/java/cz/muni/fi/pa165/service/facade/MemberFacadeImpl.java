@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -88,7 +89,7 @@ public class MemberFacadeImpl implements MemberFacade {
         BandInvite b = null;
         Band band = null;
         for (BandInvite inv : m.getBandInvites()) {
-            if (inv.getId() == bandInvId) {
+            if (Objects.equals(inv.getId(), bandInvId)) {
                 b = inv;
                 band = inv.getBand();
             }
@@ -103,7 +104,7 @@ public class MemberFacadeImpl implements MemberFacade {
         Member m = memberService.findMemberById(userId);
         BandInvite b = null;
         for (BandInvite inv : m.getBandInvites()) {
-            if (inv.getId() == bandInvId) {
+            if (Objects.equals(inv.getId(), bandInvId)) {
                 b = inv;
             }
         }
