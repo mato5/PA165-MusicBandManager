@@ -134,7 +134,7 @@ public class MemberFacadeImpl implements MemberFacade {
             throw new UserServiceException("This user is not a member of any band!");
         }
         Band b = bandService.findById(m.getBand().getId());
-        return beanMappingService.mapTo(tourService.findByBand(b), TourDTO.class);
+        return beanMappingService.mapTours(tourService.findByBand(b), TourDTO.class);
     }
 }
 
