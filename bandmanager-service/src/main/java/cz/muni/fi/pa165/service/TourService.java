@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.Manager;
 import cz.muni.fi.pa165.entity.Tour;
 
+import java.util.Date;
 import java.util.List;
 
 public interface TourService {
@@ -26,4 +27,6 @@ public interface TourService {
     public Tour setBand(Tour tour, Band band);
 
     public void delete(Tour tour);
+
+    Tour setDatetime(Tour tour, Date dateTime);
 }

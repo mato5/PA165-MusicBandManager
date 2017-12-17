@@ -28,7 +28,7 @@ public class Song implements Serializable {
     private Long duration;
     
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Band band;
     
     public Long getId() {

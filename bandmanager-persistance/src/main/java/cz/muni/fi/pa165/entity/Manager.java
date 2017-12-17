@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -84,7 +86,7 @@ public class Manager extends User {
     @Override
     public String toString() {
         return "Manager{" +
-                "bands=" + bands +
+                getEmail() +
                 '}';
     }
 }

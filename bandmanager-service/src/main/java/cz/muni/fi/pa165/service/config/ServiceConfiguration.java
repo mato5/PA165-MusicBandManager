@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(PersistanceTestingContext.class)
-@ComponentScan(basePackageClasses = {SongServiceImpl.class, AlbumServiceImpl.class})
+@ComponentScan("cz.fi.muni.pa165")
 public class ServiceConfiguration {
     @Bean
     public Mapper dozer() {
@@ -24,7 +24,7 @@ public class ServiceConfiguration {
         dozer.addMapping(new DozerCustomConfig());
         return dozer;
     }
-    
+
     public class DozerCustomConfig extends BeanMappingBuilder {
         @Override
         protected void configure() {

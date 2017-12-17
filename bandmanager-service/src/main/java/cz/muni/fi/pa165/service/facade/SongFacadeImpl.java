@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.service.facade;
 
-import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.SongCreateDTO;
 import cz.fi.muni.pa165.dto.SongDTO;
 import cz.fi.muni.pa165.facade.SongFacade;
@@ -38,7 +37,7 @@ public class SongFacadeImpl implements SongFacade {
 
 
     @Override
-    public SongDTO findSongById(Long id) {
+    public SongDTO findById(Long id) {
         Song song = songService.findById(id);
         return (song == null) ? null : beanMappingService.mapTo(song, SongDTO.class);
     }
@@ -49,18 +48,18 @@ public class SongFacadeImpl implements SongFacade {
     }
 
     @Override
-    public Collection<SongDTO> findSongsByName(String name) {
+    public Collection<SongDTO> findByName(String name) {
         return beanMappingService.mapTo(songService.findByName(name), SongDTO.class);
     }
 
     @Override
-    public Collection<SongDTO> findSongsByBand(BandDTO band) {
-        return beanMappingService.mapTo(songService.findByBand(bandService.findById(band.getId())), SongDTO.class);
+    public Collection<SongDTO> findByBand(Long bandId) {
+        return beanMappingService.mapTo(songService.findByBand(bandService.findById(bandId)), SongDTO.class);
     }
 
     @Override
-    public void detete(SongDTO songDTO) {
-        songService.deleteSong(songService.findById(songDTO.getId()));
+    public void delete(Long id) {
+        songService.delete(songService.findById(id));
     }
 
     @Override
@@ -69,21 +68,21 @@ public class SongFacadeImpl implements SongFacade {
         song.setName(songCreateDTO.getName());
         song.setDuration(songCreateDTO.getDuration());
         song.setBand(bandService.findById(songCreateDTO.getBandId()));
-        Song newSong = songService.createSong(song);
+        Song newSong = songService.create(song);
         return newSong.getId();
     }
 
     @Override
-    public void changeDuration(SongDTO songDTO, Long newsongDuration) {
+    public void changeDuration(Long id, Long newsongDuration) {
 
-        Song song = songService.findById(songDTO.getId());
+        Song song = songService.findById(id);
         songService.changeDuration(song, newsongDuration);
     }
 
     @Override
-    public void changeBand(SongDTO songDTO, BandDTO newBandDTO) {
-        Song song = songService.findById(songDTO.getId());
-        Band band = bandService.findById(newBandDTO.getId());
+    public void changeBand(Long id, Long newBandId) {
+        Song song = songService.findById(id);
+        Band band = bandService.findById(newBandId);
         songService.changeBand(song, band);
     }
 

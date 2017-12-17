@@ -116,6 +116,15 @@ public class Band {
         albums.remove(album);
     }
 
+    public void addTour(Tour tour) {
+        tours.add(tour);
+        tour.setBand(this);
+    }
+
+    public void removeTour(Tour tour) {
+        tours.remove(tour);
+    }
+
     public void addBandInvite(BandInvite bandInvite) {
         this.bandInvites.add(bandInvite);
         bandInvite.setBand(this);
@@ -158,10 +167,6 @@ public class Band {
                 ", name='" + name + '\'' +
                 ", logoURI='" + logoURI + '\'' +
                 ", genre=" + genre +
-                ", manager=" + manager +
-                ", members=" + members +
-                ", albums=" + albums +
-                ", tours=" + tours +
                 '}';
     }
 }

@@ -9,7 +9,7 @@ import java.util.Collection;
  */
 public interface ManagerFacade {
 
-    void registerManager(ManagerDTO m, String unencryptedPassword);
+    Long registerManager(ManagerDTO m, String unencryptedPassword);
 
     Collection<ManagerDTO> getAllManagers();
 
@@ -23,15 +23,57 @@ public interface ManagerFacade {
 
     void changePassword(UserChangePasswordDTO u);
 
+    /**
+     * DEPRECATED
+     *
+     * @param m
+     * @param b
+     */
     void addManagedBand(ManagerDTO m, BandDTO b);
 
+    /**
+     * DEPRECATED
+     *
+     * @param m
+     * @param b
+     */
     void cancelManagedBand(ManagerDTO m, BandDTO b);
 
     void addTour(ManagerDTO m, TourDTO t);
 
     void cancelTour(ManagerDTO m, TourDTO t);
 
+    /**
+     * DEPRECATED
+     *
+     * @param m
+     * @param b
+     */
     void addBandInvite(ManagerDTO m, BandInviteDTO b);
 
+    /**
+     * DEPRECATED
+     *
+     * @param m
+     * @param b
+     */
     void cancelBandInvite(ManagerDTO m, BandInviteDTO b);
+
+    //Overhaul
+    Long createBand(ManagerDTO m, BandCreateDTO b);
+
+    void sendBandInvite(ManagerDTO m, BandInviteDTO b);
+
+    void changeBandGenre(ManagerDTO m, BandGengreDTO b);
+
+    void changeBandName(ManagerDTO m, BandNameDTO b);
+
+    void changeBandLogo(ManagerDTO m, BandLogoDTO b);
+
+    Long addNewSong(ManagerDTO m, SongCreateDTO s);
+
+    Long addNewAlbum(ManagerDTO m, AlbumCreateDTO a);
+
+    void addSongToAlbum(ManagerDTO m, SongToAlbumDTO s);
+
 }

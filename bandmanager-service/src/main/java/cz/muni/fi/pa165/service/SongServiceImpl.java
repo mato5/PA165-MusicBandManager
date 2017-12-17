@@ -5,7 +5,9 @@ import cz.muni.fi.pa165.dao.BandDao;
 import cz.muni.fi.pa165.dao.SongDao;
 import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.Song;
-import cz.muni.fi.pa165.service.SongService;
+import cz.muni.fi.pa165.service.facade.SongFacadeImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Service
 public class SongServiceImpl implements SongService {
+
+    final static Logger logger = LoggerFactory.getLogger(SongServiceImpl.class);
 
     @Inject
     private SongDao songDao;
@@ -35,7 +39,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Song createSong(Song song) {
+    public Song create(Song song) {
         songDao.create(song);
         return song;
     }
@@ -77,12 +81,13 @@ public class SongServiceImpl implements SongService {
                             + song.getId());
 
         }
+        song.setBand(band);
 
         songDao.update(song);
     }
 
     @Override
-    public void deleteSong(Song song) {
+    public void delete(Song song) {
         songDao.delete(song);
     }
 }

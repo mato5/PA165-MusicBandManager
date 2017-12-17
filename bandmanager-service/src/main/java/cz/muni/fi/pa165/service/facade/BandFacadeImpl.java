@@ -14,11 +14,15 @@ import java.util.List;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author kami
  */
+@Service
+@Transactional
 public class BandFacadeImpl implements BandFacade {
     
     final static Logger logger = LoggerFactory.getLogger(SongFacadeImpl.class);
@@ -33,8 +37,8 @@ public class BandFacadeImpl implements BandFacade {
     private BeanMappingService beanMappingService;
     
     @Override
-    public BandDTO findById(Long id) {
-        Band band = this.bandService.findById(id);
+    public BandDTO findById(Long bandId) {
+        Band band = this.bandService.findById(bandId);
         return (band == null) ? null : beanMappingService.mapTo(band, BandDTO.class);
     }
 
@@ -46,13 +50,13 @@ public class BandFacadeImpl implements BandFacade {
         band.setLogoURI(bandCreateDTO.getLogoURI());
         band.setManager(this.managerService.findManagerById(bandCreateDTO.getManagerId()));
         band.setGenre(band.getGenre());
-        this.bandService.create(band);
-        return band.getId();
+        Band newBand = this.bandService.create(band);
+        return newBand.getId();
     }
     
     @Override
-    public void delete(BandDTO bandDTO) {
-        this.bandService.delete(this.bandService.findById(bandDTO.getId()));
+    public void delete(Long bandId) {
+        this.bandService.delete(this.bandService.findById(bandId));
     }
     
     @Override

@@ -1,8 +1,6 @@
 package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.entity.Band;
-import cz.muni.fi.pa165.entity.Manager;
-import cz.muni.fi.pa165.entity.Member;
+import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.Genre;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +64,14 @@ public interface BandService {
      * @return  updated Band 
      */
     public Band addMember(Band band, Member member);
-
+    
+    /**
+     * Adds Album to given Band
+     * @param   band Band to add member to
+     * @param   album Album to be added
+     * @return  updated Band 
+     */
+    public Band addAlbum(Band band, Album album);
     /**
      * Removes Member from given Band
      * @param   band Band to remove member from
@@ -74,6 +79,14 @@ public interface BandService {
      * @return  updated Band 
      */
     public Band removeMember(Band band, Member member);
+    
+    /**
+     * Removes Album from given Band
+     * @param   band Band to remove member from
+     * @param   album album to be removed
+     * @return  updated Band 
+     */
+    public Band removeAlbum(Band band, Album album);
     
     /**
      * Changes Manager of given Band
@@ -84,10 +97,28 @@ public interface BandService {
     public Band changeManager(Band band, Manager manager);
     
     /**
+     * Changes logo uri of given Band
+     * @param   band Band to be updated
+     * @param   logoUri new uri
+     * @return  updated Band 
+     */
+    public Band changeLogoUri(Band band, String logoUri);
+    /**
+     * Changes name of given Band
+     * @param   band Band to be updated
+     * @param   name new band name
+     * @return  updated Band 
+     */
+    public Band changeName(Band band, String name);
+    /**
      * Changes Genre of given Band
      * @param   band Band to be updated
      * @param   genre new Genre
      * @return  updated Band 
      */
     public Band changeGenre(Band band, Genre genre);
+
+    Band addTour(Band band, Tour tour);
+
+    Band cancelTour(Band band, Tour tour);
 }
