@@ -89,23 +89,23 @@ public class ManagerFacadeImpl implements ManagerFacade {
 
     @Override
     public void addManagedBand(ManagerDTO m, BandDTO b) {
-        Manager manager = beanMappingService.mapTo(m, Manager.class);
-        Band band = beanMappingService.mapTo(b, Band.class);
+        Manager manager = managerService.findManagerById(m.getId());
+        Band band = bandService.findById(b.getId());
         managerService.addManagedBand(manager, band);
     }
 
 
     @Override
     public void cancelManagedBand(ManagerDTO m, BandDTO b) {
-        Manager manager = beanMappingService.mapTo(m, Manager.class);
-        Band band = beanMappingService.mapTo(b, Band.class);
+        Manager manager = managerService.findManagerById(m.getId());
+        Band band = bandService.findById(b.getId());
         managerService.cancelManagedBand(manager, band);
     }
 
     @Override
     public void addTour(ManagerDTO m, TourDTO t) {
-        Manager manager = beanMappingService.mapTo(m, Manager.class);
-        Tour tour = beanMappingService.mapTo(t, Tour.class);
+        Manager manager = managerService.findManagerById(m.getId());
+        Tour tour = tourService.findById(t.getId());
         Band band = tour.getBand();
         tourService.create(tour);
         managerService.addTour(manager, tour);
@@ -114,8 +114,8 @@ public class ManagerFacadeImpl implements ManagerFacade {
 
     @Override
     public void cancelTour(ManagerDTO m, TourDTO t) {
-        Manager manager = beanMappingService.mapTo(m, Manager.class);
-        Tour tour = beanMappingService.mapTo(t, Tour.class);
+        Manager manager = managerService.findManagerById(m.getId());
+        Tour tour = tourService.findById(t.getId());
         Band band = tour.getBand();
         managerService.cancelTour(manager, tour);
         bandService.cancelTour(band, tour);
@@ -124,15 +124,15 @@ public class ManagerFacadeImpl implements ManagerFacade {
 
     @Override
     public void addBandInvite(ManagerDTO m, BandInviteDTO b) {
-        Manager manager = beanMappingService.mapTo(m, Manager.class);
-        BandInvite invite = beanMappingService.mapTo(b, BandInvite.class);
+        Manager manager = managerService.findManagerById(m.getId());
+        BandInvite invite = bandInviteService.findById(b.getId());
         managerService.addBandInvite(manager, invite);
     }
 
     @Override
     public void cancelBandInvite(ManagerDTO m, BandInviteDTO b) {
-        Manager manager = beanMappingService.mapTo(m, Manager.class);
-        BandInvite invite = beanMappingService.mapTo(b, BandInvite.class);
+        Manager manager = managerService.findManagerById(m.getId());
+        BandInvite invite = bandInviteService.findById(b.getId());
         managerService.cancelBandInvite(manager, invite);
     }
 
@@ -141,21 +141,22 @@ public class ManagerFacadeImpl implements ManagerFacade {
 
     @Override
     public Long createBand(ManagerDTO m, BandCreateDTO b) {
-        Manager manager = beanMappingService.mapTo(m, Manager.class);
+        Manager manager = managerService.findManagerById(m.getId());
         Band newBand = beanMappingService.mapTo(b, Band.class);
-        bandService.create(newBand);
+        newBand = bandService.create(newBand);
         managerService.addManagedBand(manager, newBand);
         return newBand.getId();
     }
 
     @Override
-    public void sendBandInvite(ManagerDTO m, BandInviteDTO b) {
-        Manager manager = beanMappingService.mapTo(m, Manager.class);
+    public Long sendBandInvite(ManagerDTO m, BandInviteDTO b) {
+        Manager manager = managerService.findManagerById(m.getId());
         BandInvite invite = beanMappingService.mapTo(b, BandInvite.class);
-        Member member = invite.getInvitedMember();
-        bandInviteService.create(invite);
+        Member member = memberService.findMemberById(b.getMember().getId());
+        invite = bandInviteService.create(invite);
         managerService.addBandInvite(manager, invite);
         memberService.sendBandInvite(member, invite);
+        return invite.getId();
     }
 
     @Override
@@ -189,7 +190,7 @@ public class ManagerFacadeImpl implements ManagerFacade {
     public Long addNewAlbum(ManagerDTO m, AlbumCreateDTO a) {
         Album newAlbum = beanMappingService.mapTo(a, Album.class);
         Band band = bandService.findById(a.getBandId());
-        albumService.create(newAlbum);
+        newAlbum = albumService.create(newAlbum);
         bandService.addAlbum(band,newAlbum);
         return newAlbum.getId();
     }
@@ -199,5 +200,21 @@ public class ManagerFacadeImpl implements ManagerFacade {
         Song song = songService.findById(s.getSongId());
         Album album = albumService.findById(s.getAlbumId());
         albumService.addSong(album,song);
+    }
+
+    @Override
+    public Long createTour(TourCreateDTO t) {
+        Manager manager = managerService.findManagerById(t.getManagerId());
+        Band band = bandService.findById(t.getBandId());
+        Tour tour = new Tour();
+        tour.setManager(manager);
+        tour.setBand(band);
+        tour.setCityName(t.getCityName());
+        tour.setDatetime(t.getDatetime());
+        tour.setName(t.getName());
+        tour = tourService.create(tour);
+        managerService.addTour(manager, tour);
+        bandService.addTour(band, tour);
+        return tour.getId();
     }
 }

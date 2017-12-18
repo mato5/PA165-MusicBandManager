@@ -26,7 +26,7 @@ public class TourResource extends ResourceSupport {
     private String cityName;
     private Date datetime;
     private BandDTO band;
-    private ManagerDTO manager;
+    private Long managerId;
 
     public TourResource(TourDTO tourDTO){
         this.dtoId = tourDTO.getId();
@@ -34,7 +34,7 @@ public class TourResource extends ResourceSupport {
         this.cityName = tourDTO.getCityName();
         this.datetime = tourDTO.getDatetime();
         this.band = tourDTO.getBand();
-        this.manager = tourDTO.getManager();
+        this.managerId = tourDTO.getManagerId();
     }
 
     public long getDtoId() {
@@ -77,11 +77,11 @@ public class TourResource extends ResourceSupport {
         this.band = band;
     }
 
-    public ManagerDTO getManager() {
-        return manager;
+    public Long getManagerId() {
+        return managerId;
     }
 
-    public void setManager(ManagerDTO manager) {
-        this.manager = manager;
+    public void setManagerId(Long managerid) {
+        this.managerId = managerId;
     }
 }

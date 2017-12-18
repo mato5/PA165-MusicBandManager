@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -88,7 +89,7 @@ public class MemberFacadeImpl implements MemberFacade {
         BandInvite b = null;
         Band band = null;
         for (BandInvite inv : m.getBandInvites()) {
-            if (inv.getId() == bandInvId) {
+            if (Objects.equals(inv.getId(), bandInvId)) {
                 b = inv;
                 band = inv.getBand();
             }
@@ -103,7 +104,7 @@ public class MemberFacadeImpl implements MemberFacade {
         Member m = memberService.findMemberById(userId);
         BandInvite b = null;
         for (BandInvite inv : m.getBandInvites()) {
-            if (inv.getId() == bandInvId) {
+            if (Objects.equals(inv.getId(), bandInvId)) {
                 b = inv;
             }
         }
@@ -124,6 +125,7 @@ public class MemberFacadeImpl implements MemberFacade {
             throw new UserServiceException("This user is not a member of any band!");
         }
         Band b = bandService.findById(m.getBand().getId());
+        System.out.println("Band size:" +b.getMembers().size());
         return beanMappingService.mapTo(b.getMembers(), MemberDTO.class);
     }
 
@@ -134,7 +136,7 @@ public class MemberFacadeImpl implements MemberFacade {
             throw new UserServiceException("This user is not a member of any band!");
         }
         Band b = bandService.findById(m.getBand().getId());
-        return beanMappingService.mapTo(tourService.findByBand(b), TourDTO.class);
+        return beanMappingService.mapTours(tourService.findByBand(b), TourDTO.class);
     }
 }
 

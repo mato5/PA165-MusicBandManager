@@ -62,7 +62,7 @@ public interface ManagerFacade {
     //Overhaul
     Long createBand(ManagerDTO m, BandCreateDTO b);
 
-    void sendBandInvite(ManagerDTO m, BandInviteDTO b);
+    Long sendBandInvite(ManagerDTO m, BandInviteDTO b);
 
     void changeBandGenre(ManagerDTO m, BandGengreDTO b);
 
@@ -75,5 +75,7 @@ public interface ManagerFacade {
     Long addNewAlbum(ManagerDTO m, AlbumCreateDTO a);
 
     void addSongToAlbum(ManagerDTO m, SongToAlbumDTO s);
+
+    Long createTour(TourCreateDTO t);
 
 }

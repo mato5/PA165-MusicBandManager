@@ -354,7 +354,7 @@ public class MemberFacadeTest /*extends AbstractTestNGSpringContextTests*/ {
         when(memberService.findMemberById(eq(memberId))).thenReturn(member);
         when(bandService.findById(eq(bandId))).thenReturn(band);
         when(tourService.findByBand(band)).thenReturn(Arrays.asList(tour));
-        when(beanMappingService.mapTo(Arrays.asList(tour), TourDTO.class)).thenReturn(Arrays.asList(tourDTO));
+        when(beanMappingService.mapTours(Arrays.asList(tour), TourDTO.class)).thenReturn(Arrays.asList(tourDTO));
         List<TourDTO> returnedDTOs = new ArrayList<>(memberFacade.listAllActivities(memberId));
         Assert.assertEquals(returnedDTOs, Arrays.asList(tourDTO));
     }

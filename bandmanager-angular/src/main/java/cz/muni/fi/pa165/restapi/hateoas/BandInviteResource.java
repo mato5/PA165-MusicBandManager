@@ -8,6 +8,10 @@ import cz.fi.muni.pa165.dto.MemberDTO;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 
+/**
+ * @author Iurii xkuznetc Kuznetcov
+ */
+
 @Relation(value = "invite", collectionRelation = "invites")
 public class BandInviteResource extends ResourceSupport {
 

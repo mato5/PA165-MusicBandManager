@@ -12,7 +12,7 @@ public class TourDTO {
     private Date datetime;
     private Long id;
     private BandDTO band;
-    private ManagerDTO manager;
+    private Long managerId;
 
     public Long getId() {
         return id;
@@ -28,14 +28,6 @@ public class TourDTO {
 
     public void setBand(BandDTO band) {
         this.band = band;
-    }
-
-    public ManagerDTO getManager() {
-        return manager;
-    }
-
-    public void setManager(ManagerDTO manager) {
-        this.manager = manager;
     }
 
     public void setName(String name) {
@@ -62,6 +54,14 @@ public class TourDTO {
         this.datetime = datetime;
     }
 
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,7 +74,7 @@ public class TourDTO {
         if (datetime != null ? !datetime.equals(tourDTO.datetime) : tourDTO.datetime != null) return false;
         if (id != null ? !id.equals(tourDTO.id) : tourDTO.id != null) return false;
         if (band != null ? !band.equals(tourDTO.band) : tourDTO.band != null) return false;
-        return manager != null ? manager.equals(tourDTO.manager) : tourDTO.manager == null;
+        return managerId != null ? managerId.equals(tourDTO.managerId) : tourDTO.managerId == null;
     }
 
     @Override
@@ -84,16 +84,18 @@ public class TourDTO {
         result = 31 * result + (datetime != null ? datetime.hashCode() : 0);
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (band != null ? band.hashCode() : 0);
-        result = 31 * result + (manager != null ? manager.hashCode() : 0);
+        result = 31 * result + (managerId != null ? managerId.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "TourDTO{" +
-                "id=" + id +
-                ", band=" + band +
-                ", manager=" + manager +
+                "name='" + name + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", datetime=" + datetime +
+                ", id=" + id +
+                ", managerId=" + managerId +
                 '}';
     }
 }
