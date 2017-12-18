@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.restapi.hateoas;
 import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.BandInviteDTO;
 import cz.fi.muni.pa165.dto.ManagerDTO;
+import cz.fi.muni.pa165.dto.MemberDTO;
 import cz.muni.fi.pa165.restapi.controllers.BandInvitesRestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,7 @@ public class BandInviteResourceAssembler extends ResourceAssemblerSupport<BandIn
             Link managerLink = entityLinks.linkForSingleResource(ManagerDTO.class, id).slash("/managers").withRel("manager");
             bandInviteResource.add(managerLink);
 
-            Link memberLink = entityLinks.linkForSingleResource(BandInviteDTO.class, id).slash("/members").withRel("member");
+            Link memberLink = entityLinks.linkForSingleResource(MemberDTO.class, id).slash("/members").withRel("member");
             bandInviteResource.add(memberLink);
 */
         } catch (Exception ex) {

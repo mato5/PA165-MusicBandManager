@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.restapi.hateoas;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.BandInviteDTO;
 import cz.fi.muni.pa165.dto.ManagerDTO;
@@ -15,7 +16,7 @@ import org.springframework.hateoas.core.Relation;
 @Relation(value = "invite", collectionRelation = "invites")
 public class BandInviteResource extends ResourceSupport {
 
-    @JsonProperty("id")
+    @JsonProperty("ID")
     private long dtoId;
     @JsonProperty("band")
     private BandDTO band;
