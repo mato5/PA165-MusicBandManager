@@ -82,8 +82,7 @@ public class ToursRestController {
         return new ResponseEntity<>(tourResources, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<TourResource> createTour(@RequestBody @Valid TourCreateDTO tourCreateDTO, BindingResult bindingResult) throws Exception {
         logger.debug("REST: createTour(" + tourCreateDTO.toString() + ").");
         if (bindingResult.hasErrors()) {
@@ -105,8 +104,7 @@ public class ToursRestController {
         }
     }
 
-    @RequestMapping(value = "change_name/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "change_name/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final void changeName(@PathVariable("id") long id, @RequestBody String newName) {
         logger.debug("REST: changeName(" + String.valueOf(id) + ", newName = " + String.valueOf(newName) + ").");
         try {
@@ -116,8 +114,7 @@ public class ToursRestController {
         }
     }
 
-    @RequestMapping(value = "change_band/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "change_band/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final void changeBand(@PathVariable("id") long id, @RequestBody Long newBandId) {
         logger.debug("REST: changeBand(" + String.valueOf(id) + ", newBandId = " + String.valueOf(newBandId) + ").");
         try {
@@ -127,8 +124,7 @@ public class ToursRestController {
         }
     }
 
-    @RequestMapping(value = "change_datetime/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "change_datetime/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final void changeDatetime(@PathVariable("id") long id, @RequestBody Date newDatetime) {
         logger.debug("REST: changeDatetime(" + String.valueOf(id) + ", newDatetime = " + String.valueOf(newDatetime) + ").");
         try {
