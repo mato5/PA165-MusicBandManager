@@ -126,7 +126,10 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         bandInvite.setBand(band);
         bandInvite.setInvitedMember(member);
         bandInvite.setCreatedAt(createdAt);
-        return this.bandInviteService.findById(this.bandInviteService.create(bandInvite).getId());
+        bandInvite = this.bandInviteService.create(bandInvite);
+        managerService.addBandInvite(manager, bandInvite);
+        memberService.sendBandInvite(member, bandInvite);
+        return bandInvite;
     }
 
     private Tour tour(String name, Manager manager, Band band, String cityName, Date datetime) {
@@ -136,7 +139,10 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         tour.setBand(band);
         tour.setCityName(cityName);
         tour.setDatetime(datetime);
-        return this.tourService.findById(this.tourService.create(tour).getId());
+        tour = tourService.create(tour);
+        managerService.addTour(manager, tour);
+        bandService.addTour(band, tour);
+        return tour;
     }
 
     private Album album(String name, Band band, String coverURI, Song... songs) {
@@ -164,7 +170,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         band.setManager(manager);
         band.setGenre(genre);
         band.setLogoURI(logoUri);
-        return this.bandService.findById(this.bandService.create(band).getId());
+        band = bandService.create(band);
+        if (band.getManager() == null) {
+            managerService.addManagedBand(manager, band);
+        }
+        return band;
     }
 
     private Member member(String name, String email, Band band, Role role, String password) {

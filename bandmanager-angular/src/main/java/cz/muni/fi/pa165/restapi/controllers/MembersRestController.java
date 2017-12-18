@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.restapi.controllers;
 
+import cz.fi.muni.pa165.dto.BandInviteDTO;
 import cz.fi.muni.pa165.dto.MemberDTO;
 import cz.fi.muni.pa165.facade.MemberFacade;
 import cz.muni.fi.pa165.restapi.exceptions.InvalidRequestException;
@@ -18,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -141,8 +143,13 @@ public class MembersRestController {
         log.debug("rest getInvites() of a member id: " + id);
         List<BandInviteResource> resourceCollection = null;
         try {
+            List<BandInviteDTO> list = new ArrayList<>(memberFacade.listAllMemberInvites(id));
+            MemberDTO missingDTO = memberFacade.findMemberById(id);
+            for(BandInviteDTO b : list){
+                b.setMember(missingDTO);
+            }
             resourceCollection = bandInviteResourceAssembler
-                    .toResources(memberFacade.listAllMemberInvites(id));
+                    .toResources(list);
         } catch (Exception ex) {
             throw new InvalidRequestException("Member id:" + id + " is already a member of a band");
         }
