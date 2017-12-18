@@ -58,8 +58,8 @@ public class SongsController {
         }
     }
 
-    @RequestMapping(value = "by_name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final List<SongDTO> getSongsByName(@PathVariable("name") String name) {
+    @RequestMapping(value = "/by_name", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final List<SongDTO> getSongsByName(@RequestParam(name = "name") String name) {
         logger.debug("REST: getSongsByName(" + name + ").");
         try {
             Collection<SongDTO> byName = songFacade.findByName(name);
