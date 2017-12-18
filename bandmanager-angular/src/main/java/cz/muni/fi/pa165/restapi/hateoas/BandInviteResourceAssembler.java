@@ -14,14 +14,14 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BandInviteResourceAssembler extends ResourceAssemblerSupport<BandInviteDTO,BandInviteResource> {
+public class BandInviteResourceAssembler extends ResourceAssemblerSupport<BandInviteDTO, BandInviteResource> {
 
     private EntityLinks entityLinks;
 
     private final static Logger log = LoggerFactory.getLogger(BandInviteResourceAssembler.class);
 
     public BandInviteResourceAssembler(@SuppressWarnings("SpringJavaAutowiringInspection")
-                                 @Autowired EntityLinks entityLinks) {
+                                       @Autowired EntityLinks entityLinks) {
         super(BandInvitesRestController.class, BandInviteResource.class);
         this.entityLinks = entityLinks;
     }
@@ -33,16 +33,22 @@ public class BandInviteResourceAssembler extends ResourceAssemblerSupport<BandIn
         try {
             Link invLink = entityLinks.linkForSingleResource(BandInviteDTO.class, id).withSelfRel();
             bandInviteResource.add(invLink);
-/*
-            Link bandLink = entityLinks.linkForSingleResource(BandDTO.class, id).slash("/bands").withRel("band");
-            bandInviteResource.add(bandLink);
 
-            Link managerLink = entityLinks.linkForSingleResource(ManagerDTO.class, id).slash("/managers").withRel("manager");
-            bandInviteResource.add(managerLink);
+            if (bandInviteDTO.getBand() != null) {
+                Link bandLink = entityLinks.linkForSingleResource(BandDTO.class, bandInviteDTO.getBand().getId()).withRel("band");
+                bandInviteResource.add(bandLink);
+            }
 
-            Link memberLink = entityLinks.linkForSingleResource(MemberDTO.class, id).slash("/members").withRel("member");
-            bandInviteResource.add(memberLink);
-*/
+            if (bandInviteDTO.getManager() != null) {
+                Link managerLink = entityLinks.linkForSingleResource(ManagerDTO.class, bandInviteDTO.getManager().getId()).withRel("manager");
+                bandInviteResource.add(managerLink);
+            }
+
+            if (bandInviteDTO.getMember() != null) {
+                Link memberLink = entityLinks.linkForSingleResource(MemberDTO.class, bandInviteDTO.getMember().getId()).withRel("member");
+                bandInviteResource.add(memberLink);
+            }
+
         } catch (Exception ex) {
             log.error("cannot link HATEOAS", ex);
         }

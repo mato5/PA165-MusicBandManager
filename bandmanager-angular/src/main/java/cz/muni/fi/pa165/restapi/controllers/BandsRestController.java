@@ -4,11 +4,14 @@ import cz.fi.muni.pa165.dto.BandCreateDTO;
 import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.ManagerDTO;
 import cz.fi.muni.pa165.facade.BandFacade;
+import cz.fi.muni.pa165.facade.SongFacade;
 import cz.muni.fi.pa165.enums.Genre;
 import cz.muni.fi.pa165.restapi.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.restapi.exceptions.ResourceNotFoundException;
 import cz.muni.fi.pa165.restapi.hateoas.BandResource;
 import cz.muni.fi.pa165.restapi.hateoas.BandResourceAssembler;
+import cz.muni.fi.pa165.restapi.hateoas.SongResource;
+import cz.muni.fi.pa165.restapi.hateoas.SongResourceAssembler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +41,18 @@ public class BandsRestController {
     final static Logger logger = LoggerFactory.getLogger(BandsRestController.class);
 
     private BandFacade bandFacade;
+    private SongFacade songFacade;
     private BandResourceAssembler bandResourceAssembler;
+    private SongResourceAssembler songResourceAssembler;
 
-    public BandsRestController(@Autowired BandFacade bandFacade, @Autowired BandResourceAssembler bandResourceAssembler) {
+    public BandsRestController(@Autowired BandFacade bandFacade,
+                               @Autowired BandResourceAssembler bandResourceAssembler,
+                               @Autowired SongFacade songFacade,
+                               @Autowired SongResourceAssembler songResourceAssembler) {
         this.bandFacade = bandFacade;
         this.bandResourceAssembler = bandResourceAssembler;
+        this.songFacade = songFacade;
+        this.songResourceAssembler = songResourceAssembler;
     }
 
 
@@ -75,6 +85,15 @@ public class BandsRestController {
         if (bandDTO == null) throw new ResourceNotFoundException("Band " + id + " not found");
         BandResource resource = bandResourceAssembler.toResource(bandDTO);
         return new ResponseEntity<>(resource, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/songs/{id}", method = RequestMethod.GET)
+    public final HttpEntity<Resources<SongResource>> getSongsByBand(@PathVariable("id") long id) throws Exception {
+        logger.debug("REST getSongs({})", id);
+
+        List<SongResource> resourceCollection = songResourceAssembler.toResources(songFacade.findByBand(id));
+        Resources<SongResource> songResources = new Resources<>(resourceCollection);
+        return new ResponseEntity<>(songResources, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/changeManager", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)

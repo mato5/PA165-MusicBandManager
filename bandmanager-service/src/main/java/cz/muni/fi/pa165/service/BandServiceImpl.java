@@ -85,10 +85,10 @@ public class BandServiceImpl implements BandService {
                     "Cannot add a null album to band "
                             + band.getName() + "(id = " + band.getId() + " ) , not updated.");
         }
-        if (band.getAlbums().contains(album)) {
+        /*if (band.getAlbums().contains(album)) {
             throw new BandManagerServiceException("Given album is already associated with given band "
                     + band.getName() + "(id = " + band.getId() + " ) , not updated.");
-        }
+        }*/
         band.addAlbum(album);
         this.bandDao.update(band);
         return band;

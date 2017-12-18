@@ -151,7 +151,11 @@ public class ManagerFacadeImpl implements ManagerFacade {
     @Override
     public Long createBand(ManagerDTO m, BandCreateDTO b) {
         Manager manager = managerService.findManagerById(m.getId());
-        Band newBand = beanMappingService.mapTo(b, Band.class);
+        Band newBand = new Band();
+        newBand.setManager(manager);
+        newBand.setGenre(b.getGenre());
+        newBand.setLogoURI(b.getLogoURI());
+        newBand.setName(b.getName());
         newBand = bandService.create(newBand);
         managerService.addManagedBand(manager, newBand);
         return newBand.getId();
@@ -189,16 +193,23 @@ public class ManagerFacadeImpl implements ManagerFacade {
     //NOT SURE ABOUT THIS
     @Override
     public Long addNewSong(ManagerDTO m, SongCreateDTO s) {
-        Song newSong = beanMappingService.mapTo(s, Song.class);
-        songService.create(newSong);
+        Band band = bandService.findById(s.getBandId());
+        Song newSong = new Song();
+        newSong.setBand(band);
+        newSong.setDuration(s.getDuration());
+        newSong.setName(s.getName());
+        newSong = songService.create(newSong);
         return newSong.getId();
     }
 
     //NOT SURE ABOUT THIS
     @Override
     public Long addNewAlbum(ManagerDTO m, AlbumCreateDTO a) {
-        Album newAlbum = beanMappingService.mapTo(a, Album.class);
+        Album newAlbum = new Album();
         Band band = bandService.findById(a.getBandId());
+        newAlbum.setBand(band);
+        newAlbum.setCoverURI(a.getCoverURI());
+        newAlbum.setName(a.getName());
         newAlbum = albumService.create(newAlbum);
         bandService.addAlbum(band,newAlbum);
         return newAlbum.getId();

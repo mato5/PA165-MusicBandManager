@@ -32,10 +32,10 @@ public class MemberResourceAssembler extends ResourceAssemblerSupport<MemberDTO,
             Link memLink = entityLinks.linkForSingleResource(MemberDTO.class, id).withSelfRel();
             memberResource.add(memLink);
 
-            /*if (memberDTO.getBand() != null) {
-                Link bandLink = entityLinks.linkForSingleResource(BandDTO.class, id).withRel("band");
+            if (memberDTO.getBand() != null) {
+                Link bandLink = entityLinks.linkForSingleResource(BandDTO.class, memberDTO.getBand().getId()).withRel("band");
                 memberResource.add(bandLink);
-            }*/
+            }
 
         } catch (Exception ex) {
             log.error("cannot link HATEOAS", ex);
