@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Matej Sojak 433294
@@ -72,7 +73,15 @@ public class ManagerFacadeImpl implements ManagerFacade {
 
     @Override
     public boolean authenticate(UserAuthDTO u) {
-        return managerService.authenticate(managerService.findManagerById(u.getId()), u.getPassword());
+        List<Manager> list = managerService.getAllManagers();
+        Manager lookingFor = null;
+        for(Manager m : list){
+            if(m.getEmail().equals(u.getEmail())){
+                lookingFor = m;
+                u.setId(m.getId());
+            }
+        }
+        return managerService.authenticate(lookingFor, u.getPassword());
     }
 
     @Override

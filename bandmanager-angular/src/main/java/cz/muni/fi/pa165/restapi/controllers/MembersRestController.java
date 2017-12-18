@@ -2,9 +2,11 @@ package cz.muni.fi.pa165.restapi.controllers;
 
 import cz.fi.muni.pa165.dto.BandInviteDTO;
 import cz.fi.muni.pa165.dto.MemberDTO;
+import cz.fi.muni.pa165.dto.UserAuthDTO;
 import cz.fi.muni.pa165.facade.MemberFacade;
 import cz.muni.fi.pa165.restapi.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.restapi.exceptions.ResourceNotFoundException;
+import cz.muni.fi.pa165.restapi.exceptions.ServerProblemException;
 import cz.muni.fi.pa165.restapi.hateoas.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -145,7 +147,7 @@ public class MembersRestController {
         try {
             List<BandInviteDTO> list = new ArrayList<>(memberFacade.listAllMemberInvites(id));
             MemberDTO missingDTO = memberFacade.findMemberById(id);
-            for(BandInviteDTO b : list){
+            for (BandInviteDTO b : list) {
                 b.setMember(missingDTO);
             }
             resourceCollection = bandInviteResourceAssembler
@@ -156,6 +158,36 @@ public class MembersRestController {
         Resources<BandInviteResource> inviteResources = new Resources<>(resourceCollection,
                 linkTo(BandInvitesRestController.class).withSelfRel());
         return new ResponseEntity<>(inviteResources, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final HttpEntity<MemberResource> loginUser(@RequestBody @Valid UserAuthDTO credentials, BindingResult bindingResult) throws Exception {
+
+        log.debug("rest: loginUser(" + credentials.getEmail().toString() + ")");
+        if (bindingResult.hasErrors()) {
+            log.error("failed validation {}", bindingResult.toString());
+            throw new InvalidRequestException("Failed validation");
+        }
+
+        try {
+            if (!memberFacade.authenticate(credentials)) {
+                throw new Exception("Failed to authenticate");
+            }
+
+            MemberDTO memberDTO = memberFacade.findMemberByEmail(credentials.getEmail());
+            MemberResource resource = memberResourceAssembler.toResource(memberDTO);
+
+            return new ResponseEntity<>(resource, HttpStatus.OK);
+
+        } catch (Throwable ex) {
+            log.error("User " + credentials.getEmail().toString() + " doesn't exists");
+            Throwable rootCause = ex;
+            while ((ex = ex.getCause()) != null) {
+                rootCause = ex;
+                log.error("caused by : " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
+            }
+            throw new ServerProblemException(rootCause.getMessage());
+        }
     }
 
 }

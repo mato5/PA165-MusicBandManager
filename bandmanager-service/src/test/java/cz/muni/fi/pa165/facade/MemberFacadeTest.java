@@ -275,7 +275,8 @@ public class MemberFacadeTest /*extends AbstractTestNGSpringContextTests*/ {
 
     @Test
     public void userAuthTest() throws Exception {
-        when(memberService.findMemberById(userAuthDTO.getId())).thenReturn(member);
+        userAuthDTO.setEmail(memberEmail);
+        when(memberService.findMemberByEmail(memberEmail)).thenReturn(member);
         memberFacade.authenticate(userAuthDTO);
         verify(memberService).authenticate(eq(member), eq("halabala"));
     }

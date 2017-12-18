@@ -1,13 +1,13 @@
 package cz.muni.fi.pa165.restapi.controllers;
 
-import cz.fi.muni.pa165.dto.BandInviteDTO;
-import cz.fi.muni.pa165.dto.ManagerDTO;
-import cz.fi.muni.pa165.dto.TourCreateDTO;
+import cz.fi.muni.pa165.dto.*;
 import cz.fi.muni.pa165.facade.BandInviteFacade;
 import cz.fi.muni.pa165.facade.ManagerFacade;
+import cz.fi.muni.pa165.facade.MemberFacade;
 import cz.fi.muni.pa165.facade.TourFacade;
 import cz.muni.fi.pa165.restapi.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.restapi.exceptions.ResourceNotFoundException;
+import cz.muni.fi.pa165.restapi.exceptions.ServerProblemException;
 import cz.muni.fi.pa165.restapi.hateoas.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Tuple;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -115,6 +116,36 @@ public class ManagersRestController {
         Long id = managerFacade.createTour(tourCreateDTO);
         TourResource resource = tourResourceAssembler.toResource(tourFacade.findById(id));
         return new ResponseEntity<>(resource,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final HttpEntity<ManagerResource> loginUser(@RequestBody @Valid UserAuthDTO credentials, BindingResult bindingResult) throws Exception {
+
+        log.debug("rest: loginUser(" + credentials.getEmail().toString() + ")");
+        if (bindingResult.hasErrors()) {
+            log.error("failed validation {}", bindingResult.toString());
+            throw new InvalidRequestException("Failed validation");
+        }
+
+        try {
+            if(!managerFacade.authenticate(credentials)){
+                throw new Exception("Failed to authenticate");
+            }
+
+            ManagerDTO managerDTO = managerFacade.findManagerById(credentials.getId());
+            ManagerResource resource = managerResourceAssembler.toResource(managerDTO);
+
+            return new ResponseEntity<>(resource, HttpStatus.OK);
+
+        } catch (Throwable ex) {
+            log.error("User " + credentials.getEmail().toString() + " doesn't exists");
+            Throwable rootCause=ex;
+            while ((ex = ex.getCause()) != null) {
+                rootCause = ex;
+                log.error("caused by : " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
+            }
+            throw new ServerProblemException(rootCause.getMessage());
+        }
     }
 
 }

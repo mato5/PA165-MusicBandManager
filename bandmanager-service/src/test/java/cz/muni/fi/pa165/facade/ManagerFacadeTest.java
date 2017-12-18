@@ -360,8 +360,9 @@ public class ManagerFacadeTest{
     @Test
     public void authenticateTest() throws Exception {
         userAuthDTO.setId(managerId);
+        userAuthDTO.setEmail(managerEmail);
         userAuthDTO.setPassword(managerPassword);
-        when(managerService.findManagerById(userAuthDTO.getId())).thenReturn(manager);
+        when(managerService.getAllManagers()).thenReturn(Arrays.asList(manager));
         managerFacade.authenticate(userAuthDTO);
         verify(managerService).authenticate(eq(manager), eq(managerPassword));
     }
