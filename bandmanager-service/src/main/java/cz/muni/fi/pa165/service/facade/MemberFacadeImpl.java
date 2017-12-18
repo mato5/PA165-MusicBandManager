@@ -115,7 +115,7 @@ public class MemberFacadeImpl implements MemberFacade {
     @Override
     public Collection<BandInviteDTO> listAllMemberInvites(Long memberId) {
         Member m = memberService.findMemberById(memberId);
-        return beanMappingService.mapTo(bandInviteService.findByMember(m), BandInviteDTO.class);
+        return beanMappingService.mapBandInviteDTOs(bandInviteService.findByMember(m), BandInviteDTO.class);
     }
 
     @Override

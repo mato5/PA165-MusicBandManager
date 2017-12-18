@@ -420,7 +420,7 @@ public class ManagerFacadeTest{
     @Test
     public void sendBandInviteTest() throws Exception {
         when(managerService.findManagerById(managerId)).thenReturn(manager);
-        when(beanMappingService.mapTo(bandInviteDTO, BandInvite.class)).thenReturn(bandInvite);
+        when(beanMappingService.mapBandInvite(bandInviteDTO, BandInvite.class)).thenReturn(bandInvite);
         when(memberService.findMemberById(memberId)).thenReturn(member);
         when(bandInviteService.create(bandInvite)).thenReturn(bandInvite);
         managerFacade.sendBandInvite(managerDTO, bandInviteDTO);

@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.muni.fi.pa165.enums.Role;
 
 import java.util.HashSet;
@@ -30,7 +31,8 @@ public class MemberDTO extends UserDTO {
     public void setBand(BandDTO band) {
         this.band = band;
     }
-
+    
+    @JsonIgnore
     public Set<BandInviteDTO> getBandInvites() {
         return bandInvites;
     }

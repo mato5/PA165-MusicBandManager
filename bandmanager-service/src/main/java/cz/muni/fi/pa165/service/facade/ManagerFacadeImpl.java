@@ -151,7 +151,7 @@ public class ManagerFacadeImpl implements ManagerFacade {
     @Override
     public Long sendBandInvite(ManagerDTO m, BandInviteDTO b) {
         Manager manager = managerService.findManagerById(m.getId());
-        BandInvite invite = beanMappingService.mapTo(b, BandInvite.class);
+        BandInvite invite = beanMappingService.mapBandInvite(b, BandInvite.class);
         Member member = memberService.findMemberById(b.getMember().getId());
         invite = bandInviteService.create(invite);
         managerService.addBandInvite(manager, invite);

@@ -17,8 +17,11 @@ public class BandInviteResource extends ResourceSupport {
 
     @JsonProperty("id")
     private long dtoId;
+    @JsonProperty("band")
     private BandDTO band;
+    @JsonProperty("member")
     private MemberDTO member;
+    @JsonProperty("manager")
     private ManagerDTO manager;
 
     public BandInviteResource(BandInviteDTO bandInviteDTO) {

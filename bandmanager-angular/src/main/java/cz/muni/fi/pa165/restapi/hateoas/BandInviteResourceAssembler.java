@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.restapi.hateoas;
 
+import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.BandInviteDTO;
+import cz.fi.muni.pa165.dto.ManagerDTO;
 import cz.muni.fi.pa165.restapi.controllers.BandInvitesRestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,16 +32,16 @@ public class BandInviteResourceAssembler extends ResourceAssemblerSupport<BandIn
         try {
             Link invLink = entityLinks.linkForSingleResource(BandInviteDTO.class, id).withSelfRel();
             bandInviteResource.add(invLink);
-
-            Link bandLink = entityLinks.linkForSingleResource(BandInviteDTO.class, id).slash("/bands").withRel("band");
+/*
+            Link bandLink = entityLinks.linkForSingleResource(BandDTO.class, id).slash("/bands").withRel("band");
             bandInviteResource.add(bandLink);
 
-            Link managerLink = entityLinks.linkForSingleResource(BandInviteDTO.class, id).slash("/managers").withRel("manager");
+            Link managerLink = entityLinks.linkForSingleResource(ManagerDTO.class, id).slash("/managers").withRel("manager");
             bandInviteResource.add(managerLink);
 
             Link memberLink = entityLinks.linkForSingleResource(BandInviteDTO.class, id).slash("/members").withRel("member");
             bandInviteResource.add(memberLink);
-
+*/
         } catch (Exception ex) {
             log.error("cannot link HATEOAS", ex);
         }

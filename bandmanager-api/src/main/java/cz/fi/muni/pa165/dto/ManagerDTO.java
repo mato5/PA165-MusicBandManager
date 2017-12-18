@@ -11,7 +11,8 @@ public class ManagerDTO extends UserDTO {
     private Set<BandDTO> bands;
     private Set<TourDTO> tours;
     private Set<BandInviteDTO> bandInvites;
-
+    
+    @JsonIgnore
     public Set<BandDTO> getBands() {
         return bands;
     }
@@ -19,7 +20,8 @@ public class ManagerDTO extends UserDTO {
     public void setBands(Set<BandDTO> bands) {
         this.bands = bands;
     }
-
+    
+    @JsonIgnore
     public Set<TourDTO> getTours() {
         return tours;
     }
