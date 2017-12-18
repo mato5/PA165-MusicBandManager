@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.restapi.controllers;
 
 import cz.fi.muni.pa165.dto.AlbumCreateDTO;
 import cz.fi.muni.pa165.dto.AlbumDTO;
-import cz.fi.muni.pa165.dto.TourDTO;
 import cz.fi.muni.pa165.facade.AlbumFacade;
 import cz.muni.fi.pa165.restapi.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.restapi.exceptions.ResourceNotFoundException;
@@ -65,7 +64,7 @@ public class AlbumsRestController {
     }
 
     @RequestMapping(value = "by_band_id/{id}", method = RequestMethod.GET)
-    public final HttpEntity<Resources<AlbumResource>> getAlbumsByBand(@PathVariable("band_id") long band_id) throws Exception {
+    public final HttpEntity<Resources<AlbumResource>> getAlbumsByBand(@PathVariable("id") long band_id) throws Exception {
         logger.debug("REST: getAlbumsByBand(" + String.valueOf(band_id) + ").");
         List<AlbumResource> resourceCollection = albumResourceAssembler
                 .toResources(albumFacade.findByBand(band_id));
@@ -74,7 +73,7 @@ public class AlbumsRestController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public final void deleteTour(@PathVariable("id") long id) throws Exception {
+    public final void deleteAlbum(@PathVariable("id") long id) throws Exception {
         logger.debug("REST: deleteAlbum(" + String.valueOf(id) + ").");
         try {
             albumFacade.deleteAlbum(id);
@@ -83,8 +82,7 @@ public class AlbumsRestController {
         }
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<AlbumResource> createAlbum(@RequestBody @Valid AlbumCreateDTO albumCreateDTO, BindingResult bindingResult) throws Exception {
         logger.debug("REST: createAlbum(" + albumCreateDTO.toString() + ").");
         if (bindingResult.hasErrors()) {
@@ -96,8 +94,7 @@ public class AlbumsRestController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/songs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}/songs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<AlbumResource> addSong(@PathVariable("id") long id, @RequestBody Long songId) throws Exception {
         logger.debug("REST: addSong(" + String.valueOf(id) + ", songId = " + String.valueOf(songId) + " ).");
         try {
@@ -110,8 +107,7 @@ public class AlbumsRestController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/songs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}/songs", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<AlbumResource> deleteSong(@PathVariable("id") long id, @RequestBody Long songId) throws Exception {
         logger.debug("REST: deleteSong(" + String.valueOf(id) + ", songId = " + String.valueOf(songId) + " ).");
         try {
@@ -123,5 +119,4 @@ public class AlbumsRestController {
         AlbumResource resource = albumResourceAssembler.toResource(byId);
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
-
 }

@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.restapi.controllers;
 
 import cz.fi.muni.pa165.dto.SongCreateDTO;
 import cz.fi.muni.pa165.dto.SongDTO;
-import cz.fi.muni.pa165.dto.TourDTO;
 import cz.fi.muni.pa165.facade.SongFacade;
 import cz.muni.fi.pa165.restapi.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.restapi.exceptions.ResourceNotFoundException;
@@ -49,7 +48,7 @@ public class SongsRestController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public final HttpEntity<SongResource> getTourById(@PathVariable("id") long id) throws Exception {
+    public final HttpEntity<SongResource> getSongById(@PathVariable("id") long id) throws Exception {
         logger.debug("REST: getSongById(" + String.valueOf(id) + ").");
         SongDTO songDTO = songFacade.findById(id);
         if (songDTO == null) {
@@ -61,7 +60,7 @@ public class SongsRestController {
     }
 
     @RequestMapping(value = "by_band_id/{id}", method = RequestMethod.GET)
-    public final HttpEntity<Resources<SongResource>> getTourByBand(@PathVariable("band_id") long band_id) throws Exception {
+    public final HttpEntity<Resources<SongResource>> getSongsByBand(@PathVariable("id") long band_id) throws Exception {
         logger.debug("REST: getSongsByBand(" + String.valueOf(band_id) + ").");
         List<SongResource> resourceCollection = songResourceAssembler
                 .toResources(songFacade.findByBand(band_id));
@@ -69,8 +68,8 @@ public class SongsRestController {
         return new ResponseEntity<>(songResources, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "by_name/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<Resources<SongResource>> getSongsByName(@PathVariable("name") String name) {
+    @RequestMapping(value = "/by_name", method = RequestMethod.GET)
+    public final HttpEntity<Resources<SongResource>> getSongsByName(@RequestParam(name = "name") String name) {
         logger.debug("REST: getSongsByName(" + name + ").");
         List<SongResource> resourceCollection = songResourceAssembler
                 .toResources(songFacade.findByName(name));
@@ -88,9 +87,10 @@ public class SongsRestController {
         }
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public final HttpEntity<SongResource> createSong(@RequestBody @Valid SongCreateDTO songCreateDTO, BindingResult bindingResult) throws Exception {
+    @RequestMapping(value = "/create", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final HttpEntity<SongResource> createSong(@RequestBody @Valid SongCreateDTO songCreateDTO,
+                                                     BindingResult bindingResult) throws Exception {
         logger.debug("REST: createSong(" + songCreateDTO.toString() + ").");
         if (bindingResult.hasErrors()) {
             logger.error("Failed validation {}", bindingResult.toString());
@@ -101,8 +101,8 @@ public class SongsRestController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "change_duration/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "change_duration/{id}", method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public final void changeDuraton(@PathVariable("id") long id, @RequestBody Long newDuration) {
         logger.debug("REST: changeDuraton(" + String.valueOf(id) + ", newDuration = " + String.valueOf(newDuration) + ").");
         try {
@@ -112,8 +112,8 @@ public class SongsRestController {
         }
     }
 
-    @RequestMapping(value = "change_band/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "change_band/{id}", method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public final void changeBand(@PathVariable("id") long id, @RequestBody Long newBandId) {
         logger.debug("REST: changeBand(" + String.valueOf(id) + ", newBandId = " + String.valueOf(newBandId) + ").");
         try {

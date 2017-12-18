@@ -78,8 +78,7 @@ public class MembersRestController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/accept_invite/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE
-            , produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "accept_invite/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<MemberResource> acceptInvite(@RequestBody Long bandInvId, @PathVariable("id") long memberId) throws Exception {
         log.debug("rest acceptBandInvite() id: " + bandInvId);
         try {
@@ -92,8 +91,7 @@ public class MembersRestController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/decline_invite/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE
-            , produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "decline_invite/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<MemberResource> declineInvite(@RequestBody Long bandInvId, @PathVariable("id") long memberId) throws Exception {
         log.debug("rest declineBandInvite() id: " + bandInvId);
         try {
@@ -106,13 +104,15 @@ public class MembersRestController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/bandmates/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "bandmates/{id}", method = RequestMethod.GET)
     public final HttpEntity<Resources<MemberResource>> getBandmates(@PathVariable("id") long id) throws Exception {
+        System.out.println("Im here");
         log.debug("rest getBandmates() of a member id: " + id);
         List<MemberResource> resourceCollection = null;
         try {
             resourceCollection = memberResourceAssembler
                     .toResources(memberFacade.listBandmates(id));
+            System.out.println(memberFacade.listBandmates(id).size());
         } catch (Exception ex) {
             throw new InvalidRequestException("Member id:" + id + " is not a member of any band");
         }
@@ -121,7 +121,7 @@ public class MembersRestController {
         return new ResponseEntity<>(memberResources, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/activities/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "activities/{id}", method = RequestMethod.GET)
     public final HttpEntity<Resources<TourResource>> getActivities(@PathVariable("id") long id) throws Exception {
         log.debug("rest getActivities() of a member id: " + id);
         List<TourResource> resourceCollection = null;
@@ -136,7 +136,7 @@ public class MembersRestController {
         return new ResponseEntity<>(tourResources, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/invites/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "invites/{id}", method = RequestMethod.GET)
     public final HttpEntity<Resources<BandInviteResource>> getInvites(@PathVariable("id") long id) throws Exception {
         log.debug("rest getInvites() of a member id: " + id);
         List<BandInviteResource> resourceCollection = null;
