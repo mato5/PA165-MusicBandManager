@@ -9,7 +9,6 @@ import cz.muni.fi.pa165.restapi.exceptions.InvalidRequestException;
 import cz.muni.fi.pa165.restapi.exceptions.ResourceNotFoundException;
 import cz.muni.fi.pa165.restapi.hateoas.BandResource;
 import cz.muni.fi.pa165.restapi.hateoas.BandResourceAssembler;
-import jdk.management.resource.ResourceRequestDeniedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,14 +59,12 @@ public class BandsRestController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET)
     public final HttpEntity<Resources<BandResource>> getBands() {
         logger.debug("REST: getBands().");
         List<BandResource> resourceCollection = bandResourceAssembler
                 .toResources(bandFacade.findAll());
-        Resources<BandResource> bandResources = new Resources<>(resourceCollection,
-                linkTo(BandsRestController.class).withSelfRel(),
-                linkTo(BandsRestController.class).slash("/create").withRel("create"));
+        Resources<BandResource> bandResources = new Resources<>(resourceCollection);
         return new ResponseEntity<>(bandResources, HttpStatus.OK);
     }
 
@@ -84,7 +81,7 @@ public class BandsRestController {
     public final HttpEntity<BandResource> changeManager(@PathVariable("id") long id, @Valid @RequestBody ManagerDTO managerDTO, BindingResult result) {
         logger.debug("REST: changeManager().");
         BandDTO bandDTO = bandFacade.findById(id);
-        if (result.hasErrors()) throw new ResourceRequestDeniedException();
+        if (result.hasErrors()) throw new InvalidRequestException("InvalidRequestException");
         bandFacade.changeManager(bandDTO, managerDTO);
         BandResource resource = bandResourceAssembler.toResource(bandDTO);
         return new ResponseEntity<>(resource, HttpStatus.OK);
@@ -94,7 +91,7 @@ public class BandsRestController {
     public final HttpEntity<BandResource> changeGenre(@PathVariable("id") long id, @Valid @RequestBody Genre genre, BindingResult result) {
         logger.debug("REST: changeGenre().");
         BandDTO bandDTO = bandFacade.findById(id);
-        if (result.hasErrors()) throw new ResourceRequestDeniedException();
+        if (result.hasErrors()) throw new InvalidRequestException("InvalidRequestException");
         bandFacade.changeGenre(bandDTO, genre);
         BandResource resource = bandResourceAssembler.toResource(bandDTO);
         return new ResponseEntity<>(resource, HttpStatus.OK);

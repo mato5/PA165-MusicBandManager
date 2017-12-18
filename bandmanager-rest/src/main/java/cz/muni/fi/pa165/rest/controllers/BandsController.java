@@ -6,8 +6,9 @@ import cz.fi.muni.pa165.dto.ManagerDTO;
 import cz.fi.muni.pa165.facade.BandFacade;
 import cz.muni.fi.pa165.enums.Genre;
 import cz.muni.fi.pa165.rest.ApiURIPaths;
+import cz.muni.fi.pa165.rest.exceptions.InvalidParameterException;
 import cz.muni.fi.pa165.rest.exceptions.ResourceNotFoundException;
-import jdk.management.resource.ResourceRequestDeniedException;
+import cz.muni.fi.pa165.rest.exceptions.ResourceNotModifiedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -35,7 +36,7 @@ public class BandsController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Long createBands(@Valid @RequestBody BandCreateDTO bandDTO, BindingResult result) {
         logger.debug("REST: createBands().");
-        if (result.hasErrors()) throw new ResourceRequestDeniedException();
+        if (result.hasErrors()) throw new ResourceNotModifiedException();
         return bandFacade.create(bandDTO);
     }
 
@@ -64,7 +65,7 @@ public class BandsController {
     public final void changeManager(@PathVariable("id") long id, @Valid @RequestBody ManagerDTO managerDTO, BindingResult result) {
         logger.debug("REST: changeManager().");
         BandDTO bandDTO = bandFacade.findById(id);
-        if (result.hasErrors()) throw new ResourceRequestDeniedException();
+        if (result.hasErrors()) throw new ResourceNotModifiedException();
         bandFacade.changeManager(bandDTO, managerDTO);
     }
 
@@ -72,7 +73,7 @@ public class BandsController {
     public final void changeGenre(@PathVariable("id") long id, @Valid @RequestBody Genre genre, BindingResult result) {
         logger.debug("REST: changeGenre().");
         BandDTO bandDTO = bandFacade.findById(id);
-        if (result.hasErrors()) throw new ResourceRequestDeniedException();
+        if (result.hasErrors()) throw new ResourceNotModifiedException();
         bandFacade.changeGenre(bandDTO, genre);
     }
 
