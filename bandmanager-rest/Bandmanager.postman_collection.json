@@ -1,0 +1,1257 @@
+{
+	"info": {
+		"name": "Bandmanager",
+		"_postman_id": "e7026c14-0c55-e715-9e34-7040146108c8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Songs",
+			"description": "",
+			"item": [
+				{
+					"name": "getSongs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/songs/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getSongById - valid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/bandmanager-rest/songs/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getSongsByBand - valid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/songs/by_band_id/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"by_band_id",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getSongsByName - valid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/songs/by_name/Mercy mercy",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"by_name",
+								"Mercy mercy"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getSongsByName - invalid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/songs/by_name/Invalid_name",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"by_name",
+								"Invalid_name"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getSongsByBand - invalid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/songs/by_band_id/99999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"by_band_id",
+								"99999"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getSongById - invalid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/songs/999999",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"999999"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSong - valid",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/bandmanager-rest/songs/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"7"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSong - invalid",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/bandmanager-rest/songs/9999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"9999"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "createSong - empty",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:8080/bandmanager-rest/songs/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"create"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "createSong - valid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n\t\"name\": \"New REST Test Song #3\",\n\t\"duration\": \"100\",\n\t\"bandId\" : \"1\"\n\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/bandmanager-rest/songs/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"create"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "changeDuraton - valid",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "1"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/songs/change_duration/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"change_duration",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "changeDuraton - invalid",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "1"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/songs/change_duration/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"change_duration",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "changeBand - valid",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "1"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/songs/change_band/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"change_band",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "changeBand - invalid",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "999"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/songs/change_duration/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"songs",
+								"change_duration",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Albums",
+			"description": "",
+			"item": [
+				{
+					"name": "getAlbums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getAlbumById - valid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"6"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getAlbumById - invalid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/-1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"-1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getAlbumsByBand - valid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/by_band_id/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"by_band_id",
+								"4"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getAlbumsByBand - invalid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/by_band_id/-1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"by_band_id",
+								"-1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "createAlbum - valid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Test REST #1\",\n\t\"coverURI\": \"\",\n\t\"bandId\" :\t1\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"create"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "createAlbum - invalid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/javascript"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"create"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAlbum - valid",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/javascript"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"6"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAlbum - invalid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/javascript"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/-1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"-1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "addSong - valid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "15"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/6/songs",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"6",
+								"songs"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "addSong - valid album invalid song",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/javascript"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"6"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "addSong - invalid album valid song",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/javascript"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"6"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "addSong - invalid album invalid song",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/javascript"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"6"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSong - valid",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "15"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/6/songs",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"6",
+								"songs"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSong - invalid song valid album",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/javascript"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"6"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSong - valid song invalid album",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/javascript"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/albums/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"albums",
+								"6"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tours",
+			"description": "",
+			"item": [
+				{
+					"name": "getTours",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTours valid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTours invalid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/-1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"-1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTourByManager - valid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/by_manager_id/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"by_manager_id",
+								"2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTourByManager - invalid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/by_manager_id/-1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"by_manager_id",
+								"-1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTourByBand - valid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/by_band_id/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"by_band_id",
+								"2"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getTourByBand - invalid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/by_band_id/-1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"by_band_id",
+								"-1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "createTour - valid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n\t\"name\" : \"Napalm Death Megatour 2k18\",\n\t\"cityName\" : \"Brno\",\n\t\"bandId\" : 2,\n\t\"managerId\": 1,\n\t\"datetime\" : 1508262384\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"create"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "createTour - invalid",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"create"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTour - valid",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"5"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTour - invalid",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/-1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"-1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "changeName - valid",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"Brno\""
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/change_name/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"change_name",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "changeCityName - valid",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"Olomouc\""
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/change_city/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"change_city",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "changeBand - valid",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "2"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/change_band/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"change_band",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "changeDatetime - valid",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "1513532784"
+						},
+						"url": {
+							"raw": "localhost:8080/bandmanager-rest/tours/change_datetime/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"bandmanager-rest",
+								"tours",
+								"change_datetime",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
