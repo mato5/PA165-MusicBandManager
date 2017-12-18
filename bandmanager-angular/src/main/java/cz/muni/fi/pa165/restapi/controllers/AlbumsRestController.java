@@ -28,7 +28,7 @@ import java.util.List;
  */
 
 @RestController
-@ExposesResourceFor(TourDTO.class)
+@ExposesResourceFor(AlbumDTO.class)
 @RequestMapping("/albums")
 public class AlbumsRestController {
 

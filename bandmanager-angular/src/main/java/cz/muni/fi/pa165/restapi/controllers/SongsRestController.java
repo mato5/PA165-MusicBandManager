@@ -24,7 +24,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@ExposesResourceFor(TourDTO.class)
+@ExposesResourceFor(SongDTO.class)
 @RequestMapping("/songs")
 public class SongsRestController {
 
