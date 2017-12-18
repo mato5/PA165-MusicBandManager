@@ -110,7 +110,7 @@ public class AlbumsRestController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/songs", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/{id}/songs", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<AlbumResource> deleteSong(@PathVariable("id") long id, @RequestBody Long songId) throws Exception {
         logger.debug("REST: deleteSong(" + String.valueOf(id) + ", songId = " + String.valueOf(songId) + " ).");
