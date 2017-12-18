@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.restapi.hateoas;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.BandInviteDTO;
 import cz.fi.muni.pa165.dto.ManagerDTO;
@@ -13,19 +14,25 @@ import org.springframework.hateoas.core.Relation;
  */
 
 @Relation(value = "invite", collectionRelation = "invites")
+@JsonPropertyOrder({"ID", "Member", "Band", "Manager ID"})
 public class BandInviteResource extends ResourceSupport {
 
-    @JsonProperty("id")
+    @JsonProperty("ID")
     private long dtoId;
+    @JsonProperty("Band")
     private BandDTO band;
+    @JsonProperty("Member")
     private MemberDTO member;
-    private ManagerDTO manager;
+    @JsonProperty("Manager ID")
+    private Long managerId;
+    //private ManagerDTO manager;
 
     public BandInviteResource(BandInviteDTO bandInviteDTO) {
         this.dtoId = bandInviteDTO.getId();
         this.band = bandInviteDTO.getBand();
         this.member = bandInviteDTO.getMember();
-        this.manager = bandInviteDTO.getManager();
+        this.managerId = bandInviteDTO.getManager().getId();
+        //this.manager = bandInviteDTO.getManager();
     }
 
     public long getDtoId() {
@@ -52,11 +59,20 @@ public class BandInviteResource extends ResourceSupport {
         this.member = member;
     }
 
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+    
+/*
     public ManagerDTO getManager() {
         return manager;
     }
 
     public void setManager(ManagerDTO manager) {
         this.manager = manager;
+    }*/
+
+    public Long getManagerId() {
+        return managerId;
     }
 }
