@@ -1,5 +1,6 @@
 package cz.fi.muni.pa165.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Set;
 
 /**
@@ -26,7 +27,7 @@ public class ManagerDTO extends UserDTO {
     public void setTours(Set<TourDTO> tours) {
         this.tours = tours;
     }
-
+    @JsonIgnore
     public Set<BandInviteDTO> getBandInvites() {
         return bandInvites;
     }
