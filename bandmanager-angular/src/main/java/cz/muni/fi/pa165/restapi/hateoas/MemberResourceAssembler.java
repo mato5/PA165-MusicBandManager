@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.restapi.hateoas;
 
+import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.MemberDTO;
 import cz.muni.fi.pa165.restapi.controllers.MembersRestController;
 import org.slf4j.Logger;
@@ -11,14 +12,14 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MemberResourceAssembler extends ResourceAssemblerSupport<MemberDTO,MemberResource> {
+public class MemberResourceAssembler extends ResourceAssemblerSupport<MemberDTO, MemberResource> {
 
     private EntityLinks entityLinks;
 
     private final static Logger log = LoggerFactory.getLogger(MemberResourceAssembler.class);
 
     public MemberResourceAssembler(@SuppressWarnings("SpringJavaAutowiringInspection")
-                                     @Autowired EntityLinks entityLinks) {
+                                   @Autowired EntityLinks entityLinks) {
         super(MembersRestController.class, MemberResource.class);
         this.entityLinks = entityLinks;
     }
@@ -31,8 +32,10 @@ public class MemberResourceAssembler extends ResourceAssemblerSupport<MemberDTO,
             Link memLink = entityLinks.linkForSingleResource(MemberDTO.class, id).withSelfRel();
             memberResource.add(memLink);
 
-            Link bandLink = entityLinks.linkForSingleResource(MemberDTO.class, id).slash("/bands").withRel("band");
-            memberResource.add(bandLink);
+            /*if (memberDTO.getBand() != null) {
+                Link bandLink = entityLinks.linkForSingleResource(BandDTO.class, id).withRel("band");
+                memberResource.add(bandLink);
+            }*/
 
         } catch (Exception ex) {
             log.error("cannot link HATEOAS", ex);

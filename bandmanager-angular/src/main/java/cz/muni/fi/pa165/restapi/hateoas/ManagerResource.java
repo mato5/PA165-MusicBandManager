@@ -1,37 +1,35 @@
 package cz.muni.fi.pa165.restapi.hateoas;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.BandInviteDTO;
-import cz.fi.muni.pa165.dto.MemberDTO;
-import cz.muni.fi.pa165.enums.Role;
+import cz.fi.muni.pa165.dto.ManagerDTO;
+import cz.fi.muni.pa165.dto.TourDTO;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 
 import java.util.Set;
 
-@Relation(value = "member", collectionRelation = "members")
-@JsonPropertyOrder({"id", "name"})
-public class MemberResource extends ResourceSupport {
+@Relation(value = "manager", collectionRelation = "managers")
+public class ManagerResource extends ResourceSupport {
 
     @JsonProperty("id")
     private long dtoId;
     private String name;
     private String email;
     private String password;
-    private Role role;
-    private BandDTO band;
+    private Set<BandDTO> bands;
+    private Set<TourDTO> tours;
     private Set<BandInviteDTO> bandInvites;
 
-    public MemberResource(MemberDTO memberDTO){
-        dtoId = memberDTO.getId();
-        name = memberDTO.getName();
-        email = memberDTO.getEmail();
-        password = memberDTO.getPassword();
-        role = memberDTO.getRole();
-        band = memberDTO.getBand();
-        bandInvites = memberDTO.getBandInvites();
+    public ManagerResource(ManagerDTO managerDTO){
+        this.dtoId = managerDTO.getId();
+        this.name = managerDTO.getName();
+        this.email = managerDTO.getEmail();
+        this.password = managerDTO.getPassword();
+        this.bands = managerDTO.getBands();
+        this.tours = managerDTO.getTours();
+        this.bandInvites = managerDTO.getBandInvites();
     }
 
     public long getDtoId() {
@@ -66,20 +64,20 @@ public class MemberResource extends ResourceSupport {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<BandDTO> getBands() {
+        return bands;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setBands(Set<BandDTO> bands) {
+        this.bands = bands;
     }
 
-    public BandDTO getBand() {
-        return band;
+    public Set<TourDTO> getTours() {
+        return tours;
     }
 
-    public void setBand(BandDTO band) {
-        this.band = band;
+    public void setTours(Set<TourDTO> tours) {
+        this.tours = tours;
     }
 
     public Set<BandInviteDTO> getBandInvites() {
