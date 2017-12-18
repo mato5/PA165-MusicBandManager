@@ -63,7 +63,7 @@ public class MemberFacadeImpl implements MemberFacade {
 
     @Override
     public boolean authenticate(UserAuthDTO u) {
-        return memberService.authenticate(memberService.findMemberById(u.getId()), u.getPassword());
+        return memberService.authenticate(memberService.findMemberByEmail(u.getEmail()), u.getPassword());
     }
 
     @Override

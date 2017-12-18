@@ -132,6 +132,9 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public boolean authenticate(Manager m, String password) {
+        if(m == null){
+            throw new UserServiceException("The provided email is invalid!");
+        }
         return Validator.validatePassword(password,m.getPassword());
     }
 
