@@ -27,8 +27,8 @@ public class BandResourceAssembler extends ResourceAssemblerSupport<BandDTO, Ban
         long id = bandDTO.getId();
         BandResource bandResource = new BandResource(bandDTO);
         try {
-            Link manLink = entityLinks.linkForSingleResource(BandDTO.class, id).withSelfRel();
-            bandResource.add(manLink);
+            Link selfLink = entityLinks.linkForSingleResource(BandDTO.class, id).withSelfRel();
+            bandResource.add(selfLink);
 
         } catch (Exception ex) {
             log.error("cannot link HATEOAS", ex);

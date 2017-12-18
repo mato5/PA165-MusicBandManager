@@ -35,7 +35,7 @@ public class ManagerResourceAssembler extends ResourceAssemblerSupport<ManagerDT
             Link manLink = entityLinks.linkForSingleResource(ManagerDTO.class, id).withSelfRel();
             managerResource.add(manLink);
 
-            /*if (managerDTO.getBands() != null && managerDTO.getBands().size() > 0) {
+            if (managerDTO.getBands() != null && managerDTO.getBands().size() > 0) {
                 for (BandDTO b : managerDTO.getBands()) {
                     Link bandLink = entityLinks.linkForSingleResource(BandDTO.class, b.getId()).withRel("bands");
                     managerResource.add(bandLink);
@@ -54,7 +54,7 @@ public class ManagerResourceAssembler extends ResourceAssemblerSupport<ManagerDT
                     Link invLink = entityLinks.linkForSingleResource(BandInviteDTO.class, b.getId()).withRel("invites");
                     managerResource.add(invLink);
                 }
-            }*/
+            }
 
         } catch (Exception ex) {
             log.error("cannot link HATEOAS", ex);

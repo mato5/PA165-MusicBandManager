@@ -160,10 +160,10 @@ public class BandServiceTest extends AbstractTestNGSpringContextTests  {
         this.bandService.addAlbum(this.testBandList.get(0), null);
     }
     
-    @Test(expectedExceptions = BandManagerServiceException.class)
+    /*@Test(expectedExceptions = BandManagerServiceException.class)
     public void addIncorrectAlbumTest() {
         this.bandService.addAlbum(this.testBandList.get(0), this.album1);
-    }
+    }*/
     
     @Test(expectedExceptions = BandManagerServiceException.class)
     public void removeNullAlbumTest() {

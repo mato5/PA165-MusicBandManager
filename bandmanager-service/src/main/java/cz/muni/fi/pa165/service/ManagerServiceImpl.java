@@ -54,9 +54,9 @@ public class ManagerServiceImpl implements ManagerService {
         if(managerDao.findById(m.getId())==null){
             throw new UserServiceException("This action cannot be performed on a non-existent manager.");
         }
-        if(b.getManager()!=null){
+        /*if(b.getManager()!=null){
             throw new UserServiceException("This band is already managed.");
-        }
+        }*/
         m.addBand(b);
         managerDao.update(m);
     }
