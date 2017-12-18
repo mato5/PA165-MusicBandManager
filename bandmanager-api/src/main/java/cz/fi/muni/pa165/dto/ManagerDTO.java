@@ -31,7 +31,7 @@ public class ManagerDTO extends UserDTO {
     public Set<BandInviteDTO> getBandInvites() {
         return bandInvites;
     }
-
+    
     public void setBandInvites(Set<BandInviteDTO> bandInvites) {
         this.bandInvites = bandInvites;
     }
