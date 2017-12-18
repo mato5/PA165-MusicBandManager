@@ -1,5 +1,7 @@
 package cz.fi.muni.pa165.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Matej Sojak 433294
  */
@@ -33,7 +35,8 @@ public abstract class UserDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

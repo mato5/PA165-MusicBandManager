@@ -60,11 +60,17 @@ public class BandInvitesRestController {
     }*/
     
     @RequestMapping(method = RequestMethod.GET)
-    public final HttpEntity<Resources<BandInviteResource>> getSpecificBandInvites(@RequestParam(value = "mem", required = false) Long memberId) {
+    public final HttpEntity<Resources<BandInviteResource>> getSpecificBandInvites(
+            @RequestParam(value = "memId", required = false) Long memberId,
+            @RequestParam(value = "bandId", required = false) Long bandId,
+            @RequestParam(value = "manId", required = false) Long managerId
+            ) {
         log.debug("rest getSpecificBandInvites()");
         List<BandInviteResource> resourceCollection = this.bandInviteResourceAssembler.toResources(this.bandInviteFacade.getAllBandInvites()
                 .stream()
-                .filter(invite -> invite.getMember() == null || invite.getMember().getId() == memberId)
+                .filter(invite -> memberId == null || invite.getMember().getId() == memberId)
+                .filter(invite -> bandId == null || invite.getBand().getId() == bandId)
+                .filter(invite -> managerId == null || invite.getManager().getId() == managerId)
                 .collect(Collectors.toList()));
         
         Resources<BandInviteResource> bandInvitesResources = new Resources<>(resourceCollection,

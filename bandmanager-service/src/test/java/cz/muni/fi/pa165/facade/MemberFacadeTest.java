@@ -327,7 +327,7 @@ public class MemberFacadeTest /*extends AbstractTestNGSpringContextTests*/ {
     public void listAllInvitesTest() throws Exception {
         when(memberService.findMemberById(eq(memberId))).thenReturn(member);
         when(bandInviteService.findByMember(eq(member))).thenReturn(Arrays.asList(bandInvite));
-        when(beanMappingService.mapTo(Arrays.asList(bandInvite), BandInviteDTO.class))
+        when(beanMappingService.mapBandInviteDTOs(Arrays.asList(bandInvite), BandInviteDTO.class))
                 .thenReturn(Arrays.asList(bandInviteDTO));
         List<BandInviteDTO> returnedDTOs = new ArrayList<>(memberFacade.listAllMemberInvites(memberId));
         Assert.assertEquals(returnedDTOs, Arrays.asList(bandInviteDTO));
