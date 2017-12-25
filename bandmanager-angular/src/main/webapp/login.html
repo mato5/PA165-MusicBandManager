@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
+          integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"
+            integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK"
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="jumbotron" style="min-height:50%">
+    <div class="container">
+        <div class="col-md-5 offset-md-3">
+            <h5>Log in</h5>
+            <br>
+            <form method="POST" action="login.html" role="form">
+                <div class="form-group">
+                    <label for="username">Email:</label>
+                    <input type="text" name="username" id="username" class="form-control" required/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control" required/>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" value="Log In" class="btn btn-primary">Log in</button>
+                </div>
+            </form>
+            <br>
+            <div id="errorOutput" class="alert alert-danger" style="display: none;" role="alert">Email or
+                the password is incorrect.<br> Please, give another ones and try again.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container ">
+    <div class="col-md-8 offset-md-3">
+        <hr>
+        <p>
+            <strong>Prepared accounts: </strong><br>
+            Credentials are in the form <i>email</i> <i>password</i>.
+            <br>
+
+            <br>
+            Manager (Allan Williams): <i>willy@tiscali.com</i> <i>iloveringo</i><br>
+            Manager (Andrew Oldham): <i>a_oldham@rollingstones</i> <i>IWanaBeYourMano</i><br>
+            Manager (Lennie Chen): <i>chen@bigboss.com</i> <i>lenieChenPass</i><br>
+            <br>
+            Member (Alfred Pennyworth): <i>john@beatles.com</i> <i>1234Lennon</i><br>
+            Member (Paul McCartney): <i>paul@beatles.com</i> <i>McCartney4321</i><br>
+            Member (George Harrison): <i>george@beatles.com</i> <i>xxHarrisonxx</i><br>
+            Member (Ringo Starr): <i>ringo@beatles.com</i> <i>1324Starr</i><br>
+            Member (Mick Jagger): <i>jagger@rs.com</i> <i>MickJagger1234</i><br>
+            Member (Keith Richards): <i>richards@rs.com</i> <i>KeithXXXX</i><br>
+            Member (Charlie Watts): <i>watts@rs.com</i> <i>KeithXXXX</i><br>
+            Member (Bob Marley): <i>bobmarley@reggae.com</i> <i>bobPassword</i><br>
+            Member (Peter Tosh): <i>petertosh@reggae.com</i> <i>**tosh**</i><br>
+            Member (Steve Mariott): <i>mariott@faces.org</i> <i>mariXXott</i><br>
+            Member (Kenney Jones): <i>jones@faces.org</i> <i>1234_jones</i><br>
+            Member (Ronnie Lane): <i>ronnielane@faces.org</i> <i>ronnie1234lane</i><br>
+            Member (Jimmy Winston): <i>winston@faces.org</i> <i>jimmiWin</i><br>
+        </p>
+        <hr>
+    </div>
+</div>
+
+<script>
+    function showMessage() {
+        var url = window.location.href;
+        if (url.indexOf('?error') !== -1) {
+            document.getElementById('errorOutput').style.display = 'block';
+        }
+    }
+
+    window.onload = showMessage();
+</script>
+
+</body>
+
+</html>
