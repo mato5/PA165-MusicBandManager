@@ -63,6 +63,9 @@ public class MemberFacadeImpl implements MemberFacade {
 
     @Override
     public boolean authenticate(UserAuthDTO u) {
+        if (memberService.findMemberByEmail(u.getEmail()) == null) {
+            return false;
+        }
         return memberService.authenticate(memberService.findMemberByEmail(u.getEmail()), u.getPassword());
     }
 
@@ -125,7 +128,7 @@ public class MemberFacadeImpl implements MemberFacade {
             throw new UserServiceException("This user is not a member of any band!");
         }
         Band b = bandService.findById(m.getBand().getId());
-        System.out.println("Band size:" +b.getMembers().size());
+        System.out.println("Band size:" + b.getMembers().size());
         return beanMappingService.mapTo(b.getMembers(), MemberDTO.class);
     }
 
