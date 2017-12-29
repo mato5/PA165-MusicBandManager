@@ -75,11 +75,14 @@ public class ManagerFacadeImpl implements ManagerFacade {
     public boolean authenticate(UserAuthDTO u) {
         List<Manager> list = managerService.getAllManagers();
         Manager lookingFor = null;
-        for(Manager m : list){
-            if(m.getEmail().equals(u.getEmail())){
+        for (Manager m : list) {
+            if (m.getEmail().equals(u.getEmail())) {
                 lookingFor = m;
                 u.setId(m.getId());
             }
+        }
+        if (lookingFor == null) {
+            return false;
         }
         return managerService.authenticate(lookingFor, u.getPassword());
     }
@@ -211,7 +214,7 @@ public class ManagerFacadeImpl implements ManagerFacade {
         newAlbum.setCoverURI(a.getCoverURI());
         newAlbum.setName(a.getName());
         newAlbum = albumService.create(newAlbum);
-        bandService.addAlbum(band,newAlbum);
+        bandService.addAlbum(band, newAlbum);
         return newAlbum.getId();
     }
 
@@ -219,7 +222,7 @@ public class ManagerFacadeImpl implements ManagerFacade {
     public void addSongToAlbum(ManagerDTO m, SongToAlbumDTO s) {
         Song song = songService.findById(s.getSongId());
         Album album = albumService.findById(s.getAlbumId());
-        albumService.addSong(album,song);
+        albumService.addSong(album, song);
     }
 
     @Override
