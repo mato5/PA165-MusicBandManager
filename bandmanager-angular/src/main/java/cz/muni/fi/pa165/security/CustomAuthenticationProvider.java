@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.security;
 import cz.fi.muni.pa165.dto.UserAuthDTO;
 import cz.fi.muni.pa165.facade.ManagerFacade;
 import cz.fi.muni.pa165.facade.MemberFacade;
+import cz.muni.fi.pa165.enums.SecurityRole;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,11 +44,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         if (managerAuthenticatedSuccefully) {
             List<GrantedAuthority> grantedAuths = new ArrayList<>();
-            grantedAuths.add(new SimpleGrantedAuthority("ROLE_" + "MANAGER"));
+            grantedAuths.add(new SimpleGrantedAuthority("ROLE_" + SecurityRole.MANAGER.toString()));
             return new UsernamePasswordAuthenticationToken(email, password, grantedAuths);
         } else if (memberAuthenticatedSuccefully) {
             List<GrantedAuthority> grantedAuths = new ArrayList<>();
-            grantedAuths.add(new SimpleGrantedAuthority("ROLE_" + "MEMBER"));
+            grantedAuths.add(new SimpleGrantedAuthority("ROLE_" + SecurityRole.MEMBER.toString()));
             return new UsernamePasswordAuthenticationToken(email, password, grantedAuths);
         } else {
             throw new BadCredentialsException("Invalid credentials.");
