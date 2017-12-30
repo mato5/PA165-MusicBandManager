@@ -54,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/rest/albums").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.PUT, "/rest/albums").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.DELETE, "/rest/albums").hasRole(SecurityRole.MANAGER.name())
-                
+
                 .antMatchers(HttpMethod.GET, "/rest/bands").hasRole(SecurityRole.MEMBER.name())
                 .antMatchers(HttpMethod.GET, "/rest/bands").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.POST, "/rest/bands").hasRole(SecurityRole.MANAGER.name())

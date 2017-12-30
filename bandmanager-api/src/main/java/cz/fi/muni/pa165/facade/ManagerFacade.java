@@ -17,6 +17,8 @@ public interface ManagerFacade {
 
     ManagerDTO findManagerByName(String name);
 
+    ManagerDTO findManagerByEmail(String email);
+
     boolean authenticate(UserAuthDTO u);
 
     void changeEmail(UserChangeEmailDTO u);

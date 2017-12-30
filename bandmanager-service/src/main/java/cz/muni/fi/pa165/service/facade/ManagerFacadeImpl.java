@@ -72,6 +72,12 @@ public class ManagerFacadeImpl implements ManagerFacade {
     }
 
     @Override
+    public ManagerDTO findManagerByEmail(String email) {
+        Manager manager = managerService.findManagerByEmail(email);
+        return (manager == null) ? null : beanMappingService.mapTo(manager, ManagerDTO.class);
+    }
+
+    @Override
     public boolean authenticate(UserAuthDTO u) {
         List<Manager> list = managerService.getAllManagers();
         Manager lookingFor = null;

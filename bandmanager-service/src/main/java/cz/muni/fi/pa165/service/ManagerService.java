@@ -42,6 +42,8 @@ public interface ManagerService {
      */
     public Manager findManagerByName(String name);
 
+    public Manager findManagerByEmail(String email);
+
     /**
      * Adds a new band to a manager
      * @param m band's manager
