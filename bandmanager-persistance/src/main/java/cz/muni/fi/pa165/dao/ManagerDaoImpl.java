@@ -81,4 +81,15 @@ public class ManagerDaoImpl implements ManagerDao {
         }
     }
 
+    @Override
+    public Manager findByEmail(String email) {
+        try {
+            return em
+                    .createQuery("select m from Manager m where email = :email",
+                            Manager.class).setParameter("email", email)
+                    .getSingleResult();
+        } catch (NoResultException nrf) {
+            return null;
+        }
+    }
 }

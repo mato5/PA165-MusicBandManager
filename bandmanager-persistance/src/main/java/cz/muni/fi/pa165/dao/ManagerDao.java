@@ -54,4 +54,7 @@ public interface ManagerDao {
      */
     public Manager findByName(String name);
 
+
+    public Manager findByEmail(String email);
+
 }

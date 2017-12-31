@@ -45,19 +45,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.GET, "/rest/songs").hasRole(SecurityRole.MEMBER.name())
                 .antMatchers(HttpMethod.GET, "/rest/songs").hasRole(SecurityRole.MANAGER.name())
-                .antMatchers(HttpMethod.POST, "/rest/songs").hasRole(SecurityRole.MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/rest/songs/create").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.PUT, "/rest/songs").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.DELETE, "/rest/songs").hasRole(SecurityRole.MANAGER.name())
 
                 .antMatchers(HttpMethod.GET, "/rest/albums").hasRole(SecurityRole.MEMBER.name())
                 .antMatchers(HttpMethod.GET, "/rest/albums").hasRole(SecurityRole.MANAGER.name())
-                .antMatchers(HttpMethod.POST, "/rest/albums").hasRole(SecurityRole.MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/rest/albums/create").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.PUT, "/rest/albums").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.DELETE, "/rest/albums").hasRole(SecurityRole.MANAGER.name())
-                
+
                 .antMatchers(HttpMethod.GET, "/rest/bands").hasRole(SecurityRole.MEMBER.name())
                 .antMatchers(HttpMethod.GET, "/rest/bands").hasRole(SecurityRole.MANAGER.name())
-                .antMatchers(HttpMethod.POST, "/rest/bands").hasRole(SecurityRole.MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/rest/bands/create").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.PUT, "/rest/bands").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.DELETE, "/rest/bands").hasRole(SecurityRole.MANAGER.name())
 
@@ -69,7 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.GET, "/rest/tours").hasRole(SecurityRole.MEMBER.name())
                 .antMatchers(HttpMethod.GET, "/rest/tours").hasRole(SecurityRole.MANAGER.name())
-                .antMatchers(HttpMethod.POST, "/rest/tours").hasRole(SecurityRole.MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/rest/tours/create").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.PUT, "/rest/tours").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.DELETE, "/rest/tours").hasRole(SecurityRole.MANAGER.name())
 

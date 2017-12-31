@@ -35,12 +35,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String email = authentication.getName();
         String password = (String) authentication.getCredentials();
 
-        UserAuthDTO fakeAuthDTO = new UserAuthDTO();
-        fakeAuthDTO.setEmail(email);
-        fakeAuthDTO.setPassword(password);
+        UserAuthDTO transportDTO = new UserAuthDTO();
+        transportDTO.setEmail(email);
+        transportDTO.setPassword(password);
 
-        boolean memberAuthenticatedSuccefully = memberFacade.authenticate(fakeAuthDTO);
-        boolean managerAuthenticatedSuccefully = managerFacade.authenticate(fakeAuthDTO);
+        boolean memberAuthenticatedSuccefully = memberFacade.authenticate(transportDTO);
+        boolean managerAuthenticatedSuccefully = managerFacade.authenticate(transportDTO);
 
         if (managerAuthenticatedSuccefully) {
             List<GrantedAuthority> grantedAuths = new ArrayList<>();

@@ -47,6 +47,11 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+    public Manager findManagerByEmail(String email) {
+        return managerDao.findByEmail(email);
+    }
+
+    @Override
     public void addManagedBand(Manager m, Band b) {
         if(m == null || b == null ){
             throw new UserServiceException("Manager or band is null");
