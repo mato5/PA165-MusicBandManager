@@ -3,8 +3,17 @@ var module = angular.module('bandManager', ['ngRoute', 'bandManagerControllers',
 module.config(function ($routeProvider) {
 
     $routeProvider
-        .when('/', {
-            templateUrl: 'partials/home.html'
+        .when('/tours', {
+            templateUrl: 'partials/tours.html',
+            controller: 'toursController'
+        })
+        .when('/tours/new_tour', {
+            templateUrl: 'partials/new_tour.html',
+            controller: 'createTourController'
+        })
+        .when('/tours/:id', {
+            templateUrl: 'partials/tour.html',
+            controller: 'tourDetailsController'
         })
         .when('/forbidden', {
             templateUrl: 'partials/forbidden.html'
@@ -17,10 +26,7 @@ module.run(function ($rootScope, $location, $window, $http, loggedUserFactory) {
 
     loggedUserFactory.getPrincipal(
         function (response) {
-
             var values = JSON.parse(response.data);
-            console.log(values);
-
             $rootScope.principal_username = values.username;
             $rootScope.principal_id = values.id;
             $rootScope.role = values.role;
@@ -38,26 +44,4 @@ module.run(function ($rootScope, $location, $window, $http, loggedUserFactory) {
             $window.location.href = "login.html";
         }
     };
-
-    $rootScope.testCreate = function () {
-        var body = "{\n" +
-            "\t\"name\": \"New REST Test Song #3\",\n" +
-            "\t\"duration\": 100,\n" +
-            "\t\"bandId\" : 1\n" +
-            "}";
-
-
-        $http({
-            method: 'POST',
-            url: 'http://localhost:8080/pa165/rest/songs/create',
-            data: body,
-            timeout: 4000
-        }).then(function (success) {
-            $window.alert("OK");
-        }, function (error) {
-            $window.alert(error);
-        });
-
-    };
-
 });

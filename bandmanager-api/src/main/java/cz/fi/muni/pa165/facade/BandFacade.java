@@ -25,6 +25,8 @@ public interface BandFacade {
     public List<BandDTO> findAll();
 
     public List<BandDTO> findByManager(ManagerDTO managerDTO);
+
+    List<BandDTO> findByManagerId(Long managerId);
  
     public List<BandDTO> findByGenre(Genre genreDTO);
 

@@ -11,11 +11,11 @@ import java.util.Date;
 public class TourCreateDTO {
 
     @NotNull
-    @Size(min = 5, max = 50)
+    @Size(min = 3, max = 50)
     private String name;
 
     @NotNull
-    @Size(min = 5, max = 50)
+    @Size(min = 3, max = 50)
     private String cityName;
 
     @NotNull

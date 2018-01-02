@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Tours</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<h3>List of tours</h3>
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Tour name</th>
+        <th>City</th>
+        <th>Scheduled date</th>
+        <th>Band name</th>
+        <th>Band logo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="tour in tours">
+        <td>
+            <a ng-href="#!/tours/{{tour.id}}">{{tour.id}}</a>
+        </td>
+        <td>
+            {{tour.name}}
+        </td>
+        <td>
+            {{tour.cityName}}
+        </td>
+        <td>
+            {{tour.datetime}}
+        </td>
+        <td>
+            {{tour.band.name}}
+        </td>
+        <td>
+            <img src="http://e-cdn-images.deezer.com/images/artist/2ceac184bc846327f60c5b0d4247cc7a/200x200-000000-80-0-0.jpg"
+                 alt="" width="25px" height="25px">
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="#!/tours/new_tour" class="btn btn-primary" ng-show="isManagerRole(role)">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    Create tour
+</a>
+
+</body>
+</html>
