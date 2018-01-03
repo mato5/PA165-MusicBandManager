@@ -10,13 +10,12 @@ bandManagerControllers.controller('toursController', function ($scope, $rootScop
             $rootScope.principal_username = values.username;
             $rootScope.principal_id = values.id;
             $rootScope.role = values.role;
+            $scope.role = $rootScope.role;
         },
         function (response) {
             alert("An error occurred when getting the logged user.");
         }
     );
-
-    $scope.role = $rootScope.role;
 
     toursFactory.getAllBands(
         function (response) {
@@ -48,7 +47,9 @@ bandManagerControllers.controller('tourDetailsController', function ($scope, $ro
 
 /* Tour create controller */
 
-bandManagerControllers.controller('createTourController', function ($scope, $routeParams, $rootScope, bandsFactory, toursFactory, loggedUserFactory) {
+bandManagerControllers.controller('createTourController', function ($location, $scope, $routeParams, $rootScope, bandsFactory, toursFactory, loggedUserFactory) {
+
+    $scope.stringDatetime = "";
 
     loggedUserFactory.getPrincipal(
         function (response) {
@@ -61,8 +62,6 @@ bandManagerControllers.controller('createTourController', function ($scope, $rou
             alert("An error occurred when getting the logged user.");
         }
     );
-
-    $scope.availableBands = bandsFactory.getByManager($rootScope.principal_id);
 
     bandsFactory.getByManager(
         $rootScope.principal_id,
@@ -81,15 +80,14 @@ bandManagerControllers.controller('createTourController', function ($scope, $rou
     };
 
     $scope.createNewTour = function (tour) {
-        console.log(tour);
+        $scope.newTour.datetime = (new Date($scope.stringDatetime).getTime());
+
         toursFactory.createTour(
             tour,
             function () {
-                alert("OK");
+                $location.path("/tours");
             },
-            function () {
-                alert("ERROR");
-            }
+            $rootScope.unsuccessfulResponse
         );
     };
 
