@@ -13,7 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"
             integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK"
             crossorigin="anonymous"></script>
-    l
+
     <script src="js/app.js" type="text/javascript"></script>
     <script src="js/controllers.js" type="text/javascript"></script>
     <script src="js/services.js" type="text/javascript"></script>
@@ -27,9 +27,11 @@
 
         <div class="collapse navbar-toggleable-xs" id="navbar-header">
             <a class="navbar-brand" href="#!/home.html">Home</a>
-
             <div id="navbar" class="nav nav-tabs float-xs-right">
                 <ul class="nav nav tabs" ng-switch="role">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#!/tours">Tours</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.html">Log out ({{principal_username}}, id:
                             {{principal_id}})</a>
@@ -38,13 +40,6 @@
             </div>
         </div>
     </nav>
-
-
-    <button ng-click="testCreate()">
-        Test POST
-    </button>
-
-
     <div id="logoutOutput" class="alert alert-info" style="display: none;" role="alert">You have been logged out.</div>
 
     <script>

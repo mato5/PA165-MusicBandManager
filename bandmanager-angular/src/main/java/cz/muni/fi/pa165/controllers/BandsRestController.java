@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-import static org.springframework.hateoas.jaxrs.JaxRsLinkBuilder.linkTo;
-
 /**
  * @author Alexander Kromka
  */
@@ -94,6 +92,15 @@ public class BandsRestController {
         List<SongResource> resourceCollection = songResourceAssembler.toResources(songFacade.findByBand(id));
         Resources<SongResource> songResources = new Resources<>(resourceCollection);
         return new ResponseEntity<>(songResources, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/by_manager_id/{id}", method = RequestMethod.GET)
+    public final HttpEntity<Resources<BandResource>> getByManagerId(@PathVariable("id") long managerId) throws Exception {
+        logger.debug("REST getByManagerId({})", managerId);
+        List<BandResource> resourceCollection = bandResourceAssembler.toResources(
+                bandFacade.findByManagerId(managerId));
+        Resources<BandResource> bandResources = new Resources<>(resourceCollection);
+        return new ResponseEntity<>(bandResources, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/changeManager", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
