@@ -110,7 +110,6 @@ public class MembersRestController {
 
     @RequestMapping(value = "bandmates/{id}", method = RequestMethod.GET)
     public final HttpEntity<Resources<MemberResource>> getBandmates(@PathVariable("id") long id) throws Exception {
-        System.out.println("Im here");
         log.debug("rest getBandmates() of a member id: " + id);
         List<MemberResource> resourceCollection = null;
         try {
