@@ -1,4 +1,4 @@
-var module = angular.module('bandManager', ['ngRoute', 'bandManagerControllers', 'bandManagerServices']);
+var module = angular.module('bandManager', ['ngRoute', 'bandManagerControllers', 'bandManagerServices', '720kb.datepicker']);
 
 module.config(function ($routeProvider) {
 

@@ -70,7 +70,7 @@ bandManagerServices.factory('bandsFactory', ['$http',
         bandsDataFactory.getByManager = function (managerId, success, error) {
             return $http.get(bandResourceNameUrl + "/by_manager_id" + "/" + managerId).then(success, error);
         };
-        
+
         bandsDataFactory.getBand = function (id, success, error) {
             return $http.get(bandResourceNameUrl + "/" + id).then(success, error);
         };
