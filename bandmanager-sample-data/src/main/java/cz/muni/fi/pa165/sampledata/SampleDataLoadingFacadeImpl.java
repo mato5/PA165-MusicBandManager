@@ -1,30 +1,15 @@
 package cz.muni.fi.pa165.sampledata;
 
-import cz.muni.fi.pa165.entity.Album;
-import cz.muni.fi.pa165.entity.Band;
-import cz.muni.fi.pa165.entity.BandInvite;
-import cz.muni.fi.pa165.entity.Manager;
-import cz.muni.fi.pa165.entity.Member;
-import cz.muni.fi.pa165.entity.Song;
-import cz.muni.fi.pa165.entity.Tour;
+import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.Genre;
 import cz.muni.fi.pa165.enums.Role;
-import cz.muni.fi.pa165.service.AlbumService;
-import cz.muni.fi.pa165.service.BandInviteService;
-import cz.muni.fi.pa165.service.BandService;
-import cz.muni.fi.pa165.service.ManagerService;
-import cz.muni.fi.pa165.service.MemberService;
-import cz.muni.fi.pa165.service.SongService;
-import cz.muni.fi.pa165.service.TourService;
+import cz.muni.fi.pa165.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-
 import java.io.IOException;
-import java.time.Instant;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Date;
 
 /**
  * @author Iurii xkuznetc Kuznetcov, Miroslav Kadlec
@@ -61,10 +46,10 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Manager oldham = this.manager("Andrew Oldham", "a_oldham@rollingstones.com", "IWanaBeYourMan");
         Manager chen = this.manager("Lennie Chen", "chen@bigboss.com", "lenieChenPass");
 
-        Band beatles = this.band("Beatles", williams, Genre.ROCK, "www.todo.com");
-        Band wailers = this.band("The Wailers", chen, Genre.REGGAE, "www.todo.com");
-        Band stones = this.band("Rolling stones", oldham, Genre.ROCK, "www.todo.com");
-        Band smallFaces = this.band("Small Faces", oldham, Genre.ROCK, "www.todo.com");
+        Band beatles = this.band("Beatles", williams, Genre.ROCK, "https://cps-static.rovicorp.com/3/JPG_400/MI0003/995/MI0003995354.jpg?partner=allrovi.com");
+        Band wailers = this.band("The Wailers", chen, Genre.REGGAE, "https://img.discogs.com/3_C_hNpOQszGzu8bxNHpl91RAgI=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-21764-1444051758-7211.jpeg.jpg");
+        Band stones = this.band("Rolling stones", oldham, Genre.ROCK, "http://e-cdn-images.deezer.com/images/artist/2ceac184bc846327f60c5b0d4247cc7a/200x200-000000-80-0-0.jpg");
+        Band smallFaces = this.band("Small Faces", oldham, Genre.ROCK, "https://upload.wikimedia.org/wikipedia/commons/0/0b/Small_Faces_1965.JPG");
 
         Member lennon = this.member("John Lennon", "john@beatles.com", beatles, Role.KEYS, "1234Lennon");
         Member mccartney = this.member("Paul McCartney", "paul@beatles.com", beatles, Role.BASSIST, "McCartney4321");
