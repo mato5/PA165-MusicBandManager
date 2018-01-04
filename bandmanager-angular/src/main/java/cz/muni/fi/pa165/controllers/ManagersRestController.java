@@ -112,9 +112,9 @@ public class ManagersRestController {
             throw new InvalidRequestException("Failed validation");
         }
         ManagerDTO managerDTO = managerFacade.findManagerById(bandCreateDTO.getManagerId());
-        Long id = managerFacade.createBand(managerDTO,bandCreateDTO);
+        Long id = managerFacade.createBand(managerDTO, bandCreateDTO);
         BandResource resource = bandResourceAssembler.toResource(bandFacade.findById(id));
-        return new ResponseEntity<>(resource,HttpStatus.OK);
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
     //TODO add new song
@@ -128,9 +128,9 @@ public class ManagersRestController {
         }
         //BandDTO band = bandFacade.findById(songCreateDTO.getBandId());
 
-        Long id = managerFacade.addNewSong(null,songCreateDTO);
+        Long id = managerFacade.addNewSong(null, songCreateDTO);
         SongResource resource = songResourceAssembler.toResource(songFacade.findById(id));
-        return new ResponseEntity<>(resource,HttpStatus.OK);
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
     //TODO add new album
@@ -144,9 +144,9 @@ public class ManagersRestController {
         }
         //BandDTO band = bandFacade.findById(songCreateDTO.getBandId());
 
-        Long id = managerFacade.addNewAlbum(null,albumCreateDTO);
+        Long id = managerFacade.addNewAlbum(null, albumCreateDTO);
         AlbumResource resource = albumResourceAssembler.toResource(albumFacade.findById(id));
-        return new ResponseEntity<>(resource,HttpStatus.OK);
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/add_toalbum", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -158,11 +158,11 @@ public class ManagersRestController {
             throw new InvalidRequestException("Failed validation");
         }
         //BandDTO band = bandFacade.findById(songCreateDTO.getBandId());
-        managerFacade.addSongToAlbum(null,songToAlbumDTO);
+        managerFacade.addSongToAlbum(null, songToAlbumDTO);
 
         //Long id = managerFacade.addNewAlbum(null,albumCreateDTO);
         AlbumResource resource = albumResourceAssembler.toResource(albumFacade.findById(songToAlbumDTO.getAlbumId()));
-        return new ResponseEntity<>(resource,HttpStatus.OK);
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
 
@@ -176,7 +176,7 @@ public class ManagersRestController {
         }
         Long id = managerFacade.sendBandInvite(bandInviteDTO.getManager(), bandInviteDTO);
         BandInviteResource resource = bandInviteResourceAssembler.toResource(bandInviteFacade.findById(id));
-        return new ResponseEntity<>(resource,HttpStatus.OK);
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create_tour", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -189,7 +189,7 @@ public class ManagersRestController {
         }
         Long id = managerFacade.createTour(tourCreateDTO);
         TourResource resource = tourResourceAssembler.toResource(tourFacade.findById(id));
-        return new ResponseEntity<>(resource,HttpStatus.OK);
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -202,7 +202,7 @@ public class ManagersRestController {
         }
 
         try {
-            if(!managerFacade.authenticate(credentials)){
+            if (!managerFacade.authenticate(credentials)) {
                 throw new Exception("Failed to authenticate");
             }
 
@@ -213,7 +213,7 @@ public class ManagersRestController {
 
         } catch (Throwable ex) {
             log.error("User " + credentials.getEmail().toString() + " doesn't exists");
-            Throwable rootCause=ex;
+            Throwable rootCause = ex;
             while ((ex = ex.getCause()) != null) {
                 rootCause = ex;
                 log.error("caused by : " + ex.getClass().getSimpleName() + ": " + ex.getMessage());

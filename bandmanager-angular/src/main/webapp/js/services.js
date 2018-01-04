@@ -46,7 +46,7 @@ bandManagerServices.factory('toursFactory', ['$http',
         };
 
         toursDataFactory.createTour = function (tour, success, error) {
-            return $http.post(tourResourceNameUrl + "/create", tour).then(success, error);
+            return $http.post(baseURL.concat("/managers/create_tour"), tour).then(success, error);
         };
 
         return toursDataFactory;
@@ -80,9 +80,66 @@ bandManagerServices.factory('bandsFactory', ['$http',
         };
 
         bandsDataFactory.createBand = function (band, success, error) {
-            return $http.post(bandResourceNameUrl + "/create", band).then(success, error);
+            return $http.post(baseURL.concat("/managers/create_band"), band).then(success, error);
+        };
+
+        bandsDataFactory.getBandmates = function (id, success, error) {
+            return $http.get(baseURL.concat("/members/bandmates/" + id), band).then(success, error);
         };
 
         return bandsDataFactory;
     }
 ]);
+
+/* Manager factory */
+
+bandManagerServices.factory('managersFactory', ['$http',
+    function ($http) {
+
+        var managersDataFactory = {};
+
+        var managerResourceNameUrl = baseURL.concat("/managers");
+        var newManagerResourceId = managerResourceNameUrl.concat("/{id}");
+
+        managersDataFactory.getAllManagers = function (success, error) {
+            return $http.get(managerResourceNameUrl).then(success, error);
+        };
+
+        managersDataFactory.getManager = function (id, success, error) {
+            return $http.get(managerResourceNameUrl + "/" + id).then(success, error);
+        };
+
+        managersDataFactory.createManager = function (manager, success, error) {
+            return $http.post(managerResourceNameUrl + "/create", manager).then(success, error);
+        };
+
+        return bandsDataFactory;
+    }
+]);
+
+/* Member factory */
+
+bandManagerServices.factory('membersFactory', ['$http',
+    function ($http) {
+
+        var membersDataFactory = {};
+
+        var memberResourceUrl = baseURL.concat("/members");
+        var newMemberResourceId = memberResourceUrl.concat("/{id}");
+
+        membersFactory.getAllMembers = function (success, error) {
+            return $http.get(memberResourceUrl).then(success, error);
+        };
+
+        membersFactory.getMember = function (id, success, error) {
+            return $http.get(memberResourceUrl + "/" + id).then(success, error);
+        };
+
+        membersDataFactory.createMember = function (member, success, error) {
+            return $http.post(memberResourceUrl + "/create", member).then(success, error);
+        };
+
+        return bandsDataFactory;
+    }
+]);
+
