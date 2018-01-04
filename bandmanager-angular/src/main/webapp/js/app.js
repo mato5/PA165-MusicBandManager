@@ -15,6 +15,18 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/tour.html',
             controller: 'tourDetailsController'
         })
+        .when('/songs', {
+            templateUrl: 'partials/songs.html',
+            controller: 'songsController'
+        })
+        .when('/songs/new_song', {
+            templateUrl: 'partials/new_song.html',
+            controller: 'createTourController'
+        })
+        .when('/songs/:id', {
+            templateUrl: 'partials/song.html',
+            controller: 'songDetailsController'
+        })
         .when('/forbidden', {
             templateUrl: 'partials/forbidden.html'
         })

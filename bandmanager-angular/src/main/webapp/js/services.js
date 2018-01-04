@@ -143,3 +143,39 @@ bandManagerServices.factory('membersFactory', ['$http',
     }
 ]);
 
+/* Songs factory */
+
+bandManagerServices.factory('songsFactory', ['$http',
+    function ($http) {
+
+        var songsDataFactory = {};
+
+        var songResourceUrl = baseURL.concat("/songs");
+        var newSongResourceId = songResourceUrl.concat("/{id}");
+
+        songsDataFactory.getAllSongs = function (success, error) {
+            return $http.get(songResourceUrl).then(success, error);
+        };
+
+        songsDataFactory.getSong = function (id, success, error) {
+            return $http.get(songResourceUrl + "/" + id).then(success, error);
+        };
+
+        songsDataFactory.getSongByBandId = function (bandId, success, error) {
+            return $http.get(songResourceUrl + "/by_band_id" + "/" + bandId).then(success, error);
+        };
+
+        songsDataFactory.getSongByName = function (searchName, success, error) {
+            return $http.get(
+                songResourceUrl + "/by_name",
+                {params: {name: searchName}}
+            ).then(success, error);
+        };
+
+        songsDataFactory.createSong = function (member, success, error) {
+            return $http.post(songResourceUrl + "/create", member).then(success, error);
+        };
+
+        return songsDataFactory;
+    }
+])
