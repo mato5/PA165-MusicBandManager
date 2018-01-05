@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body ng-app="bandManagerControllers">
 <h3>List of invites</h3>
-
+<div ng-controller="memberInvitesController">
 <table class="table">
     <thead>
     <tr>
@@ -25,8 +25,8 @@
             {{invite.manager.name}}
         </td>
         <td>
-            <button onclick="deleteInvite()">TODO:Accept</button>
-            <button onclick="deleteInvite()">TODO:Decline</button>
+            <button ng-click="acceptInvite(invite.member.id, invite.ID)">Accept</button>
+            <button ng-click="declineInvite(invite.member.id, invite.ID)">Decline</button>
         </td>
         <td>
             --
@@ -34,6 +34,6 @@
     </tr>
     </tbody>
 </table>
-
+    </div>
 </body>
 </html>

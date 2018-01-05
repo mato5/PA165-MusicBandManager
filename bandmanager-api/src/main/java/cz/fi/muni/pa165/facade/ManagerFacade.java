@@ -78,6 +78,8 @@ public interface ManagerFacade {
 
     void addSongToAlbum(ManagerDTO m, SongToAlbumDTO s);
 
+    void removeSongFromAlbum(ManagerDTO m, SongToAlbumDTO s);
+
     Long createTour(TourCreateDTO t);
 
 }

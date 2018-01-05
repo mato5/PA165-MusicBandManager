@@ -217,7 +217,7 @@ bandManagerControllers.controller('createSongController', function ($location, $
 });
 
 /* Member's invites */
-bandManagerControllers.controller('memberInvitesController', function ($scope, $rootScope, bandInvitesFactory, loggedUserFactory, membersFactory) {
+bandManagerControllers.controller('memberInvitesController', function ($scope, $rootScope, $location, invitesFactory, loggedUserFactory, membersFactory) {
 
     loggedUserFactory.getPrincipal(
         function (response) {
@@ -231,33 +231,32 @@ bandManagerControllers.controller('memberInvitesController', function ($scope, $
             alert("An error occurred when getting the logged user.");
         }
     );
-    $scope.deleteInvite = function (inviteId) {
-        membersFactory.declineBandInvite(
+    $scope.myFunc = function() {
+      $scope.count++;
+    };
+    $scope.declineInvite = function (memberId, inviteId) {
+        //alert("deleting".concat(memberId).concat(inviteId));
+        invitesFactory.declineInvite(
+                memberId,
                 inviteId,
-                function (response) {
-                    $scope.reload = 1;
-                },
+                location.reload(),
                 $rootScope.unsuccessfulResponse
                 );
     };
-    $scope.acceptInvite = function (inviteId) {
-        membersFactory.acceptBandInvite(
+    $scope.acceptInvite = function (memberId, inviteId) {
+        //alert("accepting".concat(memberId).concat(inviteId));
+        invitesFactory.acceptInvite(
+                memberId,
                 inviteId,
-                function (response) {
-                    $scope.reload = 1;
-                },
+                location.reload(),
                 $rootScope.unsuccessfulResponse
                 );
     };
-    bandInvitesFactory.getMemberInvites(
+    invitesFactory.getMemberInvites(
         $rootScope.principal_id,
         function (response) {
             $scope.invites = response.data._embedded.invites;
         },
         $rootScope.unsuccessfulResponse
     );
-    /*
-    $scope.isMemberRole = function (roleString) {
-        return roleString === "ROLE_MEMBER";
-    };*/
 });

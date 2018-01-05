@@ -232,6 +232,13 @@ public class ManagerFacadeImpl implements ManagerFacade {
     }
 
     @Override
+    public void removeSongFromAlbum(ManagerDTO m, SongToAlbumDTO s) {
+        Song song = songService.findById(s.getSongId());
+        Album album = albumService.findById(s.getAlbumId());
+        albumService.deleteSong(album, song);
+    }
+
+    @Override
     public Long createTour(TourCreateDTO t) {
         Manager manager = managerService.findManagerById(t.getManagerId());
         Band band = bandService.findById(t.getBandId());

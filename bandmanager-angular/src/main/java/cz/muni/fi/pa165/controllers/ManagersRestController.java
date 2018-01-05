@@ -149,9 +149,9 @@ public class ManagersRestController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/add_toalbum", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/add_to_album", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<AlbumResource> addSongToAlbum(@RequestBody @Valid SongToAlbumDTO songToAlbumDTO, BindingResult bindingResult) throws Exception {
-        log.debug("rest createAlbum");
+        log.debug("rest add to Album");
 
         if (bindingResult.hasErrors()) {
             log.error("failed validation {}", bindingResult.toString());
@@ -159,6 +159,22 @@ public class ManagersRestController {
         }
         //BandDTO band = bandFacade.findById(songCreateDTO.getBandId());
         managerFacade.addSongToAlbum(null, songToAlbumDTO);
+
+        //Long id = managerFacade.addNewAlbum(null,albumCreateDTO);
+        AlbumResource resource = albumResourceAssembler.toResource(albumFacade.findById(songToAlbumDTO.getAlbumId()));
+        return new ResponseEntity<>(resource, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/remove_from_album", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final HttpEntity<AlbumResource> removeSongFromAlbum(@RequestBody @Valid SongToAlbumDTO songToAlbumDTO, BindingResult bindingResult) throws Exception {
+        log.debug("rest remove from Album");
+
+        if (bindingResult.hasErrors()) {
+            log.error("failed validation {}", bindingResult.toString());
+            throw new InvalidRequestException("Failed validation");
+        }
+        //BandDTO band = bandFacade.findById(songCreateDTO.getBandId());
+        managerFacade.removeSongFromAlbum(null, songToAlbumDTO);
 
         //Long id = managerFacade.addNewAlbum(null,albumCreateDTO);
         AlbumResource resource = albumResourceAssembler.toResource(albumFacade.findById(songToAlbumDTO.getAlbumId()));
