@@ -27,6 +27,10 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/song.html',
             controller: 'songDetailsController'
         })
+        .when('/memberinvites', {
+            templateUrl: 'partials/members_bandinvites.html',
+            controller: 'memberInvitesController'
+        })
         .when('/forbidden', {
             templateUrl: 'partials/forbidden.html'
         })
