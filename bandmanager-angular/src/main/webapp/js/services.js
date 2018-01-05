@@ -84,7 +84,7 @@ bandManagerServices.factory('bandsFactory', ['$http',
         };
 
         bandsDataFactory.getBandmates = function (id, success, error) {
-            return $http.get(baseURL.concat("/members/bandmates/" + id), band).then(success, error);
+            return $http.get(baseURL.concat("/members/bandmates/" + id)).then(success, error);
         };
 
         return bandsDataFactory;
@@ -113,7 +113,7 @@ bandManagerServices.factory('managersFactory', ['$http',
             return $http.post(managerResourceNameUrl + "/create", manager).then(success, error);
         };
 
-        return bandsDataFactory;
+        return managersDataFactory;
     }
 ]);
 
@@ -127,11 +127,11 @@ bandManagerServices.factory('membersFactory', ['$http',
         var memberResourceUrl = baseURL.concat("/members");
         var newMemberResourceId = memberResourceUrl.concat("/{id}");
 
-        membersFactory.getAllMembers = function (success, error) {
+        membersDataFactory.getAllMembers = function (success, error) {
             return $http.get(memberResourceUrl).then(success, error);
         };
 
-        membersFactory.getMember = function (id, success, error) {
+        membersDataFactory.getMember = function (id, success, error) {
             return $http.get(memberResourceUrl + "/" + id).then(success, error);
         };
 
@@ -139,7 +139,7 @@ bandManagerServices.factory('membersFactory', ['$http',
             return $http.post(memberResourceUrl + "/create", member).then(success, error);
         };
 
-        return bandsDataFactory;
+        return membersDataFactory;
     }
 ]);
 
@@ -178,4 +178,75 @@ bandManagerServices.factory('songsFactory', ['$http',
 
         return songsDataFactory;
     }
-])
+]);
+
+/* BandInvite factory */
+//TODO
+bandManagerServices.factory('invitesFactory', ['$http',
+    function ($http) {
+
+        var invitesDataFactory = {};
+
+        var inviteResourceUrl = baseURL.concat("/bandinvites");
+        var newInviteResourceId = inviteResourceUrl.concat("/{id}");
+
+        invitesDataFactory.acceptInvite = function (memberId, invId, success, error) {
+            return $http.put(baseURL.concat("/members/accept_invite/" + memberId), invId).then(success, error);
+        };
+
+        invitesDataFactory.declineInvite = function (memberId, invId, success, error) {
+            return $http.put(baseURL.concat("/members/decline_invite/" + memberId), invId).then(success, error);
+        };
+
+        invitesDataFactory.getInvitesByMember = function (memberId, success, error) {
+            return $http.get(baseURL.concat("/members/invites/" + memberId)).then(success, error);
+        };
+
+        invitesDataFactory.sendInvite = function (invite, success, error) {
+            return $http.post(baseURL.concat("/managers/send_invite"), invite).then(success, error);
+        };
+
+        return invitesDataFactory;
+    }
+]);
+
+/* Album factory */
+bandManagerServices.factory('albumsFactory', ['$http',
+    function ($http) {
+
+        var albumsDataFactory = {};
+
+        var albumResourceUrl = baseURL.concat("/albums");
+        var newAlbumResourceId = albumResourceUrl.concat("/{id}");
+
+        albumsDataFactory.getAllAlbums = function (success, error) {
+            return $http.get(albumResourceUrl).then(success, error);
+        };
+
+        albumsDataFactory.getAlbum = function (id, success, error) {
+            return $http.get(albumResourceUrl + "/" + id).then(success, error);
+        };
+
+        albumsDataFactory.getAlbumsByBand = function (bandId, success, error) {
+            return $http.get(albumResourceUrl + "/by_band_id" + "/" + bandId).then(success, error);
+        };
+
+        albumsDataFactory.deleteAlbum = function (id, success, error) {
+            return $http.delete(albumResourceUrl + "/" + id).then(success, error);
+        };
+
+        albumsDataFactory.createAlbum = function (album, success, error) {
+            return $http.post(baseURL.concat("/managers/create_album"), album).then(success, error);
+        };
+
+        albumsDataFactory.addSongToAlbum = function (songToAlbum, success, error) {
+            return $http.put(baseURL.concat("/managers/add_to_album"), songToAlbum).then(success, error);
+        };
+
+        albumsDataFactory.removeSongFromAlbum = function (songFromAlbum, success, error) {
+            return $http.put(baseURL.concat("/managers/remove_from_album"), songFromAlbum).then(success, error);
+        };
+
+        return albumsDataFactory;
+    }
+]);
