@@ -2,7 +2,7 @@ var bandManagerControllers = angular.module("bandManagerControllers", ['bandMana
 
 /* Tours list controller */
 
-bandManagerControllers.controller('toursController', function ($scope, $rootScope, toursFactory, loggedUserFactory) {
+bandManagerControllers.controller('toursController', function ($scope, $rootScope, $route, toursFactory, loggedUserFactory) {
 
     loggedUserFactory.getPrincipal(
         function (response) {
@@ -16,6 +16,16 @@ bandManagerControllers.controller('toursController', function ($scope, $rootScop
             alert("An error occurred when getting the logged user.");
         }
     );
+
+    $scope.deleteTour = function (id) {
+        toursFactory.deleteTour(
+            parseInt(id, 10),
+            function (response) {
+                $route.reload();
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
 
     toursFactory.getAllBands(
         function (response) {
@@ -148,6 +158,24 @@ bandManagerControllers.controller('songsController', function ($scope, $rootScop
     var extractResultsArray = function (responseData) {
         return responseData._embedded.bands;
     };
+
+    $scope.toHHMMSS = function (sec_string) {
+        sec_num = parseInt(sec_string, 10);
+        var hours = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        return hours + ':' + minutes + ':' + seconds;
+    }
 });
 
 /* Song details controller */
@@ -160,14 +188,30 @@ bandManagerControllers.controller('songDetailsController', function ($scope, $ro
         },
         $rootScope.unsuccessfulResponse
     );
+
+    $scope.toHHMMSS = function (sec_string) {
+        sec_num = parseInt(sec_string, 10);
+        var hours = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        return hours + ':' + minutes + ':' + seconds;
+    }
 });
 
 
 /* Song create controller */
 
 bandManagerControllers.controller('createSongController', function ($location, $scope, $routeParams, $rootScope, bandsFactory, songsFactory, loggedUserFactory) {
-
-    $scope.stringDatetime = "";
 
     loggedUserFactory.getPrincipal(
         function (response) {
@@ -196,9 +240,9 @@ bandManagerControllers.controller('createSongController', function ($location, $
     };
 
     $scope.createNewSong = function (song) {
-
+        $scope.newSong.duration = parseInt($scope.newSong.duration , 10);
         songsFactory.createSong(
-            tour,
+            song,
             function () {
                 $location.path("/songs");
             },
