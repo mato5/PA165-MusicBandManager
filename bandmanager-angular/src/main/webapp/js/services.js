@@ -127,19 +127,24 @@ bandManagerServices.factory('membersFactory', ['$http',
         var memberResourceUrl = baseURL.concat("/members");
         var newMemberResourceId = memberResourceUrl.concat("/{id}");
 
-        membersFactory.getAllMembers = function (success, error) {
+        membersDataFactory.getAllMembers = function (success, error) {
             return $http.get(memberResourceUrl).then(success, error);
         };
 
-        membersFactory.getMember = function (id, success, error) {
+        membersDataFactory.getMember = function (id, success, error) {
             return $http.get(memberResourceUrl + "/" + id).then(success, error);
         };
 
         membersDataFactory.createMember = function (member, success, error) {
             return $http.post(memberResourceUrl + "/create", member).then(success, error);
         };
-
-        return bandsDataFactory;
+        membersDataFactory.acceptBandInvite = function (inviteId, success, error) {
+            return $http.put(memberResourceUrl + "/accept_invite/{id}", inviteId).then(success, error);
+        };
+        membersDataFactory.declineBandInvite = function (inviteId, success, error) {
+            return $http.put(memberResourceUrl + "/decline_invite/{id}", inviteId).then(success, error);
+        };
+        return membersDataFactory;
     }
 ]);
 
@@ -178,4 +183,28 @@ bandManagerServices.factory('songsFactory', ['$http',
 
         return songsDataFactory;
     }
-])
+]);
+
+/* BandInvites factory */
+
+bandManagerServices.factory('bandInvitesFactory', ['$http',
+    function ($http) {
+
+        var bandInvitesDataFactory = {};
+
+        var bandInvitesResourceUrl = baseURL.concat("/bandinvites");
+
+        bandInvitesDataFactory.getMemberInvites = function (memId, success, error) {
+            return $http.get(bandInvitesResourceUrl.concat("?memId=").concat(memId)).then(success, error);
+        };
+        /*bandInvitesDataFactory.getManagerInvites = function (manId, success, error) {
+            return $http.get(bandInvitesResourceUrl + "?manId=" + manId).then(success, error);
+        };
+        bandInvitesDataFactory.createBandInvite = function (bandInvite, success, error) {
+            return $http.post(bandInvitesResourceUrl + "/create", bandInvite).then(success, error);
+        };*/
+
+        return bandInvitesDataFactory;
+    }
+]);
+

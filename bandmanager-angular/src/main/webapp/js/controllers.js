@@ -215,3 +215,49 @@ bandManagerControllers.controller('createSongController', function ($location, $
     };
 
 });
+
+/* Member's invites */
+bandManagerControllers.controller('memberInvitesController', function ($scope, $rootScope, bandInvitesFactory, loggedUserFactory, membersFactory) {
+
+    loggedUserFactory.getPrincipal(
+        function (response) {
+            var values = JSON.parse(response.data);
+            $rootScope.principal_username = values.username;
+            $rootScope.principal_id = values.id;
+            $rootScope.role = values.role;
+            $scope.role = $rootScope.role;
+        },
+        function (response) {
+            alert("An error occurred when getting the logged user.");
+        }
+    );
+    $scope.deleteInvite = function (inviteId) {
+        membersFactory.declineBandInvite(
+                inviteId,
+                function (response) {
+                    $scope.reload = 1;
+                },
+                $rootScope.unsuccessfulResponse
+                );
+    };
+    $scope.acceptInvite = function (inviteId) {
+        membersFactory.acceptBandInvite(
+                inviteId,
+                function (response) {
+                    $scope.reload = 1;
+                },
+                $rootScope.unsuccessfulResponse
+                );
+    };
+    bandInvitesFactory.getMemberInvites(
+        $rootScope.principal_id,
+        function (response) {
+            $scope.invites = response.data._embedded.invites;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+    /*
+    $scope.isMemberRole = function (roleString) {
+        return roleString === "ROLE_MEMBER";
+    };*/
+});
