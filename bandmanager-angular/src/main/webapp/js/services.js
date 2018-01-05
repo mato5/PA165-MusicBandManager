@@ -25,7 +25,7 @@ bandManagerServices.factory('toursFactory', ['$http',
         var tourResourceNameUrl = baseURL.concat("/tours");
         var newTourResourceId = tourResourceNameUrl.concat("/{id}");
 
-        toursDataFactory.getAllBands = function (success, error) {
+        toursDataFactory.getAllTours = function (success, error) {
             return $http.get(tourResourceNameUrl).then(success, error);
         };
 
@@ -144,6 +144,11 @@ bandManagerServices.factory('membersFactory', ['$http',
         membersDataFactory.declineBandInvite = function (inviteId, success, error) {
             return $http.put(memberResourceUrl + "/decline_invite/{id}", inviteId).then(success, error);
         };
+
+        membersDataFactory.getAllTours = function (id, success, error) {
+            return $http.get(memberResourceUrl + "/activities/" + id).then(success, error);
+        };
+
         return membersDataFactory;
     }
 ]);
