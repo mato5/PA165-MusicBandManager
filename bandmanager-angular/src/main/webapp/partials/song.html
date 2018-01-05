@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Song details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
+<div>
+    <h3>Song <b>{{song.name}}</b> by <b>{{song.band.name}}</b></h3>
+    <hr>
+    <p>Duration: <b>{{toHHMMSS(song.duration)}}</b></p>
+</div>
 </body>
 </html>

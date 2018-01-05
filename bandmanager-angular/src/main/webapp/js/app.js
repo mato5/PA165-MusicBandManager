@@ -21,7 +21,7 @@ module.config(function ($routeProvider) {
         })
         .when('/songs/new_song', {
             templateUrl: 'partials/new_song.html',
-            controller: 'createTourController'
+            controller: 'createSongController'
         })
         .when('/songs/:id', {
             templateUrl: 'partials/song.html',

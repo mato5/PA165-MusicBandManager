@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class SongCreateDTO {
 
     @NotNull
-    @Size(min = 5, max = 50)
+    @Size(min = 1, max = 100)
     private String name;
 
     @NotNull

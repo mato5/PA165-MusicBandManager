@@ -39,8 +39,14 @@
         </td>
         <td>
             <img ng-src="{{tour.band.logoURI}}"
-                 alt="" width="25px" height="25px">
+                 alt="" width="30px" height="30px">
         </td>
+        <td>
+            <a ng-click="deleteTour(tour.id)" style="cursor: pointer">
+                <i class="fa fa-trash"></i>
+            </a>
+        </td>
+
     </tr>
     </tbody>
 </table>

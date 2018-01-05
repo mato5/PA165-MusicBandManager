@@ -3,9 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Songs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
+<h3>All songs of my bands</h3>
+<br>
 
+<table class="table">
+    <thead>
+    <tr>
+        <th>GID</th>
+        <th>Duration</th>
+        <th>Band</th>
+        <th>Band logo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="song in songsByBand">
+        <td>
+            <a ng-href="#!/songs/{{song.id}}">{{song.id}}</a>
+        </td>
+        <td>
+            {{song.name}}
+        </td>
+        <td>
+            {{toHHMMSS(song.duration)}}
+        </td>
+        <td>
+            {{song.band.name}}
+        </td>
+        <td>
+            <img ng-src="{{song.band.logoURI}}"
+                 alt="" width="30px" height="30px">
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="#!/songs/new_song" class="btn btn-primary" ng-show="isManagerRole(role)">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    Create song
+</a>
 </body>
 </html>
