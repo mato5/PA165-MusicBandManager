@@ -1,0 +1,88 @@
+<div ng-controller="albumsListController">
+    <div class="span12 row-fluid">
+        <!-- START $scope.[model] updates -->
+        <div class="span12 well well-small">
+            <div class="span4">
+                <p class="nav-header">collapse/expand tableRow</p>
+                <p class="small-caps">
+                    tableRowExpanded: <b>{{tableRowExpanded}}</b><br/>
+                    tableRowIndexExpandedCurr: <b>{{tableRowIndexExpandedCurr}}</b><br/>
+                    storeIdExpanded: <b>{{storeIdExpanded}}</b>
+                </p>
+            </div>
+            <div class="span5">
+                <p class="nav-header">dayDataCollapse</p>{{dayDataCollapse}}
+            </div>
+        </div>
+        <!-- END $scope.[model] updates -->
+        <!-- START TABLE -->
+        <div>
+            <table class="table table-hover table-condensed table-striped">
+                <thead class="levelOne">
+                <tr>
+                    <th>Album ID</th>
+                    <th>Album Name</th>
+                    <th>Band</th>
+                    <th>Album Cover</th>
+                </tr>
+                </thead>
+                <tbody data-ng-repeat="album in albums" data-ng-switch
+                       on="dayDataCollapse[$index]">
+                <tr class="clickableRow" title="Click to toggle collapse/expand songs in this album."
+                    data-ng-click="selectTableRow($index, album.id)">
+                    <td>{{album.id}}</td>
+                    <td>{{album.name}}</td>
+                    <td>{{album.band.name}}</td>
+                    <td><img ng-src="{{album.coverURI}}"
+                             alt="" width="30px" height="30px"></td>
+                    <td ng-show="isManagerRole(role) && managesAlbum(album)">
+                        <a ng-click="deleteAlbum(album.id)" style="cursor: pointer">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr data-ng-switch-when="true">
+                    <td colspan="9">
+                        <div class="span9">
+                            <div>
+                                <table class="table table-hover table-condensed table-striped">
+                                    <thead class="levelTwo">
+                                    <tr>
+                                        <th>Song ID</th>
+                                        <th>Song Name</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr data-ng-repeat="song in albums[$index].songs">
+                                        <td>{{song.id}}</td>
+                                        <td>{{song.name}}</td>
+                                        <td>{{toHHMMSS(song.duration)}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <a href="#!/albums/{{album.id}}/add_song" class="btn btn-primary"
+                                   ng-show="isManagerRole(role) && managesAlbum(album)">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    Add Song
+                                </a>
+                                <a href="#!/albums/{{album.id}}/remove_song" class="btn btn-warning"
+                                   ng-show="isManagerRole(role) && managesAlbum(album)">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    Remove Song
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- END TABLE -->
+    </div>
+    <a href="#!/albums/new_album" class="btn btn-primary" ng-show="isManagerRole(role)">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Create Album
+    </a>
+</div>
+

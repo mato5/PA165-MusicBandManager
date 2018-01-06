@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Remove Song from an Album</title>
+</head>
+<body>
+
+<h3>Remove Song from an Album</h3>
+<hr>
+
+<form name="form" novalidate class="form-horizontal">
+
+
+    <div class="form-group row">
+        <label for="song" class="col-sm-2 control-label">Song</label>
+        <div class="col-sm-10">
+            <select id="song" name="owner" class="form-control" ng-model="songFromAlbum.songId" required>
+                <option ng-repeat="song in availableSongs" value="{{song.id}}">{{song.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <button ng-disabled="!form.$valid" ng-click="removeSongFromAlbum(songFromAlbum)" class="btn btn-warning" type="submit">
+        Remove
+    </button>
+
+</body>
+</html>
