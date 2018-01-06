@@ -9,47 +9,50 @@
 <h3>List of tours</h3>
 <br>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Tour name</th>
-        <th>City</th>
-        <th>Scheduled date</th>
-        <th>Band name</th>
-        <th>Band logo</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="tour in tours">
-        <td>
-            <a ng-href="#!/tours/{{tour.id}}">{{tour.id}}</a>
-        </td>
-        <td>
-            {{tour.name}}
-        </td>
-        <td>
-            {{tour.cityName}}
-        </td>
-        <td>
-            {{tour.datetime}}
-        </td>
-        <td>
-            {{tour.band.name}}
-        </td>
-        <td>
-            <img ng-src="{{tour.band.logoURI}}"
-                 alt="" width="30px" height="30px">
-        </td>
-        <td>
-            <a ng-click="deleteTour(tour.id)" style="cursor: pointer">
-                <i class="fa fa-trash"></i>
-            </a>
-        </td>
+<div id="results-container" ng-show="tours.length > 0">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Tour name</th>
+            <th>City</th>
+            <th>Scheduled date</th>
+            <th>Band name</th>
+            <th>Band logo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="tour in tours">
+            <td>
+                <a ng-href="#!/tours/{{tour.id}}">{{tour.id}}</a>
+            </td>
+            <td>
+                {{tour.name}}
+            </td>
+            <td>
+                {{tour.cityName}}
+            </td>
+            <td>
+                {{tour.datetime}}
+            </td>
+            <td>
+                {{tour.band.name}}
+            </td>
+            <td>
+                <img ng-src="{{tour.band.logoURI}}"
+                     alt="" width="30px" height="30px">
+            </td>
+            <td ng-show="isManagerRole(role)">
+                <a ng-click="deleteTour(tour.id)" style="cursor: pointer">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </td>
 
-    </tr>
-    </tbody>
-</table>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 
 <a href="#!/tours/new_tour" class="btn btn-primary" ng-show="isManagerRole(role)">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>

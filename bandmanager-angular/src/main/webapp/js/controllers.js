@@ -2,7 +2,11 @@ var bandManagerControllers = angular.module("bandManagerControllers", ['bandMana
 
 /* Tours list controller */
 
-bandManagerControllers.controller('toursController', function ($scope, $rootScope, $route, toursFactory, loggedUserFactory) {
+bandManagerControllers.controller('toursController', function ($scope, $rootScope,
+                                                               toursFactory,
+                                                               bandsFactory,
+                                                               membersFactory,
+                                                               loggedUserFactory) {
 
     loggedUserFactory.getPrincipal(
         function (response) {
@@ -21,31 +25,67 @@ bandManagerControllers.controller('toursController', function ($scope, $rootScop
         toursFactory.deleteTour(
             parseInt(id, 10),
             function (response) {
-                $route.reload();
+                $scope.removeById(parseInt(id, 10));
             },
             $rootScope.unsuccessfulResponse
         );
     };
 
-    toursFactory.getAllBands(
-        function (response) {
-            $scope.tours = extractToursArray(response.data);
-        },
-        $rootScope.unsuccessfulResponse
-    );
-
     var extractToursArray = function (responseData) {
-        return responseData._embedded.tours;
+        if (responseData._embedded) {
+            return responseData._embedded.tours;
+        } else {
+            return [];
+        }
     };
 
     $scope.isManagerRole = function (roleString) {
         return roleString === "ROLE_MANAGER";
     };
+
+    $scope.removeById = function (index) {
+        for (var i = $scope.tours.length - 1; i >= 0; --i) {
+            if ($scope.tours[i].id == index) {
+                $scope.tours.splice(i, 1);
+            }
+        }
+    };
+
+    var extractResultsArray = function (responseData) {
+        return responseData._embedded.bands;
+    };
+
+    if ($scope.isManagerRole($rootScope.role)) {
+        bandsFactory.getByManager(
+            $rootScope.principal_id,
+            function (response) {
+                $scope.availableBands = extractResultsArray(response.data);
+            },
+            $rootScope.unsuccessfulResponse
+        );
+
+        toursFactory.getByManager(
+            $rootScope.principal_id,
+            function (response) {
+                console.log($rootScope.principal_id);
+                $scope.tours = extractToursArray(response.data);
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    } else {
+        membersFactory.getAllTours(
+            $rootScope.principal_id,
+            function (response) {
+                $scope.availableBands = extractResultsArray(response.data);
+            },
+            $rootScope.unsuccessfulResponse
+        )
+    }
 });
 
 /* Tour details controller */
 
-bandManagerControllers.controller('tourDetailsController', function ($scope, $routeParams, $rootScope, bandsFactory) {
+bandManagerControllers.controller('tourDetailsController', function ($scope, $routeParams, $rootScope, toursFactory) {
     toursFactory.getBand(
         $routeParams.id,
         function (response) {
@@ -175,6 +215,14 @@ bandManagerControllers.controller('songsController', function ($scope, $rootScop
             seconds = "0" + seconds;
         }
         return hours + ':' + minutes + ':' + seconds;
+    };
+
+    $scope.removeByIndex = function (index) {
+        for (var i = $scope.songsByBand.length - 1; i >= 0; --i) {
+            if ($scope.songsByBand[i].id == index) {
+                $scope.songsByBand.splice(i, 1);
+            }
+        }
     }
 });
 
@@ -240,7 +288,7 @@ bandManagerControllers.controller('createSongController', function ($location, $
     };
 
     $scope.createNewSong = function (song) {
-        $scope.newSong.duration = parseInt($scope.newSong.duration , 10);
+        $scope.newSong.duration = parseInt($scope.newSong.duration, 10);
         songsFactory.createSong(
             song,
             function () {
@@ -275,26 +323,26 @@ bandManagerControllers.controller('memberInvitesController', function ($scope, $
             alert("An error occurred when getting the logged user.");
         }
     );
-    $scope.myFunc = function() {
-      $scope.count++;
+    $scope.myFunc = function () {
+        $scope.count++;
     };
     $scope.declineInvite = function (memberId, inviteId) {
         //alert("deleting".concat(memberId).concat(inviteId));
         invitesFactory.declineInvite(
-                memberId,
-                inviteId,
-                location.reload(),
-                $rootScope.unsuccessfulResponse
-                );
+            memberId,
+            inviteId,
+            location.reload(),
+            $rootScope.unsuccessfulResponse
+        );
     };
     $scope.acceptInvite = function (memberId, inviteId) {
         //alert("accepting".concat(memberId).concat(inviteId));
         invitesFactory.acceptInvite(
-                memberId,
-                inviteId,
-                location.reload(),
-                $rootScope.unsuccessfulResponse
-                );
+            memberId,
+            inviteId,
+            location.reload(),
+            $rootScope.unsuccessfulResponse
+        );
     };
     invitesFactory.getMemberInvites(
         $rootScope.principal_id,
