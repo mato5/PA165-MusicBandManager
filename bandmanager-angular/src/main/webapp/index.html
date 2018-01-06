@@ -39,6 +39,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#!/tours">Tours</a>
                     </li>
+                    <li class="nav-item" ng-show="role === 'ROLE_MANAGER'">
+                        <a class="nav-link" href="#!/managerinvites">Invites</a>
+                    </li>
                     <li class="nav-item" ng-show="role === 'ROLE_MEMBER'">
                         <a class="nav-link" href="#!/memberinvites">Invites</a>
                     </li>

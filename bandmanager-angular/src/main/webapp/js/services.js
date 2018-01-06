@@ -130,7 +130,9 @@ bandManagerServices.factory('membersFactory', ['$http',
         membersDataFactory.getAllMembers = function (success, error) {
             return $http.get(memberResourceUrl).then(success, error);
         };
-
+        membersDataFactory.getAllUnassignedMembers = function (success, error) {
+            return $http.get(memberResourceUrl.concat("/unassigned")).then(success, error);
+        };
         membersDataFactory.getMember = function (id, success, error) {
             return $http.get(memberResourceUrl + "/" + id).then(success, error);
         };
@@ -239,6 +241,9 @@ bandManagerServices.factory('invitesFactory', ['$http',
         // Mel jsem to uz napsany s pomoci teto metody, tak sjem tu zatim nechal obe
         invitesDataFactory.getMemberInvites = function (memId, success, error) {
             return $http.get(inviteResourceUrl.concat("?memId=").concat(memId)).then(success, error);
+        };
+        invitesDataFactory.getManagerInvites = function (manId, success, error) {
+            return $http.get(inviteResourceUrl.concat("?manId=").concat(manId)).then(success, error);
         };
         invitesDataFactory.sendInvite = function (invite, success, error) {
             return $http.post(baseURL.concat("/managers/send_invite"), invite).then(success, error);

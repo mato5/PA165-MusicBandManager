@@ -59,10 +59,19 @@ public class MembersRestController {
                 linkTo(MembersRestController.class).slash("/create").withRel("create"));
         return new ResponseEntity<>(memberResources, HttpStatus.OK);
     }
-
+    
+    @RequestMapping(value = "/unassigned", method = RequestMethod.GET)
+    public final HttpEntity<Resources<MemberResource>> getUnassignedMembers() {
+        log.debug("rest getUnassignedMembers()");
+        List<MemberResource> resourceCollection = memberResourceAssembler
+                .toResources(memberFacade.getAllUnassignedMembers());
+        Resources<MemberResource> memberResources = new Resources<>(resourceCollection);
+        return new ResponseEntity<>(memberResources, HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public final HttpEntity<MemberResource> getMember(@PathVariable("id") long id) throws Exception {
-        log.debug("rest getMember({})", id);
+        log.error("!!!!!!!!!!!!!!!!rest getMember({})", id);
         MemberDTO memberDTO = memberFacade.findMemberById(id);
         if (memberDTO == null) throw new ResourceNotFoundException("Member " + id + " not found");
         MemberResource resource = memberResourceAssembler.toResource(memberDTO);

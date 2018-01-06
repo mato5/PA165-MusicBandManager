@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Managed band invites</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body ng-app="bandManagerControllers">
+<h3>List of managed invites</h3>
+<div ng-controller="managerBandinvitesConstroller">
+<table class="table">
+    <thead>
+    <tr>
+        <th>Band</th>
+        <th>Invited member</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="invite in invites">
+        <td>
+            <a href="#!/bands/{{invite.band.id}}">{{invite.band.name}}</a>
+        </td>
+        <td>
+            {{invite.member.name}}
+        </td>
+        <td>
+            <button ng-click="cancelInvite(invite.member.id, invite.ID)">Cancel</button>
+        </td>
+        <td>
+            --
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+
+<a class="nav-link" href="#!/newinvites">Invite new members</a>
+</div>
+</body>
+</html>

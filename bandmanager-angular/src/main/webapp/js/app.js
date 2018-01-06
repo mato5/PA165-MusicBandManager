@@ -31,6 +31,14 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/members_bandinvites.html',
             controller: 'memberInvitesController'
         })
+        .when('/managerinvites', {
+            templateUrl: 'partials/managers_bandinvites.html',
+            controller: 'managerBandinvitesConstroller'
+        })
+        .when('/newinvites', {
+            templateUrl: 'partials/new_bandinvite.html',
+            controller: 'newBandinvitesConstroller'
+        })
         .when('/forbidden', {
             templateUrl: 'partials/forbidden.html'
         })

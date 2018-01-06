@@ -309,7 +309,7 @@ bandManagerControllers.controller('createSongController', function ($location, $
 });
 
 /* Member's invites */
-bandManagerControllers.controller('memberInvitesController', function ($scope, $rootScope, $location, invitesFactory, loggedUserFactory, membersFactory) {
+bandManagerControllers.controller('memberInvitesController', function ($scope, $rootScope, invitesFactory, loggedUserFactory) {
 
     loggedUserFactory.getPrincipal(
         function (response) {
@@ -348,6 +348,80 @@ bandManagerControllers.controller('memberInvitesController', function ($scope, $
         $rootScope.principal_id,
         function (response) {
             $scope.invites = response.data._embedded.invites;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+});
+
+/* Managed invites */
+bandManagerControllers.controller('managerBandinvitesConstroller', function ($scope, $rootScope, invitesFactory, loggedUserFactory) {
+
+    loggedUserFactory.getPrincipal(
+        function (response) {
+            var values = JSON.parse(response.data);
+            $rootScope.principal_username = values.username;
+            $rootScope.principal_id = values.id;
+            $rootScope.role = values.role;
+            $scope.role = $rootScope.role;
+        },
+        function (response) {
+            alert("An error occurred when getting the logged user.");
+        }
+    );
+
+    $scope.cancelInvite = function (memberId, inviteId) {
+        alert("deleting".concat(memberId).concat(inviteId));
+        invitesFactory.declineInvite(
+            memberId,
+            inviteId,
+            location.reload(),
+            $rootScope.unsuccessfulResponse
+        );
+    };
+
+    invitesFactory.getManagerInvites(
+        $rootScope.principal_id,
+        function (response) {
+            $scope.invites = response.data._embedded.invites;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+});
+
+
+/* Invite new member - listing free musicians and sending invites */
+bandManagerControllers.controller('newBandinvitesConstroller', function ($scope, $rootScope, invitesFactory, loggedUserFactory, membersFactory) {
+
+    loggedUserFactory.getPrincipal(
+        function (response) {
+            var values = JSON.parse(response.data);
+            $rootScope.principal_username = values.username;
+            $rootScope.principal_id = values.id;
+            $rootScope.role = values.role;
+            $scope.role = $rootScope.role;
+        },
+        function (response) {
+            alert("An error occurred when getting the logged user.");
+        }
+    );
+
+    $scope.sendInvite = function (memberId) {
+        //alert("deleting".concat(memberId).concat(inviteId));
+        invitesFactory.declineInvite(
+            memberId,
+            location.reload(),
+            $rootScope.unsuccessfulResponse
+        );
+    };
+    $scope.newInvite = {
+        id: undefined,
+        band: "",
+        member: "",
+        manager: ""
+    };
+    membersFactory.getAllUnassignedMembers(
+        function (response) {
+            $scope.members = response.data._embedded.members;
         },
         $rootScope.unsuccessfulResponse
     );

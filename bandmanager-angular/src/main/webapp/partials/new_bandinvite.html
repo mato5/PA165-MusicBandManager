@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invite new member</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body ng-app="bandManagerControllers">
+<h3>List of unassigned members</h3>
+<div ng-controller="newBandinvitesConstroller">
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="member in members">
+        <td>
+            {{member.name}}
+        </td>
+        <td>
+            {{member.email}}
+        </td>
+        <td>
+            {{member.role}}
+        </td>
+        <td>
+            <button ng-click="declineInvite(invite.member.id, invite.ID)">TODO: Invite</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+    </div>
+</body>
+</html>
