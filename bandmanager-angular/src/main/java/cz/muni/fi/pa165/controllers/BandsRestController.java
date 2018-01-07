@@ -85,6 +85,16 @@ public class BandsRestController {
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public final void deleteBand(@PathVariable("id") long id) throws Exception {
+        logger.debug("REST: deleteBand(" + String.valueOf(id) + ").");
+        try {
+            bandFacade.delete(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException("Band with id " + id + " not found.");
+        }
+    }
+
     @RequestMapping(value = "/songs/{id}", method = RequestMethod.GET)
     public final HttpEntity<Resources<SongResource>> getSongsByBand(@PathVariable("id") long id) throws Exception {
         logger.debug("REST getSongs({})", id);
