@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Band detail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <div>
+        <h3>{{ band.name }}</b></h3>
+    </div>
+
+    <hr>
+
+    <div>
+        <a ng-href="#!/bands/{{band.id}}/members" class="btn btn-primary">
+            Members
+        </a>
+        <br>
+        <a ng-href="#!/bands/{{band.id}}/albums" class="btn btn-primary">
+            Albums
+        </a>
+        <br>
+        <a ng-href="#!/bands/{{band.id}}/tours" class="btn btn-primary">
+            Tours
+        </a>
+    </div>
+
+</body>
+
+</html>
+
