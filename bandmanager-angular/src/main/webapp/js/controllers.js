@@ -34,14 +34,14 @@ bandManagerControllers.controller('createBandController', function ($location, $
         "MISC",
         "INDUSTRIAL",
         "WORLD"
-    ]
+    ];
 
 
     $scope.newBand = {
         name: "",
         genre: "",
         logoURI: "",
-        managerId: $rootScope.principal_id,
+        managerId: $rootScope.principal_id
     };
 
     $scope.createNewBand = function (band) {
@@ -711,7 +711,84 @@ bandManagerControllers.controller('memberInvitesController', function ($scope, $
         $rootScope.unsuccessfulResponse
     );
 });
+/* Managed invites */
+bandManagerControllers.controller('managerBandinvitesConstroller', function ($scope, $rootScope, invitesFactory, loggedUserFactory) {
 
+    loggedUserFactory.getPrincipal(
+        function (response) {
+            var values = JSON.parse(response.data);
+            $rootScope.principal_username = values.username;
+            $rootScope.principal_id = values.id;
+            $rootScope.role = values.role;
+            $scope.role = $rootScope.role;
+        },
+        function (response) {
+            alert("An error occurred when getting the logged user.");
+        }
+    );
+
+    $scope.cancelInvite = function (memberId, inviteId) {
+        //alert("deleting".concat(memberId).concat(inviteId));
+        invitesFactory.declineInvite(
+            memberId,
+            inviteId,
+            location.reload(),
+            $rootScope.unsuccessfulResponse
+        );
+    };
+
+    invitesFactory.getManagerInvites(
+        $rootScope.principal_id,
+        function (response) {
+            $scope.invites = response.data._embedded.invites;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+});
+
+
+/* Invite new member - listing free musicians and sending invites */
+bandManagerControllers.controller('newBandinvitesConstroller', function ($scope, $rootScope, invitesFactory, loggedUserFactory, membersFactory, bandsFactory) {
+
+    loggedUserFactory.getPrincipal(
+        function (response) {
+            var values = JSON.parse(response.data);
+            $rootScope.principal_username = values.username;
+            $rootScope.principal_id = values.id;
+            $rootScope.role = values.role;
+            $scope.role = $rootScope.role;
+        },
+        function (response) {
+            alert("An error occurred when getting the logged user.");
+        }
+    );
+    
+    $scope.sendInvite = function (memberId, bandId) {
+        var newInvite = {
+        memberId: memberId,
+        managerId: $rootScope.principal_id,
+        bandId: bandId
+        };
+        invitesFactory.sendInviteCreate(
+            newInvite,
+            location.reload(),
+            $rootScope.unsuccessfulResponse
+        );
+    };
+    bandsFactory.getByManager(
+        $rootScope.principal_id,
+        function (response) {
+            $scope.bands = response.data._embedded.bands;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+    membersFactory.getAllUnassignedMembers(
+        function (response) {
+            $scope.members = response.data._embedded.members;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+});
 
 /* Album details controller */
 
@@ -1032,7 +1109,7 @@ bandManagerControllers.controller('albumsListController', function ($location, $
 
     $scope.reloadPage = function () {
         $route.reload();
-    }
+    };
 
 });
 
@@ -1052,4 +1129,4 @@ toHHMMSS = function (sec_string) {
         seconds = "0" + seconds;
     }
     return hours + ':' + minutes + ':' + seconds;
-}
+};

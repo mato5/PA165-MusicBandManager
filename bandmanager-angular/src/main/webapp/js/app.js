@@ -2,6 +2,7 @@ var module = angular.module('bandManager', ['ngRoute', 'bandManagerControllers',
 
 module.config(function ($routeProvider) {
 
+
     $routeProvider
         .when('/', {
             templateUrl: 'partials/home.html'
@@ -58,6 +59,14 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/members_bandinvites.html',
             controller: 'memberInvitesController'
         })
+        .when('/managerinvites', {
+            templateUrl: 'partials/managers_bandinvites.html',
+            controller: 'managerBandinvitesConstroller'
+        })
+        .when('/newinvites', {
+            templateUrl: 'partials/new_bandinvite.html',
+            controller: 'newBandinvitesConstroller'
+        })
         .when('/albums', {
             templateUrl: 'partials/albums.html',
             controller: 'albumsListController'
@@ -81,7 +90,7 @@ module.config(function ($routeProvider) {
         .when('/forbidden', {
             templateUrl: 'partials/forbidden.html'
         })
-        .otherwise({redirectTo: '/'});
+.otherwise({redirectTo: '/'});
 
 });
 

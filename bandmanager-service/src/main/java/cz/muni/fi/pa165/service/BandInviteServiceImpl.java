@@ -5,14 +5,17 @@ import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.BandInvite;
 import cz.muni.fi.pa165.entity.Manager;
 import cz.muni.fi.pa165.entity.Member;
+import cz.muni.fi.pa165.service.facade.MemberFacadeImpl;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class BandInviteServiceImpl implements BandInviteService {
-
+final static Logger log = LoggerFactory.getLogger(BandInviteServiceImpl.class);
     @Inject
     private BandInviteDao bandInviteDao;
 

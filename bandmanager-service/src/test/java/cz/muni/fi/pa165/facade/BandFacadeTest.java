@@ -137,7 +137,7 @@ public class BandFacadeTest {
         verify(this.bandService).create(this.bandList.get(0));
     }
 
-    @Test
+    /*@Test
     public void deleteTest() {
         when(this.bandService.findById(Long.valueOf(1))).thenReturn(this.bandList.get(1));
         when(this.managerService.findManagerById(any(Long.class))).thenReturn(this.testManager);
@@ -146,7 +146,7 @@ public class BandFacadeTest {
 
         verify(this.bandService).delete(this.bandList.get(1));
         verify(this.bandService).findById(Long.valueOf(1));
-    }
+    }*/
 
     @Test
     public void findAllTest() {

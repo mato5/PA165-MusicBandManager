@@ -194,7 +194,18 @@ public class ManagersRestController {
         BandInviteResource resource = bandInviteResourceAssembler.toResource(bandInviteFacade.findById(id));
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
-
+    
+    @RequestMapping(value = "/send_invite_create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public final HttpEntity<BandInviteResource> sendInviteCreate(@RequestBody @Valid BandInviteCreateDTO bandInviteDTO, BindingResult bindingResult) throws Exception {
+        log.error("rest sendInviteCreate" + bandInviteDTO);
+        if (bindingResult.hasErrors()) {
+            log.error("failed validation {}", bindingResult.toString());
+            throw new InvalidRequestException("Failed validation");
+        }
+        Long id = managerFacade.sendBandInvite(bandInviteDTO);
+        BandInviteResource resource = bandInviteResourceAssembler.toResource(bandInviteFacade.findById(id));
+        return new ResponseEntity<>(resource, HttpStatus.OK);
+    }
     @RequestMapping(value = "/create_tour", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<TourResource> createTour(@RequestBody @Valid TourCreateDTO tourCreateDTO, BindingResult bindingResult) throws Exception {
         log.debug("rest createTour");
