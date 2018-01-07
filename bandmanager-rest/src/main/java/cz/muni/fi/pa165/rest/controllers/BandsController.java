@@ -61,6 +61,16 @@ public class BandsController {
         return bandDTO;
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void deleteBand(@PathVariable("id") long id) throws Exception {
+        logger.debug("REST: deleteBand(" + String.valueOf(id) + ").");
+        try {
+            bandFacade.delete(id);
+        } catch (Exception ex) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
     @RequestMapping(value = "/{id}/changeManager", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void changeManager(@PathVariable("id") long id, @Valid @RequestBody ManagerDTO managerDTO, BindingResult result) {
         logger.debug("REST: changeManager().");
