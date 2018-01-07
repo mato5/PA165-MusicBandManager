@@ -65,6 +65,8 @@ public interface ManagerFacade {
     Long createBand(ManagerDTO m, BandCreateDTO b);
 
     Long sendBandInvite(ManagerDTO m, BandInviteDTO b);
+    
+    Long sendBandInvite(BandInviteCreateDTO b);
 
     void changeBandGenre(ManagerDTO m, BandGengreDTO b);
 

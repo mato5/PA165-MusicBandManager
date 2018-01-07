@@ -248,7 +248,9 @@ bandManagerServices.factory('invitesFactory', ['$http',
         invitesDataFactory.sendInvite = function (invite, success, error) {
             return $http.post(baseURL.concat("/managers/send_invite"), invite).then(success, error);
         };
-
+        invitesDataFactory.sendInviteCreate = function (invite, success, error) {
+            return $http.post(baseURL.concat("/managers/send_invite_create"), invite).then(success, error);
+        };
         return invitesDataFactory;
     }
 ]);

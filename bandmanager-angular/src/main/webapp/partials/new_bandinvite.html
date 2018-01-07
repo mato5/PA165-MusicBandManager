@@ -8,6 +8,7 @@
 <body ng-app="bandManagerControllers">
 <h3>List of unassigned members</h3>
 <div ng-controller="newBandinvitesConstroller">
+    <!--loaded: {{bands}}-->
 <table class="table">
     <thead>
     <tr>
@@ -29,8 +30,12 @@
             {{member.role}}
         </td>
         <td>
-            <button ng-click="declineInvite(invite.member.id, invite.ID)">TODO: Invite</button>
+            <select ng-model="selectedBand" ng-options="band.name for band in bands">
+            </select>
+            <br>
+            <button ng-click="sendInvite(member.id, selectedBand.id)">Invite</button>
         </td>
+
     </tr>
     </tbody>
 </table>

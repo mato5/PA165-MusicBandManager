@@ -370,7 +370,7 @@ bandManagerControllers.controller('managerBandinvitesConstroller', function ($sc
     );
 
     $scope.cancelInvite = function (memberId, inviteId) {
-        alert("deleting".concat(memberId).concat(inviteId));
+        //alert("deleting".concat(memberId).concat(inviteId));
         invitesFactory.declineInvite(
             memberId,
             inviteId,
@@ -390,7 +390,7 @@ bandManagerControllers.controller('managerBandinvitesConstroller', function ($sc
 
 
 /* Invite new member - listing free musicians and sending invites */
-bandManagerControllers.controller('newBandinvitesConstroller', function ($scope, $rootScope, invitesFactory, loggedUserFactory, membersFactory) {
+bandManagerControllers.controller('newBandinvitesConstroller', function ($scope, $rootScope, invitesFactory, loggedUserFactory, membersFactory, bandsFactory) {
 
     loggedUserFactory.getPrincipal(
         function (response) {
@@ -404,21 +404,26 @@ bandManagerControllers.controller('newBandinvitesConstroller', function ($scope,
             alert("An error occurred when getting the logged user.");
         }
     );
-
-    $scope.sendInvite = function (memberId) {
-        //alert("deleting".concat(memberId).concat(inviteId));
-        invitesFactory.declineInvite(
-            memberId,
+    
+    $scope.sendInvite = function (memberId, bandId) {
+        var newInvite = {
+        memberId: memberId,
+        managerId: $rootScope.principal_id,
+        bandId: bandId
+        };
+        invitesFactory.sendInviteCreate(
+            newInvite,
             location.reload(),
             $rootScope.unsuccessfulResponse
         );
     };
-    $scope.newInvite = {
-        id: undefined,
-        band: "",
-        member: "",
-        manager: ""
-    };
+    bandsFactory.getByManager(
+        $rootScope.principal_id,
+        function (response) {
+            $scope.bands = response.data._embedded.bands;
+        },
+        $rootScope.unsuccessfulResponse
+    );
     membersFactory.getAllUnassignedMembers(
         function (response) {
             $scope.members = response.data._embedded.members;
