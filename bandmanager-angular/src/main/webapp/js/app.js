@@ -3,6 +3,34 @@ var module = angular.module('bandManager', ['ngRoute', 'bandManagerControllers',
 module.config(function ($routeProvider) {
 
     $routeProvider
+        .when('/bands', {
+            templateUrl: 'partials/bands.html',
+            controller: 'bandsController'
+        })
+        .when('/bands/new_band', {
+            templateUrl: 'partials/new_band.html',
+            controller: 'createBandController'
+        })
+        .when('/bands/:id', {
+            templateUrl: 'partials/band.html',
+            controller: 'bandDetailsController'
+        })
+        .when('/bands/:id/members', {
+            templateUrl: 'partials/members.html',
+            controller: 'bandMembersController'
+        })
+        .when('/bands/:id/albums', {
+            templateUrl: 'partials/albums.html',
+            controller: 'bandAlbumsController'
+        })
+        .when('/bands/:bandId/albums/:albumId', {
+            templateUrl: 'partials/album_songs.html',
+            controller: 'bandAlbumDetailsController'
+        })
+        .when('/bands/:id/tours', {
+            templateUrl: 'partials/tours.html',
+            controller: 'bandToursController'
+        })
         .when('/tours', {
             templateUrl: 'partials/tours.html',
             controller: 'toursController'
