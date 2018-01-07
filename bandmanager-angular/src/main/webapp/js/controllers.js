@@ -719,7 +719,7 @@ bandManagerControllers.controller('memberInvitesController', function ($scope, $
     );
 });
 /* Managed invites */
-bandManagerControllers.controller('managerBandinvitesConstroller', function ($scope, $rootScope, invitesFactory, loggedUserFactory) {
+bandManagerControllers.controller('managerBandinvitesConstroller', function ($scope, $rootScope, $route, invitesFactory, loggedUserFactory) {
 
     loggedUserFactory.getPrincipal(
         function (response) {
@@ -739,7 +739,7 @@ bandManagerControllers.controller('managerBandinvitesConstroller', function ($sc
         invitesFactory.declineInvite(
             memberId,
             inviteId,
-            location.reload(),
+            $route.reload(),
             $rootScope.unsuccessfulResponse
         );
     };
@@ -778,7 +778,7 @@ bandManagerControllers.controller('newBandinvitesConstroller', function ($scope,
         };
         invitesFactory.sendInviteCreate(
             newInvite,
-            location.reload(),
+            alert("Invitation sent"),
             $rootScope.unsuccessfulResponse
         );
     };
