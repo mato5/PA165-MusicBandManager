@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create band</title>
+</head>
+<body>
+
+<h3>Create new band</h3>
+<hr>
+
+<form name="form" novalidate class="form-horizontal">
+
+    <div class="form-group row" ng-class="{'has-error': !(form.name.$valid)}">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+            <input placeholder="Band name (title)" id="name" type="text"
+                   ng-minlength="1"
+                   ng-maxlength="100" name="name"
+                   class="form-control"
+                   ng-model="newBand.name" required/>
+        </div>
+    </div>
+
+    <div class="form-group row" ng-class="{'has-error': !(form.genre.$valid)}">
+        <label for="genre" class="col-sm-2 control-label">Genre</label>
+        <div class="col-sm-10">
+            <select id="genre" name="owner" class="form-control" ng-model="newBand.genre" required>
+                <option ng-repeat="genre in genres" value="{{genre}}">{{genre}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row" ng-class="{'has-error': !(form.genre.$valid)}">
+        <label for="logo" class="col-sm-2 control-label">Logo URI</label>
+        <div class="col-sm-10">
+            <input placeholder="Logo URI" id="logo" type="text"
+                   ng-minlength="1"
+                   ng-maxlength="100" name="name"
+                   class="form-control"
+                   ng-model="newBand.logoURI" required/>
+        </div>
+    </div>
+
+    <button ng-disabled="!form.$valid" ng-click="createNewBand(newBand)" class="btn btn-primary" type="submit">
+        Create
+    </button>
+
+</form>
+
+</body>
+</html>
