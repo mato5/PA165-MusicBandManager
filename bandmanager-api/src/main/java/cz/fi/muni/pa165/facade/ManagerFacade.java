@@ -76,6 +76,8 @@ public interface ManagerFacade {
 
     Long addNewAlbum(ManagerDTO m, AlbumCreateDTO a);
 
+    void deleteAlbum(Long albumId);
+
     void addSongToAlbum(ManagerDTO m, SongToAlbumDTO s);
 
     void removeSongFromAlbum(ManagerDTO m, SongToAlbumDTO s);

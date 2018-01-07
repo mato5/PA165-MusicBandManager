@@ -73,11 +73,11 @@ public class AlbumServiceImpl implements AlbumService {
                     + song.getId() + " from empty album " + album.getId());
         }
 
-        if (album.getSongs().size() == 1) {
+        /*if (album.getSongs().size() == 1) {
             throw new BandManagerServiceException("Album " + album.getId()
                     + " must contain at least one song, skip remove of song"
                     + song.getId());
-        }
+        }*/
 
         if (!album.getSongs().contains(song)) {
             throw new BandManagerServiceException("Album " + album.getId()

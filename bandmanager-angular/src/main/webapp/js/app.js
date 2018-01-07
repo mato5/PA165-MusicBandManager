@@ -31,6 +31,26 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/members_bandinvites.html',
             controller: 'memberInvitesController'
         })
+        .when('/albums', {
+            templateUrl: 'partials/albums.html',
+            controller: 'albumsListController'
+        })
+        /*.when('/albums/:id', {
+            templateUrl: 'partials/album.html',
+            controller: 'albumDetailsController'
+        })*/
+        .when('/albums/new_album', {
+            templateUrl: 'partials/new_album.html',
+            controller: 'albumCreateController'
+        })
+        .when('/albums/:id/add_song', {
+            templateUrl: 'partials/add_song.html',
+            controller: 'albumAddSongController'
+        })
+        .when('/albums/:id/remove_song', {
+            templateUrl: 'partials/remove_song.html',
+            controller: 'albumRemoveSongController'
+        })
         .when('/forbidden', {
             templateUrl: 'partials/forbidden.html'
         })

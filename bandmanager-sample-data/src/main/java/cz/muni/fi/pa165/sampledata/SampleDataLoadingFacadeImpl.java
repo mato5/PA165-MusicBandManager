@@ -89,11 +89,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Song myBonnie = this.song("M Bonnie", beatles, Long.valueOf(197));
         Song sheLovesYou = this.song("She loves you", beatles, Long.valueOf(138));
 
-        Album smallFacesAlbum = this.album("Small Faces", smallFaces, "www.cover.todo.com", shake);
-        Album ogdensAlbum = this.album("ogdensAlbum", smallFaces, "www.cover.todo.com", ogdens, afterglow);
-        Album outOfOurHeadAlbum = this.album("Out of Our Heads", stones, "www.cover.todo.com", sheSaidYeah, mercyMercy);
-        Album beggarsBanquetAlbum = this.album("Beggars Banquet", stones, "www.cover.todo.com", sympathyForTheDevil);
-        Album iDAlbum = this.album("I. D,", smallFaces, "www.cover.todo.com", solution, reggaeLove);
+        Album smallFacesAlbum = this.album("Small Faces", smallFaces, "https://upload.wikimedia.org/wikipedia/en/d/d4/Smallfaces1960.jpg", shake);
+        Album ogdensAlbum = this.album("ogdensAlbum", smallFaces, "https://upload.wikimedia.org/wikipedia/en/thumb/1/1d/Small_Faces_-_Ogdens%27_Nut_Gone_Flake.png/220px-Small_Faces_-_Ogdens%27_Nut_Gone_Flake.png", ogdens, afterglow);
+        Album outOfOurHeadAlbum = this.album("Out of Our Heads", stones, "https://upload.wikimedia.org/wikipedia/en/b/bd/Out%2Bof%2BOur%2BHeads%2B-UK-.jpg", sheSaidYeah, mercyMercy);
+        Album beggarsBanquetAlbum = this.album("Beggars Banquet", stones, "https://upload.wikimedia.org/wikipedia/commons/8/8b/BeggarsBanquetLP.jpg", sympathyForTheDevil);
+        Album iDAlbum = this.album("I. D,", smallFaces, "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Small_Faces_1965.JPG/220px-Small_Faces_1965.JPG", solution, reggaeLove);
 
         Tour stonesUSA = this.tour("Stones in USA", oldham, stones, "New York", new Date(1513363723));
         Tour stonesRussia = this.tour("Stones in Russia", oldham, stones, "Moscow", new Date(1813978723));
