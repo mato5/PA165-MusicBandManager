@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Band albums</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<h3>Albums</h3>
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Songs</th>
+        <th>Duration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="album in albums">
+        <td>
+            <a ng-href="#!/bands/{{bandId}}/albums/{{album.id}}" class="btn btn-primary">
+                {{album.name}}
+            </a>
+        </td>
+        <td>
+            {{album.songs.length}}
+        </td>
+        <td>
+            <b>{{albumDuration(album)}}</b>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
