@@ -107,4 +107,22 @@ public class BandDaoImpl implements BandDao {
             return null;
         }
     }
+
+    // not working, bad query
+    @Override
+    public List<Band> findByMember(Member member) {
+        try {
+            TypedQuery<Band> query = em.createQuery(
+                    "Select b " +
+                    "from Band b " +
+                    "where Select member from b.members where member = :memberId",
+                    Band.class);
+
+            query.setParameter("memberId", member);
+            return query.getResultList();
+
+        } catch (NoResultException nrf) {
+            return null;
+        }
+    }
 }

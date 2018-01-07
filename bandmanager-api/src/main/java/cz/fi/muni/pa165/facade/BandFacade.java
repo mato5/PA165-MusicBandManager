@@ -27,7 +27,9 @@ public interface BandFacade {
     public List<BandDTO> findByManager(ManagerDTO managerDTO);
 
     List<BandDTO> findByManagerId(Long managerId);
- 
+
+    List<BandDTO> findByMemberId(Long memberId);
+
     public List<BandDTO> findByGenre(Genre genreDTO);
 
     /*public void addMember(BandDTO band, MemberDTO memberDTO);

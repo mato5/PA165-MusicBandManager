@@ -65,4 +65,13 @@ public interface BandDao {
      */
     public List<Band> findByManager(Manager manager);
 
+    /**
+     * Get all Band objects by their Member.
+     *
+     * @param member Member object which owns a band.
+     * @return List<Band> - list of stored Band objects with given Member
+     * or null if such an objects doesn't exist.
+     */
+    public List<Band> findByMember(Member member);
+
 }

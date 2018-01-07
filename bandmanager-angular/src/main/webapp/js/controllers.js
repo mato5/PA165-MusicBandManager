@@ -62,7 +62,7 @@ bandManagerControllers.controller('createBandController', function ($location, $
 
 /* Bands list controller */
 
-bandManagerControllers.controller('bandsController', function ($scope, $rootScope, $route, bandsFactory, loggedUserFactory) {
+bandManagerControllers.controller('bandsController', function ($scope, $rootScope, $route, bandsFactory, membersFactory, loggedUserFactory) {
 
     loggedUserFactory.getPrincipal(
         function (response) {
@@ -87,23 +87,30 @@ bandManagerControllers.controller('bandsController', function ($scope, $rootScop
         );
     };
 
-    // bandsFactory.getAllBands(
-    //     function (response) {
-    //         $scope.bands = response.data._embedded ? response.data._embedded.bands : [];
-    //     },
-    //     $rootScope.unsuccessfulResponse
-    // );
-    bandsFactory.getByManager(
-        $rootScope.principal_id,
-        function (response) {
-            $scope.bands = response.data._embedded ? response.data._embedded.bands : [];
-        },
-        $rootScope.unsuccessfulResponse
-    );
+    if ($scope.role === 'ROLE_MEMBER') {
+        membersFactory.getMember(
+            $rootScope.principal_id,
+            function(response) {
+                $scope.bands = [response.data.band];
+            },
+            $rootScope.unsuccessfulResponse
+        )
+    }
+    else if ($scope.role === 'ROLE_MANAGER') {
+        bandsFactory.getByManager(
+            $rootScope.principal_id,
+            function(response) {
+                $scope.bands = response.data._embedded ? response.data._embedded.bands : [];
+            },
+            $rootScope.unsuccessfulResponse
+        )
+    }
 
     $scope.isManagerRole = function (roleString) {
         return roleString === "ROLE_MANAGER";
     };
+
+
 });
 
 /* Band details controller */
@@ -411,7 +418,7 @@ bandManagerControllers.controller('toursController', function ($scope, $rootScop
     };
 
     var extractResultsArray = function (responseData) {
-        return responseData._embedded.bands;
+        return responseData._embedded ? responseData._embedded.bands : [];
     };
 
     if ($scope.isManagerRole($rootScope.role)) {
@@ -706,7 +713,7 @@ bandManagerControllers.controller('memberInvitesController', function ($scope, $
     invitesFactory.getMemberInvites(
         $rootScope.principal_id,
         function (response) {
-            $scope.invites = response.data._embedded.invites;
+            $scope.invites = response.data._embedded ? response.data._embedded.invites : [];
         },
         $rootScope.unsuccessfulResponse
     );
@@ -740,7 +747,7 @@ bandManagerControllers.controller('managerBandinvitesConstroller', function ($sc
     invitesFactory.getManagerInvites(
         $rootScope.principal_id,
         function (response) {
-            $scope.invites = response.data._embedded.invites;
+            $scope.invites = response.data._embedded ? response.data._embedded.invites : [];
         },
         $rootScope.unsuccessfulResponse
     );

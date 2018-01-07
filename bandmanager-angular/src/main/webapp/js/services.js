@@ -71,6 +71,10 @@ bandManagerServices.factory('bandsFactory', ['$http',
             return $http.get(bandResourceNameUrl + "/by_manager_id" + "/" + managerId).then(success, error);
         };
 
+        bandsDataFactory.getByMember = function (memberId, success, error) {
+            return $http.get(bandResourceNameUrl + "/by_member_id" + "/" + memberId).then(success, error);
+        };
+
         bandsDataFactory.getBand = function (id, success, error) {
             return $http.get(bandResourceNameUrl + "/" + id).then(success, error);
         };

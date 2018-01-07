@@ -32,7 +32,7 @@
         <td>
             <img ng-src="{{band.logoURI}}" alt="" width="30px" height="30px">
         </td>
-        <td>
+        <td ng-show="isManagerRole(role)">
             <a ng-click="deleteBand(band.id)" style="cursor: pointer">
                 <i class="fa fa-trash"></i>
             </a>
