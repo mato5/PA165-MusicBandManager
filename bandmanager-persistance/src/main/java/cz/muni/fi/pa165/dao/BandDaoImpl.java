@@ -49,6 +49,7 @@ public class BandDaoImpl implements BandDao {
     public void delete(Band band) {
 
         if (band == null) {
+            System.out.println("Band je null.");
             throw new IllegalArgumentException("Band is null");
         }
         em.remove(band);

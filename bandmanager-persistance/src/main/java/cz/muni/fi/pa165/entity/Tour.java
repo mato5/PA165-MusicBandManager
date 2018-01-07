@@ -25,7 +25,7 @@ public class Tour {
     private String cityName;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Band band;
 
     @NotNull

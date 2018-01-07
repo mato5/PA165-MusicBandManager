@@ -22,7 +22,7 @@ public class Album {
     private String coverURI;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Band band;
 
     @ManyToMany
