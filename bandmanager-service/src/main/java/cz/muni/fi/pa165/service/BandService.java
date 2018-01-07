@@ -103,6 +103,9 @@ public interface BandService {
      * @return  updated Band 
      */
     public Band changeLogoUri(Band band, String logoUri);
+
+    void disbandBand(Band band);
+
     /**
      * Changes name of given Band
      * @param   band Band to be updated
@@ -117,6 +120,10 @@ public interface BandService {
      * @return  updated Band 
      */
     public Band changeGenre(Band band, Genre genre);
+
+    Band removeInvitation(Band band, BandInvite bandInvite);
+
+    Band addInvitation(Band band, BandInvite bandInvite);
 
     Band addTour(Band band, Tour tour);
 

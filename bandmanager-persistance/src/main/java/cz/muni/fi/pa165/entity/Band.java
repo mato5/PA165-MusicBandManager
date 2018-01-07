@@ -31,16 +31,16 @@ public class Band {
     @ManyToOne(fetch = FetchType.LAZY)
     private Manager manager;
 
-    @ManyToMany
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "band")
     private Set<Member> members = new HashSet<Member>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "band")
     private Set<Album> albums = new HashSet<Album>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "band")
     private Set<Tour> tours = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "band")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "band")
     private Set<BandInvite> bandInvites = new HashSet<>();
 
     public Long getId() {
@@ -128,6 +128,26 @@ public class Band {
     public void addBandInvite(BandInvite bandInvite) {
         this.bandInvites.add(bandInvite);
         bandInvite.setBand(this);
+    }
+
+    public void setMembers(Set<Member> members) {
+        this.members = members;
+    }
+
+    public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
+    }
+
+    public Set<Tour> getTours() {
+        return tours;
+    }
+
+    public void setTours(Set<Tour> tours) {
+        this.tours = tours;
+    }
+
+    public void setBandInvites(Set<BandInvite> bandInvites) {
+        this.bandInvites = bandInvites;
     }
 
     public Set<BandInvite> getBandInvites() {

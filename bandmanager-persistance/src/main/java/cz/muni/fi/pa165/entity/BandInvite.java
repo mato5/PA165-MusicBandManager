@@ -27,7 +27,7 @@ public class BandInvite {
     private Member invitedMember;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Band band;
 
     public void setManager(Manager manager) {

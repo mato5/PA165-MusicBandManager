@@ -1,13 +1,15 @@
 package cz.muni.fi.pa165.service;
 
+import cz.fi.muni.pa165.dto.SongDTO;
 import cz.fi.muni.pa165.exceptions.BandManagerServiceException;
-import cz.muni.fi.pa165.dao.BandDao;
+import cz.muni.fi.pa165.dao.*;
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.Genre;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 
 /**
@@ -18,6 +20,24 @@ public class BandServiceImpl implements BandService {
 
     @Inject
     private BandDao bandDao;
+
+    @Inject
+    private MemberDao memberDao;
+
+    @Inject
+    private ManagerDao managerDao;
+
+    @Inject
+    private AlbumDao albumDao;
+
+    @Inject
+    private SongDao songDao;
+
+    @Inject
+    private BandInviteDao bandInviteDao;
+
+    @Inject
+    private TourDao tourDao;
 
     @Override
     public Band findById(Long id) {
@@ -140,6 +160,42 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
+    public void disbandBand(Band band) {
+        Set<Member> members = band.getMembers();
+        Manager manager = band.getManager();
+        Set<Album> albums = band.getAlbums();
+        List<Song> songs = songDao.findByBand(band);
+        List<BandInvite> invites = bandInviteDao.findByBand(band);
+        List<Tour> tours = tourDao.findByBand(band);
+        for (Member item : members){
+            item.setBand(null);
+            memberDao.update(item);
+        }
+        manager.removeBand(band);
+        managerDao.update(manager);
+        for(Album item: albums){
+            albumDao.delete(item);
+        }
+        for(Song item : songs){
+            songDao.delete(item);
+        }
+        for(BandInvite item: invites){
+            bandInviteDao.delete(item);
+        }
+        for(Tour item : tours){
+            tourDao.delete(item);
+        }
+        band.setAlbums(null);
+        band.setBandInvites(null);
+        band.setMembers(null);
+        band.setTours(null);
+        Long id = band.getId();
+        bandDao.update(band);
+        band = bandDao.findById(id);
+        bandDao.delete(band);
+    }
+
+    @Override
     public Band changeName(Band band, String name) {
         if (name == null) {
             throw new BandManagerServiceException("New name should not null. Band "
@@ -165,6 +221,20 @@ public class BandServiceImpl implements BandService {
     @Override
     public Band changeGenre(Band band, Genre genre) {
         band.setGenre(genre);
+        this.bandDao.update(band);
+        return band;
+    }
+
+    @Override
+    public Band removeInvitation(Band band, BandInvite bandInvite) {
+        band.removeBandInvite(bandInvite);
+        this.bandDao.update(band);
+        return band;
+    }
+
+    @Override
+    public Band addInvitation(Band band, BandInvite bandInvite) {
+        band.addBandInvite(bandInvite);
         this.bandDao.update(band);
         return band;
     }

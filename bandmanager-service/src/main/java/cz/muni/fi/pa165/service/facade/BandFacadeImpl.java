@@ -3,12 +3,11 @@ package cz.muni.fi.pa165.service.facade;
 import cz.fi.muni.pa165.dto.BandCreateDTO;
 import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.ManagerDTO;
+import cz.fi.muni.pa165.exceptions.UserServiceException;
 import cz.fi.muni.pa165.facade.BandFacade;
-import cz.muni.fi.pa165.entity.Band;
+import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.enums.Genre;
-import cz.muni.fi.pa165.service.BandService;
-import cz.muni.fi.pa165.service.BeanMappingService;
-import cz.muni.fi.pa165.service.ManagerService;
+import cz.muni.fi.pa165.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -33,6 +32,18 @@ public class BandFacadeImpl implements BandFacade {
     private ManagerService managerService;
 
     @Inject
+    private SongService songService;
+
+    @Inject
+    private TourService tourService;
+
+    @Inject
+    private AlbumService albumService;
+
+    @Inject
+    private BandInviteService bandInviteService;
+
+    @Inject
     private BeanMappingService beanMappingService;
 
     @Override
@@ -55,7 +66,8 @@ public class BandFacadeImpl implements BandFacade {
 
     @Override
     public void delete(Long bandId) {
-        this.bandService.delete(this.bandService.findById(bandId));
+        Band toBeDeleted = bandService.findById(bandId);
+        bandService.disbandBand(toBeDeleted);
     }
 
     @Override
