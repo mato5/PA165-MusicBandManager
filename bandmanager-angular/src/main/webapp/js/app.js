@@ -3,6 +3,9 @@ var module = angular.module('bandManager', ['ngRoute', 'bandManagerControllers',
 module.config(function ($routeProvider) {
 
     $routeProvider
+        .when('/', {
+            templateUrl: 'partials/home.html'
+        })
         .when('/bands', {
             templateUrl: 'partials/bands.html',
             controller: 'bandsController'
