@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bandmanager-angular</artifactId>
+    <artifactId>web</artifactId>
     <packaging>war</packaging>
 
     <name>Web front end implemented in AngularJS and REST</name>
