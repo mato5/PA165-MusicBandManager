@@ -1,5 +1,364 @@
 var bandManagerControllers = angular.module("bandManagerControllers", ['bandManagerServices']);
 
+/* Band create controller */
+
+bandManagerControllers.controller('createBandController', function ($location, $scope, $routeParams, $rootScope, bandsFactory, toursFactory, loggedUserFactory) {
+
+    $scope.stringDatetime = "";
+
+    loggedUserFactory.getPrincipal(
+        function (response) {
+            var values = JSON.parse(response.data);
+            $rootScope.principal_username = values.username;
+            $rootScope.principal_id = values.id;
+            $rootScope.role = values.role;
+        },
+        function (response) {
+            alert("An error occurred when getting the logged user.");
+        }
+    );
+
+    $scope.genres = [
+        "UNKNOWN",
+        "BLUES",
+        "COUNTRY",
+        "CLASSICAL",
+        "ELECTRONIC",
+        "FOLK",
+        "JAZZ",
+        "NEW_AGE",
+        "REGGAE",
+        "RAP",
+        "ROCK",
+        "R_B",
+        "MISC",
+        "INDUSTRIAL",
+        "WORLD"
+    ]
+
+
+    $scope.newBand = {
+        name: "",
+        genre: "",
+        logoURI: "",
+        managerId: $rootScope.principal_id,
+    };
+
+    $scope.createNewBand = function (band) {
+        bandsFactory.createBand(
+            band,
+            function () {
+                $location.path("/bands");
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
+
+    $scope.isManagerRole = function (roleString) {
+        return roleString === "ROLE_MANAGER";
+    };
+
+});
+
+/* Bands list controller */
+
+bandManagerControllers.controller('bandsController', function ($scope, $rootScope, $route, bandsFactory, loggedUserFactory) {
+
+    loggedUserFactory.getPrincipal(
+        function (response) {
+            var values = JSON.parse(response.data);
+            $rootScope.principal_username = values.username;
+            $rootScope.principal_id = values.id;
+            $rootScope.role = values.role;
+            $scope.role = $rootScope.role;
+        },
+        function (response) {
+            alert("An error occurred when getting the logged user.");
+        }
+    );
+
+    $scope.deleteBand = function (id) {
+        bandsFactory.deleteBand(
+            parseInt(id, 10),
+            function (response) {
+                $route.reload();
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
+
+    // bandsFactory.getAllBands(
+    //     function (response) {
+    //         $scope.bands = response.data._embedded ? response.data._embedded.bands : [];
+    //     },
+    //     $rootScope.unsuccessfulResponse
+    // );
+    bandsFactory.getByManager(
+        $rootScope.principal_id,
+        function (response) {
+            $scope.bands = response.data._embedded ? response.data._embedded.bands : [];
+        },
+        $rootScope.unsuccessfulResponse
+    );
+
+    $scope.isManagerRole = function (roleString) {
+        return roleString === "ROLE_MANAGER";
+    };
+});
+
+/* Band details controller */
+
+bandManagerControllers.controller('bandDetailsController', function ($scope, $routeParams, $rootScope, bandsFactory) {
+    bandsFactory.getBand(
+        $routeParams.id,
+        function (response) {
+            $scope.band = response.data;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+});
+
+/* Band members controller */
+
+bandManagerControllers.controller('bandMembersController', function ($scope, $routeParams, $rootScope, $route, bandsFactory, loggedUserFactory) {
+
+    loggedUserFactory.getPrincipal(
+        function (response) {
+            var values = JSON.parse(response.data);
+            $rootScope.principal_username = values.username;
+            $rootScope.principal_id = values.id;
+            $rootScope.role = values.role;
+            $scope.role = $rootScope.role;
+        },
+        function (response) {
+            alert("An error occurred when getting the logged user.");
+        }
+    );
+
+    bandsFactory.getBandmates(
+        $routeParams.id,
+        function (response) {
+            $scope.members = response.data._embedded ? response.data._embedded.members : [];
+        },
+        $rootScope.unsuccessfulResponse
+    );
+
+    $scope.isManagerRole = function (roleString) {
+        return roleString === "ROLE_MANAGER";
+    };
+});
+
+/* Band albums controller */
+
+bandManagerControllers.controller('bandAlbumsController', function ($location, $scope, $routeParams, $rootScope, $route, albumsFactory, loggedUserFactory, bandsFactory) {
+
+    loggedUserFactory.getPrincipal(
+        function (response) {
+            var values = JSON.parse(response.data);
+            $rootScope.principal_username = values.username;
+            $rootScope.principal_id = values.id;
+            $rootScope.role = values.role;
+            $scope.role = $rootScope.role;
+        },
+        function (response) {
+            alert("An error occurred when getting the logged user.");
+        }
+    );
+
+    $scope.deleteAlbum = function (id) {
+        albumsFactory.deleteAlbum(
+            parseInt(id, 10),
+            function (response) {
+                $route.reload();
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
+
+    albumsFactory.getAlbumsByBand(
+        $routeParams.id,
+        function (response) {
+            $scope.albums = extractAlbumsArray(response.data);
+        },
+        $rootScope.unsuccessfulResponse
+    );
+
+    var extractAlbumsArray = function (responseData) {
+        return responseData._embedded ? responseData._embedded.albums : [];
+    };
+
+    $scope.availableBands = [];
+
+    bandsFactory.getByManager(
+        $rootScope.principal_id,
+        function (response) {
+            $scope.availableBands = extractResultsArray(response.data);
+        },
+        $rootScope.unsuccessfulResponse
+    );
+
+
+    $scope.managesAlbum = function (input) {
+        for (band of $scope.availableBands) {
+            if (input.band.id === band.id) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    $scope.isManagerRole = function (roleString) {
+        return roleString === "ROLE_MANAGER";
+    };
+
+    var extractResultsArray = function (responseData) {
+        return responseData._embedded.bands;
+    };
+
+    /* Expand album to see its songs */
+
+    $scope.tableRowExpanded = false;
+    $scope.tableRowIndexExpandedCurr = "";
+    $scope.tableRowIndexExpandedPrev = "";
+    $scope.storeIdExpanded = "";
+
+    $scope.dayDataCollapseFn = function () {
+        $scope.dayDataCollapse = [];
+        for (var i = 0; i < $scope.albums.length; i += 1) {
+            $scope.dayDataCollapse.push(false);
+        }
+    };
+
+
+    $scope.selectTableRow = function (index, storeId) {
+        if (typeof $scope.dayDataCollapse === 'undefined') {
+            $scope.dayDataCollapseFn();
+        }
+
+        if ($scope.tableRowExpanded === false && $scope.tableRowIndexExpandedCurr === "" && $scope.storeIdExpanded === "") {
+            $scope.tableRowIndexExpandedPrev = "";
+            $scope.tableRowExpanded = true;
+            $scope.tableRowIndexExpandedCurr = index;
+            $scope.storeIdExpanded = storeId;
+            $scope.dayDataCollapse[index] = true;
+        } else if ($scope.tableRowExpanded === true) {
+            if ($scope.tableRowIndexExpandedCurr === index && $scope.storeIdExpanded === storeId) {
+                $scope.tableRowExpanded = false;
+                $scope.tableRowIndexExpandedCurr = "";
+                $scope.storeIdExpanded = "";
+                $scope.dayDataCollapse[index] = false;
+            } else {
+                $scope.tableRowIndexExpandedPrev = $scope.tableRowIndexExpandedCurr;
+                $scope.tableRowIndexExpandedCurr = index;
+                $scope.storeIdExpanded = storeId;
+                $scope.dayDataCollapse[$scope.tableRowIndexExpandedPrev] = false;
+                $scope.dayDataCollapse[$scope.tableRowIndexExpandedCurr] = true;
+            }
+        }
+
+    };
+
+    $scope.toHHMMSS = function (sec_string) {
+        sec_num = parseInt(sec_string, 10);
+        var hours = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        return hours + ':' + minutes + ':' + seconds;
+    };
+
+    $scope.songFromAlbum = {
+        songId: undefined,
+        albumId: undefined
+    };
+
+    $scope.removeSongFromAlbum = function (songId, albumId) {
+        //$scope.newSong.duration = parseInt($scope.newSong.duration , 10);
+        $scope.songFromAlbum.songId = songId;
+        $scope.songFromAlbum.albumId = albumId;
+        albumsFactory.removeSongFromAlbum(
+            $scope.songFromAlbum,
+            function () {
+                $location.path("/albums");
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
+
+    $scope.reloadPage = function () {
+        $route.reload();
+    }
+
+});
+
+/* Band album details controller */
+
+bandManagerControllers.controller('bandAlbumDetailsController', function ($scope, $routeParams, $rootScope, $route, albumsFactory, loggedUserFactory) {
+    albumsFactory.getAlbum(
+        $routeParams.albumId,
+        function (response) {
+            $scope.album = response.data;
+        },
+        $rootScope.unsuccessfulResponse
+    );
+
+    $scope.toHHMMSS = toHHMMSS;
+
+});
+
+/* Band tour controller */
+
+bandManagerControllers.controller('bandToursController', function ($scope, $routeParams, $rootScope, $route, toursFactory, bandsFactory, loggedUserFactory) {
+
+    loggedUserFactory.getPrincipal(
+        function (response) {
+            var values = JSON.parse(response.data);
+            $rootScope.principal_username = values.username;
+            $rootScope.principal_id = values.id;
+            $rootScope.role = values.role;
+            $scope.role = $rootScope.role;
+        },
+        function (response) {
+            alert("An error occurred when getting the logged user.");
+        }
+    );
+
+    $scope.deleteTour = function (id) {
+        toursFactory.deleteTour(
+            parseInt(id, 10),
+            function (response) {
+                $route.reload();
+            },
+            $rootScope.unsuccessfulResponse
+        );
+    };
+
+    toursFactory.getByBand(
+        $routeParams.id,
+        function (response) {
+            $scope.tours = extractToursArray(response.data);
+        },
+        $rootScope.unsuccessfulResponse
+    );
+
+    var extractToursArray = function (responseData) {
+        return responseData._embedded ? responseData._embedded.tours : [];
+    };
+
+    $scope.isManagerRole = function (roleString) {
+        return roleString === "ROLE_MANAGER";
+    };
+});
+
 /* Tours list controller */
 
 bandManagerControllers.controller('toursController', function ($scope, $rootScope,
@@ -676,3 +1035,21 @@ bandManagerControllers.controller('albumsListController', function ($location, $
     }
 
 });
+
+toHHMMSS = function (sec_string) {
+    sec_num = parseInt(sec_string, 10);
+    var hours = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+    return hours + ':' + minutes + ':' + seconds;
+}
