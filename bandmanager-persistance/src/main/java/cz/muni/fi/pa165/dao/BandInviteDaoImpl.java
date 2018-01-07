@@ -12,13 +12,15 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Iurii xkuznetc Kuznetcov
  */
 @Repository
 public class BandInviteDaoImpl implements BandInviteDao {
-
+final static Logger log = LoggerFactory.getLogger(BandInviteDaoImpl.class);
     @PersistenceContext
     private EntityManager em;
 
@@ -29,7 +31,6 @@ public class BandInviteDaoImpl implements BandInviteDao {
 
     @Override
     public void create(BandInvite bandInvite) {
-
         if (bandInvite == null) {
             throw new IllegalArgumentException("BandInvite is null.");
         }

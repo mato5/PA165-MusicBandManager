@@ -16,6 +16,8 @@ public interface MemberFacade {
     Long registerMember(MemberDTO m, String unencryptedPassword);
 
     Collection<MemberDTO> getAllMembers();
+    
+    public Collection<MemberDTO> getAllUnassignedMembers();
 
     boolean authenticate(UserAuthDTO u);
 

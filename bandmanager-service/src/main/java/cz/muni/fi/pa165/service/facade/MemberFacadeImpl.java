@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.entity.Band;
 import cz.muni.fi.pa165.entity.BandInvite;
 import cz.muni.fi.pa165.entity.Member;
 import cz.muni.fi.pa165.service.*;
+import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -60,7 +62,16 @@ public class MemberFacadeImpl implements MemberFacade {
     public Collection<MemberDTO> getAllMembers() {
         return beanMappingService.mapTo(memberService.getAllMembers(), MemberDTO.class);
     }
-
+    @Override
+    public Collection<MemberDTO> getAllUnassignedMembers() {
+        List<Member> unassignedMembers = new ArrayList<>();
+        for (Member member : memberService.getAllMembers()) {
+            if (member.getBand() == null) {
+                unassignedMembers.add(member);
+            }
+        }
+        return beanMappingService.mapTo(unassignedMembers, MemberDTO.class);
+    }
     @Override
     public boolean authenticate(UserAuthDTO u) {
         if (memberService.findMemberByEmail(u.getEmail()) == null) {

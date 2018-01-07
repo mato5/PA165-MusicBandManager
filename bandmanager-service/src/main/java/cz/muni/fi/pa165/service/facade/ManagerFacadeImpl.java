@@ -4,6 +4,8 @@ import cz.fi.muni.pa165.dto.*;
 import cz.fi.muni.pa165.facade.ManagerFacade;
 import cz.muni.fi.pa165.entity.*;
 import cz.muni.fi.pa165.service.*;
+import java.sql.Date;
+import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -180,7 +182,22 @@ public class ManagerFacadeImpl implements ManagerFacade {
         memberService.sendBandInvite(member, invite);
         return invite.getId();
     }
-
+    @Override
+    public Long sendBandInvite(BandInviteCreateDTO b) {
+        log.debug("sending band invite: " + b);
+        Manager manager = this.managerService.findManagerById(b.getManagerId());
+        Member member = this.memberService.findMemberById(b.getMemberId());
+        Band band = this.bandService.findById(b.getBandId());
+        BandInvite invite = new BandInvite();
+        invite.setBand(band);
+        invite.setManager(manager);
+        invite.setInvitedMember(member);
+        invite.setCreatedAt(Date.valueOf(LocalDate.now()));
+        invite = bandInviteService.create(invite);
+        managerService.addBandInvite(manager, invite);
+        memberService.sendBandInvite(member, invite);
+        return invite.getId();
+    }
     @Override
     public void changeBandGenre(ManagerDTO m, BandGengreDTO b) {
         Band band = bandService.findById(b.getId());
