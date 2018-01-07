@@ -11,8 +11,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.inject.Inject;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author Iurii xkuznetc Kuznetcov
@@ -84,7 +90,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers(HttpMethod.GET, "/rest/managers").hasRole(SecurityRole.MEMBER.name())
                 .antMatchers(HttpMethod.GET, "/rest/managers").hasRole(SecurityRole.MANAGER.name())
-                .antMatchers(HttpMethod.POST, "/rest/managers/**").permitAll()//hasRole(SecurityRole.MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/rest/managers").hasRole(SecurityRole.MANAGER.name())
+                .antMatchers(HttpMethod.POST, "/rest/managers/send_invite_create").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.PUT, "/rest/managers").hasRole(SecurityRole.MANAGER.name())
                 .antMatchers(HttpMethod.DELETE, "/rest/managers").hasRole(SecurityRole.MANAGER.name())
 
@@ -93,7 +100,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/index.html").permitAll()
 
                 .anyRequest().authenticated().and()
-                .formLogin().loginPage("/login.html").permitAll().and()
+                .formLogin().loginPage("/login.html").successHandler(new AuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+                httpServletResponse.sendRedirect("/pa165");
+            }
+        }).permitAll().and()
                 .logout().logoutUrl("/logout.html").logoutSuccessUrl("/index.html?logout").permitAll().and()
                 .csrf().disable();
     }

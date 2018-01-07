@@ -2,7 +2,35 @@ var module = angular.module('bandManager', ['ngRoute', 'bandManagerControllers',
 
 module.config(function ($routeProvider) {
 
+
     $routeProvider
+        .when('/', {
+            templateUrl: 'partials/home.html'
+        })
+        .when('/bands', {
+            templateUrl: 'partials/bands.html',
+            controller: 'bandsController'
+        })
+        .when('/bands/new_band', {
+            templateUrl: 'partials/new_band.html',
+            controller: 'createBandController'
+        })
+        .when('/bands/:id', {
+            templateUrl: 'partials/band.html',
+            controller: 'bandDetailsController'
+        })
+        .when('/bands/:id/members', {
+            templateUrl: 'partials/members.html',
+            controller: 'bandMembersController'
+        })
+        .when('/bands/:id/albums', {
+            templateUrl: 'partials/albums.html',
+            controller: 'bandAlbumsController'
+        })
+        .when('/bands/:id/tours', {
+            templateUrl: 'partials/tours.html',
+            controller: 'bandToursController'
+        })
         .when('/tours', {
             templateUrl: 'partials/tours.html',
             controller: 'toursController'
@@ -39,10 +67,30 @@ module.config(function ($routeProvider) {
             templateUrl: 'partials/new_bandinvite.html',
             controller: 'newBandinvitesConstroller'
         })
+        .when('/albums', {
+            templateUrl: 'partials/albums.html',
+            controller: 'albumsListController'
+        })
+        /*.when('/albums/:id', {
+            templateUrl: 'partials/album.html',
+            controller: 'albumDetailsController'
+        })*/
+        .when('/albums/new_album', {
+            templateUrl: 'partials/new_album.html',
+            controller: 'albumCreateController'
+        })
+        .when('/albums/:id/add_song', {
+            templateUrl: 'partials/add_song.html',
+            controller: 'albumAddSongController'
+        })
+        .when('/albums/:id/remove_song', {
+            templateUrl: 'partials/remove_song.html',
+            controller: 'albumRemoveSongController'
+        })
         .when('/forbidden', {
             templateUrl: 'partials/forbidden.html'
         })
-        .otherwise({redirectTo: '/'});
+.otherwise({redirectTo: '/'});
 
 });
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Song to an Album</title>
+</head>
+<body>
+
+<h3>Add Song to an Album</h3>
+<hr>
+
+<form name="form" novalidate class="form-horizontal">
+
+
+    <div class="form-group row">
+        <label for="song" class="col-sm-2 control-label">Song</label>
+        <div class="col-sm-10">
+            <select id="song" name="owner" class="form-control" ng-model="songToAlbum.songId" required>
+                <option ng-repeat="song in availableSongs" value="{{song.id}}">{{song.name}}</option>
+            </select>
+    </div>
+    </div>
+
+    <button ng-disabled="!form.$valid" ng-click="addSongToAlbum(songToAlbum)" class="btn btn-primary" type="submit">
+        Add
+    </button>
+
+</body>
+</html>

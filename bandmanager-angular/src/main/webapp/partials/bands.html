@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bands</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<h3>My bands</h3>
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Band logo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="band in bands">
+        <td>
+            <a ng-href="#!/bands/{{band.id}}">{{band.id}}</a>
+        </td>
+        <td>
+            {{band.name}}
+        </td>
+        <td>
+            {{band.genre}}
+        </td>
+        <td>
+            <img ng-src="{{band.logoURI}}" alt="" width="30px" height="30px">
+        </td>
+        <td>
+            <a ng-click="deleteBand(band.id)" style="cursor: pointer">
+                <i class="fa fa-trash"></i>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="#!/bands/new_band" class="btn btn-primary" ng-show="isManagerRole(role)">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    Create band
+</a>
+</body>
+</html>

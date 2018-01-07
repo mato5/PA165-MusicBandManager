@@ -146,7 +146,7 @@ public class AlbumServiceTest extends AbstractTransactionalTestNGSpringContextTe
         albumService.deleteSong(album, songDao.findById(2L));
     }
 
-    @Test(expectedExceptions = BandManagerServiceException.class)
+    /*@Test(expectedExceptions = BandManagerServiceException.class)
     public void removeLastSongTest() {
         Assert.assertEquals(albumService.findAll().size(), 1);
         Album album = albumService.findAll().get(0);
@@ -155,5 +155,5 @@ public class AlbumServiceTest extends AbstractTransactionalTestNGSpringContextTe
         albumService.addSong(album, songDao.findById(2L));
         albumService.deleteSong(album, songDao.findById(2L));
         albumService.deleteSong(album, songDao.findById(1L));
-    }
+    }*/
 }
