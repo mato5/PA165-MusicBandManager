@@ -71,6 +71,11 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
+    public List<Band> findByMember(Member member) {
+        return this.bandDao.findByMember(member);
+    }
+
+    @Override
     public List<Band> findByGenre(Genre genre) {
         List<Band> resultList = new ArrayList<>();
         List<Band> allBands = this.bandDao.findAll();

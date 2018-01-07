@@ -50,6 +50,12 @@ public interface BandService {
      * @return  List of bands found
      */
     public List<Band> findByManager(Manager manager);
+
+    /**
+     * Lists all Bands in the DB by member
+     * @return  List of bands found
+     */
+    public List<Band> findByMember(Member member);
     
     /**
      * Lists all Bands in the DB playing the given genre

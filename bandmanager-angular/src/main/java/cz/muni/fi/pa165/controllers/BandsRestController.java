@@ -113,6 +113,15 @@ public class BandsRestController {
         return new ResponseEntity<>(bandResources, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/by_member_id/{id}", method = RequestMethod.GET)
+    public final HttpEntity<Resources<BandResource>> getByMemberId(@PathVariable("id") long memberId) throws Exception {
+        logger.debug("REST getByMemberId({})", memberId);
+        List<BandResource> resourceCollection = bandResourceAssembler.toResources(
+                bandFacade.findByMemberId(memberId));
+        Resources<BandResource> bandResources = new Resources<>(resourceCollection);
+        return new ResponseEntity<>(bandResources, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/{id}/changeManager", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public final HttpEntity<BandResource> changeManager(@PathVariable("id") long id, @Valid @RequestBody ManagerDTO managerDTO, BindingResult result) {
         logger.debug("REST: changeManager().");

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.service.facade;
 import cz.fi.muni.pa165.dto.BandCreateDTO;
 import cz.fi.muni.pa165.dto.BandDTO;
 import cz.fi.muni.pa165.dto.ManagerDTO;
+import cz.fi.muni.pa165.dto.MemberDTO;
 import cz.fi.muni.pa165.exceptions.UserServiceException;
 import cz.fi.muni.pa165.facade.BandFacade;
 import cz.muni.fi.pa165.entity.*;
@@ -30,6 +31,9 @@ public class BandFacadeImpl implements BandFacade {
 
     @Inject
     private ManagerService managerService;
+
+    @Inject
+    private MemberService memberService;
 
     @Inject
     private SongService songService;
@@ -85,6 +89,12 @@ public class BandFacadeImpl implements BandFacade {
     public List<BandDTO> findByManagerId(Long managerId) {
         return beanMappingService.mapTo(this.bandService
                 .findByManager(this.managerService.findManagerById(managerId)), BandDTO.class);
+    }
+
+    @Override
+    public List<BandDTO> findByMemberId(Long memberId) {
+        return beanMappingService.mapTo(this.bandService
+                .findByMember(this.memberService.findMemberById(memberId)), BandDTO.class);
     }
 
     @Override
